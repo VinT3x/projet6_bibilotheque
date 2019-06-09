@@ -1,0 +1,392 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://oc.com/projet3/bibliows/service/biblio-producing-web-service"
+           targetNamespace="http://oc.com/projet3/bibliows/service/biblio-producing-web-service" elementFormDefault="qualified"
+>
+    <!--AUTHOR-->
+    <xs:element name="findAuthorsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" minOccurs="0" type="xs:long"/>
+                <xs:element name="dateOfBirth" minOccurs="0" type="xs:date"/>
+                <xs:element name="dateOfDeath" minOccurs="0" type="xs:date"/>
+                <xs:element name="fullname" minOccurs="0" type="xs:string" />
+                <xs:element name="nationality" minOccurs="0" type="xs:string" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="findAuthorsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="authors" type="tns:authorWS" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="updateAuthorRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="dateOfBirth" minOccurs="0" type="xs:date"/>
+                <xs:element name="dateOfDeath" minOccurs="0" type="xs:date"/>
+                <xs:element name="fullname" minOccurs="0" type="tns:NonEmptyString" />
+                <xs:element name="nationality" minOccurs="0" type="tns:NonEmptyString" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="updateAuthorResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="author" type="tns:authorWS"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="deleteAuthorRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="deleteAuthorResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="createAuthorRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="dateOfBirth" type="xs:date"/>
+                <xs:element name="dateOfDeath" type="xs:date" minOccurs="0"/>
+                <xs:element name="fullname" type="tns:NonEmptyString" />
+                <xs:element name="nationality" type="tns:NonEmptyString" />
+            </xs:sequence>
+
+        </xs:complexType>
+
+    </xs:element>
+
+    <xs:element name="createAuthorResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="author" type="tns:authorWS"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="createAuthorSoapHeaders">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="clientId" type="xs:string" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <!--ACCOUNT-->
+    <xs:element name="findAccountsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" minOccurs ="0" type="xs:long"/>
+                <xs:element name="email"  minOccurs ="0" type="xs:string"/>
+                <xs:element name="firstname" minOccurs ="0" type="xs:string"/>
+                <xs:element name="lastname" minOccurs ="0" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="findAccountsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="members" type="tns:memberWS" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="deleteAccountRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="deleteAccountResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="updateAccountRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="email"  minOccurs ="0" type="tns:ValidateEmail"/>
+                <xs:element name="firstname" minOccurs ="0" type="tns:NonEmptyString"/>
+                <xs:element name="lastname" minOccurs ="0" type="tns:NonEmptyString"/>
+                <xs:element name="password" minOccurs ="0" type="tns:ValidatePassword"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="updateAccountResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="member" type="tns:memberWS" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!--BOOK-->
+    <xs:element name="findBooksRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long" minOccurs="0"/>
+                <xs:element name="title" type="xs:string" minOccurs="0"/>
+                <xs:element name="fullname" type="xs:string" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="findBooksResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="books" type="tns:bookWS" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="createBookRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="title" type="tns:NonEmptyString"/>
+                <xs:element name="summary" type="xs:string"/>
+                <xs:element name="cote" type="xs:string"/>
+                <xs:element name="dateOfficialRelease" type="xs:date"/>
+                <xs:element name="numberOfCopies" type="tns:PositiveInteger" />
+                <xs:element name="authorId" type="xs:long" />
+            </xs:sequence>
+
+        </xs:complexType>
+
+    </xs:element>
+
+    <xs:element name="createBookResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="book" type="tns:bookWS"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="updateBookRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:positiveInteger" />
+                <xs:element name="title" type="tns:NonEmptyString" minOccurs="0"/>
+                <xs:element name="summary" type="xs:string" minOccurs="0"/>
+                <xs:element name="cote" type="xs:string" minOccurs="0"/>
+                <xs:element name="dateOfficialRelease" type="xs:date" minOccurs="0"/>
+                <xs:element name="numberofcopies" type="xs:int" minOccurs="0"/>
+                <xs:element name="authorId" type="xs:positiveInteger" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="updateBookResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="book" type="tns:bookWS"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="deleteBookRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="deleteBookResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!--LENDING BOOK-->
+
+    <xs:element name="lendingBookRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="book_id" type="xs:long"/>
+                <xs:element name="account_id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="lendingBookResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="lendingBook" type="tns:lendingBookWS"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="extendLendingBookRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="extendLendingBookResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="idLendingBook" type="xs:long"/>
+                <xs:element name="deadLineEndingBook" type="xs:date"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="cancelLendingBookRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="cancelLendingBookResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="findLendingBookRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="idLending" type="xs:long" minOccurs="0"/>
+                <xs:element name="email" type="tns:ValidateEmail" minOccurs="0"/>
+                <xs:element name="current" type="xs:boolean" minOccurs="0"/>
+                <xs:element name="idBook" type="xs:long" minOccurs="0"/>
+                <xs:element name="title" type="xs:string" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="findLendingBookResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="lendingBooks" type="tns:lendingBookWS" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="returnLendingBookRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="returnLendingBookResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="memberWS">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="email" type="xs:string"/>
+            <xs:element name="firstname" type="xs:string"/>
+            <xs:element name="lastname" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="bookWS">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="summary" type="xs:string"/>
+            <xs:element name="dateOfficialRelease" type="xs:date"/>
+            <xs:element name="cote" type="xs:string"/>
+            <xs:element name="numberOfCopies" type="xs:int"/>
+            <xs:element name="numberAvailable" type="xs:int"/>
+            <xs:element name="author" type="tns:authorWS"/>
+            <xs:element name="lendingBooks" type="tns:lendingBookWS" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="authorWS">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="dateOfBirth" type="xs:date"/>
+            <xs:element name="dateOfDeath" type="xs:date" minOccurs="0"/>
+            <xs:element name="fullname" type="xs:string" />
+            <xs:element name="nationality" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="lendingBookWS">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="deadlinedate" type="xs:date" minOccurs="0"/>
+            <xs:element name="deliverydate" type="xs:date" minOccurs="0"/>
+            <xs:element name="startdate" type="xs:date" minOccurs="0"/>
+            <xs:element name="title" type="xs:string" minOccurs="0"/>
+            <xs:element name="idBook" type="xs:long" minOccurs="0"/>
+            <xs:element name="email" type="xs:string" minOccurs="0"/>
+            <xs:element name="idAccount" type="xs:long" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="serviceStatus">
+        <xs:sequence>
+            <xs:element name="statusCode" type="xs:string"/>
+            <xs:element name="message" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="NonEmptyString">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:pattern value="[\s\S]*[^ ][\s\S]*" />
+        </xs:restriction>
+    </xs:simpleType>
+
+
+    <xs:simpleType name="PositiveInteger" id="PositiveInteger">
+        <xs:restriction base="xs:int">
+            <xs:minInclusive value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="ValidateEmail">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[A-Za-z0-9_]+([-+.'][A-Za-z0-9_]+)*@[A-Za-z0-9_]+([-.][A-Za-z0-9_]+)*\.[A-Za-z0-9_]+([-.][A-Za-z0-9_]+)*" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="ValidatePassword">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="5"></xs:minLength>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+</xs:schema>

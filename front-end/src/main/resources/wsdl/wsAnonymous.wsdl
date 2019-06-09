@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://oc.com/projet3/bibliows/anonymous" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://oc.com/projet3/bibliows/anonymous" targetNamespace="http://oc.com/projet3/bibliows/anonymous">
+  <wsdl:types>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://oc.com/projet3/bibliows/anonymous"
+               xmlns:jxb="http://java.sun.com/xml/ns/jaxb" jxb:version="2.0"
+    >
+    <!--ACCOUNT-->
+     <xs:element name="authenticationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="email" type="xs:string"/>
+                <xs:element name="password" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="authenticationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="email" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="createAccountRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="email" type="tns:fctValidateEmail"/>
+                <xs:element name="firstname" type="tns:fctNonEmptyString"/>
+                <xs:element name="lastname" type="tns:fctNonEmptyString"/>
+                <xs:element name="password" type="tns:fctValidatePassword"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="createAccountResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:sequence>
+                    <xs:element name="email" type="tns:fctValidateEmail"/>
+                    <xs:element name="firstname" type="tns:fctNonEmptyString"/>
+                    <xs:element name="lastname" type="tns:fctNonEmptyString"/>
+                </xs:sequence>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="accountWS">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="email" type="xs:string"/>
+            <xs:element name="firstname" type="xs:string"/>
+            <xs:element name="lastname" type="xs:string"/>
+            <xs:element name="password" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+     <xs:simpleType name="fctNonEmptyString">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:pattern value="[\s\S]*[^ ][\s\S]*"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+    <xs:simpleType id="PositiveInteger" name="fctPositiveInteger">
+        <xs:restriction base="xs:int">
+            <xs:minInclusive value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="fctValidateEmail">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[A-Za-z0-9_]+([-+.'][A-Za-z0-9_]+)*@[A-Za-z0-9_]+([-.][A-Za-z0-9_]+)*\.[A-Za-z0-9_]+([-.][A-Za-z0-9_]+)*"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="fctValidatePassword">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="5"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="authenticationRequest">
+    <wsdl:part element="tns:authenticationRequest" name="authenticationRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="authenticationResponse">
+    <wsdl:part element="tns:authenticationResponse" name="authenticationResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createAccountResponse">
+    <wsdl:part element="tns:createAccountResponse" name="createAccountResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createAccountRequest">
+    <wsdl:part element="tns:createAccountRequest" name="createAccountRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="anonymousPort">
+    <wsdl:operation name="authentication">
+      <wsdl:input message="tns:authenticationRequest" name="authenticationRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:authenticationResponse" name="authenticationResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createAccount">
+      <wsdl:input message="tns:createAccountRequest" name="createAccountRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:createAccountResponse" name="createAccountResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="anonymousPortSoap11" type="tns:anonymousPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="authentication">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="authenticationRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="authenticationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createAccount">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="createAccountRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createAccountResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="anonymousPortService">
+    <wsdl:port binding="tns:anonymousPortSoap11" name="anonymousPortSoap11">
+      <soap:address location="http://localhost:8080/anonymous"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

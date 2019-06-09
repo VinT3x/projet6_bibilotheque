@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.3/css/bootstrap.min.css}"/>
+    <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.1.3/js/bootstrap.min.js}"></script>
+    <title>Login</title>
+</head>
+
+<body>
+<a th:href="@{/registration}" class="btn btn-md btn-warning btn-block" role="button">Créer un compte</a>
+<a th:href="@{/}" class="btn btn-md btn-info btn-block" role="button">Page d'accueil</a>
+
+<div class="container">
+
+    <h4>
+        <img th:src="@{/images/biblio.png}" class="img-responsive center-block" width="200" height="200" alt="Logo"/>
+        Se connecter sur le site de la bibliothèque
+    </h4>
+
+    <br/>
+    <form th:action="@{/login}" method="POST" class="form-signin">
+        <input type="text" id="email" name="email" th:placeholder="Email"
+               class="form-control"/> <br/>
+        <input type="password" th:placeholder="Password"
+               id="password" name="password" class="form-control"/> <br/>
+
+        <div align="center" th:if="${isErrorConnection}">
+            <p style="font-size: 20; color: #FF1C19;">Login et/ou mot de passe incorrect !</p>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit"
+                th:text="Login"></button>
+    </form>
+</div>
+</body>
+</html>

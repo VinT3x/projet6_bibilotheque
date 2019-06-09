@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css"/>
+
+        <title>Recherche</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="jumbotron">
+                <img alt="logo-biblio" height="100" th:src="@{/images/biblio.png}" width="100">
+                <h1>Rechercher des livres</h1>
+            </div>
+            <span th:if="${username != null}" >
+                <h6 th:text="${username}"></h6>
+            </span>
+
+            <a href="/login">se connecter</a>
+            <a href="/registration">s'inscrire</a>
+            <form class="form-inline" action="#" method="get">
+
+                <th:block th:insert="fragment/formSearch"></th:block>
+
+            </form>
+            <br>
+            <!--liste livre-->
+
+            <div id="BookBlock">
+                <div th:fragment="booksList">
+                    <span th:if="${list_books != null} and ${list_books.size() &gt; 0 }">
+                            <table class="table table-striped table-dark">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Titre</th>
+                                        <th scope="col">Résumé</th>
+                                        <th scope="col">Auteur</th>
+                                        <th scope="col">Disponibilité</th>
+                                        <th scope="col" th:if="${username != null}"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="book : ${list_books}">
+                                        <td><span th:text="${book.getTitle()}"></span></td>
+                                        <td><span th:text="${book.getSummary()}"></span></td>
+                                        <td>
+                                            <span th:text="${book.getAuthor().getFullname()}"></span>
+                                            <!--<span th:each="author : ${book.getAuthors()}">-->
+                                                <!--<span th:text="${author.getFullname()}"></span>-->
+                                            <!--</span>-->
+                                        </td>
+                                        <td>
+                                            <span th:text="${book.getNumberAvailable()} == '0' ? 'indisponible' : ${book.getNumberAvailable()}"></span>
+                                        </td>
+                                        <td th:if="${username != null}">
+                                            <div class="btn-group btn-group-sm" role="group">
+                                                <a class="btn btn-xs btn-primary" th:href="@{/loan/{id}(id=${book.getId()})}">Réserver</a>
+                                            </div>
+                                        </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                    </span>
+                    <span th:if="${list_books == null } or ${list_books.size() == 0 }">
+                        Aucun résultat
+                    </span>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function () {
+                $('#clk_link').click(function () {
+                    var pathArray = window.location.pathname.split('/');
+                    var secondLevelLocation = pathArray[1];
+                    var newURL = window.location.protocol + "//" + window.location.host + "/" + secondLevelLocation;
+
+                    // newURL = newURL + 'search/books/bookTitle/' + title +'/authorLastname/' + lastname + '/authorFirstname/' + firstname;
+                    newURL = newURL
+                        + 'search/books?title=' + $('#TitleContains').val()
+                        + '&fullname=' + $('#fullnameAuthorContains').val();
+                        // + '&id=' + $('#firstNameAuthorContains').val();
+
+                    $("#BookBlock").load(newURL);
+
+                });
+            });
+        </script>
+
+
+    </body>
+</html>

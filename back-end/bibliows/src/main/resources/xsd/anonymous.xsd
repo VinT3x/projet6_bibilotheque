@@ -1,0 +1,81 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://oc.com/projet3/bibliows/anonymous"
+           targetNamespace="http://oc.com/projet3/bibliows/anonymous" elementFormDefault="qualified"
+>
+    <!--ACCOUNT-->
+     <xs:element name="authenticationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="email" type="xs:string"/>
+                <xs:element name="password" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="authenticationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="email" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="createAccountRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="email" type="tns:fctValidateEmail"/>
+                <xs:element name="firstname" type="tns:fctNonEmptyString"/>
+                <xs:element name="lastname" type="tns:fctNonEmptyString"/>
+                <xs:element name="password" type="tns:fctValidatePassword"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="createAccountResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:sequence>
+                    <xs:element name="email" type="tns:fctValidateEmail"/>
+                    <xs:element name="firstname" type="tns:fctNonEmptyString"/>
+                    <xs:element name="lastname" type="tns:fctNonEmptyString"/>
+                </xs:sequence>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="accountWS">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="email" type="xs:string"/>
+            <xs:element name="firstname" type="xs:string"/>
+            <xs:element name="lastname" type="xs:string"/>
+            <xs:element name="password" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+     <xs:simpleType name="fctNonEmptyString">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:pattern value="[\s\S]*[^ ][\s\S]*" />
+        </xs:restriction>
+    </xs:simpleType>
+
+
+    <xs:simpleType name="fctPositiveInteger" id="PositiveInteger">
+        <xs:restriction base="xs:int">
+            <xs:minInclusive value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="fctValidateEmail">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[A-Za-z0-9_]+([-+.'][A-Za-z0-9_]+)*@[A-Za-z0-9_]+([-.][A-Za-z0-9_]+)*\.[A-Za-z0-9_]+([-.][A-Za-z0-9_]+)*" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="fctValidatePassword">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="5"></xs:minLength>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>
