@@ -1,11 +1,11 @@
 package com.oc.projet3.bibliows.config;
-import javax.xml.transform.Source;
 
-import com.oc.projet3.bibliows.exceptions.CustomSoapValidationException;
+
 import org.springframework.ws.WebServiceMessage;
 import org.springframework.ws.context.MessageContext;
 import org.springframework.ws.soap.*;
 import org.xml.sax.SAXParseException;
+import javax.xml.transform.Source;
 
 
 public class CustomValidatingInterceptor extends org.springframework.ws.soap.server.endpoint.interceptor.PayloadValidatingInterceptor {
@@ -13,8 +13,7 @@ public class CustomValidatingInterceptor extends org.springframework.ws.soap.ser
     protected Source getValidationRequestSource(WebServiceMessage request)
     {
         try {
-            Source source = super.getValidationRequestSource(request);
-            return source;
+            return super.getValidationRequestSource(request);
 
         } catch (RuntimeException  e) {
             logger.error( "####### Runtime ####################");
@@ -30,42 +29,44 @@ public class CustomValidatingInterceptor extends org.springframework.ws.soap.ser
     protected boolean handleRequestValidationErrors(MessageContext messageContext,
                                                     SAXParseException[] errors)
     {
-        return handleResponseValidationErrors(messageContext, errors);
-    }
-
-    @Override
-    protected boolean handleResponseValidationErrors(MessageContext messageContext,
-                                                     SAXParseException[] errors)
-    {
         for (SAXParseException error : errors) {
-            logger.error("XML validation error on response: " + error.getMessage());
+            logger.warn("XML validation error on request: " + error.getMessage());
         }
         if (messageContext.getResponse() instanceof SoapMessage) {
             SoapMessage response = (SoapMessage) messageContext.getResponse();
             SoapBody body = response.getSoapBody();
-            SoapFault fault = body.addClientOrSenderFault(getFaultStringOrReason(), getFaultStringOrReasonLocale());
+            SoapFault fault = body.addClientOrSenderFault("esrr", getFaultStringOrReasonLocale());
             if (getAddValidationErrorDetail()) {
                 SoapFaultDetail detail = fault.addFaultDetail();
                 for (SAXParseException error : errors) {
-
                     String str = error.getMessage();
-                    String[] arrOfStr = str.split(".*'bib:");
-                    String[] arrOfStrA = str.split(".*'anon:");
-
+                    String[] arrOfStr = str.split(".*'ns2:");
+                    String[] arrOfStrBib = str.split(".*'bib:");
+                    String msg = "";
                     if (arrOfStr.length > 1 ){
-
-                        // validator mettre toutes les erreurs
-                        throw new CustomSoapValidationException("Validation Erreur: " + arrOfStr[1].replaceFirst("\'",""));
+                        String champ = arrOfStr[1].replaceFirst("' n'est pas valide.","");
+                        if (champ.equals("password")){
+                            msg = "Votre mot de passe doit contenir au moins 5 caractères";
+                        }else if (champ.equals("lastname")){
+                            msg = "Veuillez compléter votre nom de famille";
+                        }else if (champ.equals("firstname")){
+                            msg = "Veuillez compléter votre prénom";
+                        }else if (champ.equals("email")){
+                            msg = "Email invalide";
+                        }
+                    }else if (arrOfStrBib.length >1){
+                        String champ = arrOfStrBib[1].replaceFirst("' n'est pas valide.","");
+                        if (champ.equals("fullname")){
+                            msg = "Veuillez compléter le champ nom";
+                        }
                     }
-
-                    if (arrOfStrA.length > 1 ){
-
-                        // validator mettre toutes les erreurs
-                        throw new CustomSoapValidationException("Validation Erreur: " + arrOfStrA[1].replaceFirst("\'",""));
-                    }
+                    SoapFaultDetailElement detailElement = detail.addFaultDetailElement(getDetailElementName());
+                    detailElement.addText(msg);
                 }
             }
         }
         return false;
-   }
+    }
+
+
 }

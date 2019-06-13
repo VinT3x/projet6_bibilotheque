@@ -8,6 +8,8 @@ import com.oc.projet3.biblioclient.generated.biblio.CreateAccountResponse;
 import com.oc.projet3.biblioclient.generated.biblio.MemberWS;
 import com.oc.projet3.biblioclient.service.AccountService;
 import com.oc.projet3.biblioclient.service.SOAPConnector;
+import com.sun.net.httpserver.HttpContext;
+import com.sun.net.httpserver.HttpServer;
 import com.sun.xml.internal.ws.fault.ServerSOAPFaultException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +24,18 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
 import javax.lang.model.element.Element;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import javax.xml.soap.Node;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMResult;
+import javax.xml.transform.dom.DOMSource;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 @Controller
 public class LoginController {
@@ -82,53 +89,44 @@ public class LoginController {
         ModelAndView modelAndView = new ModelAndView();
 
         CreateAccountRequest request = new CreateAccountRequest();
-        request.setFirstname(accountWS.getFirstname());
-        request.setLastname(accountWS.getLastname());
-        request.setEmail(accountWS.getEmail());
-        request.setPassword(accountWS.getPassword());
+        request.setFirstname("xsxsx");
+        request.setLastname("xsxsx");
+        request.setEmail("xsxsx@ss.ss");
+        request.setPassword("x");
 
-         CreateAccountResponse response = null;
+        CreateAccountResponse response = null;
+        Object object = new String("123");
         try {
-            response = (CreateAccountResponse) soapConnector.callWebService("http://localhost:8080/anonymous/createAccount", request);
+            // externaliser la config clirnt (mettre uri dans un fichier de param)
+
+            object = soapConnector.callWebService("http://localhost:8080/anonymous/createAccount", request);
+            response = (CreateAccountResponse) object;
+
+            System.out.println("response 1 "+ object);
             modelAndView.addObject("successMessage", "User has been registered successfully");
             modelAndView.setViewName("authentification/login");
         }catch (SoapFaultClientException e){
-            System.out.println(e.getFaultStringOrReason());
-            modelAndView.addObject("errorMessage", e.getMessage());
+            List<String> list = new ArrayList<>();
+
+            SoapFaultDetail soapFaultDetail = e.getSoapFault().getFaultDetail();
+            if (soapFaultDetail != null){
+                Iterator<SoapFaultDetailElement> detailEntries = soapFaultDetail.getDetailEntries();
+
+                while (detailEntries.hasNext()) {
+                    SoapFaultDetailElement detailElement = detailEntries.next();
+                    Node node = (Node) ((DOMResult) detailElement.getResult()).getNode();
+                    list.add(node.getValue());
+                }
+            }else {
+                list.add(e.getFaultStringOrReason());
+            }
+            modelAndView.addObject("errorMessages", list);
             modelAndView.setViewName("authentification/registration2");
             e.printStackTrace();
-            System.out.println(e.getMessage());
-            try {
-                Element element = getDetail(e);
-
-            } catch (TransformerException e1) {
-                e1.printStackTrace();
-            }
-
-
-            SoapFaultDetail soapFaultDetail = e.getSoapFault().getFaultDetail(); // <soapFaultDetail> node
-            // if there is no fault soapFaultDetail ...
-            if (soapFaultDetail == null) {
-                throw e;
-            }
-            SoapFaultDetailElement detailElementChild = soapFaultDetail.getDetailEntries().next();
-            Source detailSource = detailElementChild.getSource();
-            Object detail = soapConnector.unmarshall(detailSource);
-//            JAXBElement<serviceException> source = (JAXBElement<serviceException>)detail;
-//            System.out.println("Text::"+source.getText()); //prints : Locale is invalid.
         }
 
                   // modelAndView.setViewName("authentification/registration");
         return modelAndView;
-    }
-
-    private Element getDetail(SoapFaultClientException e) throws TransformerException {
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        Transformer transformer = transformerFactory.newTransformer();
-        DOMResult result = new DOMResult();
-        transformer.transform(e.getSoapFault().getSource(), result);
-        NodeList nl = ((Document)result.getNode()).getElementsByTagName("detail");
-        return (Element)nl.item(0);
     }
 }
 

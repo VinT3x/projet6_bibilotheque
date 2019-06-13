@@ -21,8 +21,10 @@
                   role="form">
                 <h2>Création d'un compte</h2>
 
-                <span th:if="${errorMessage != null}" >
-                <p th:text="${errorMessage}"></p>
+                <span th:if="${errorMessages!= null}" >
+                <p th:each="err : ${errorMessages}">
+                    <span th:text="${err}"></span>
+                </p>
                 </span>
 
                 <div class="form-group">

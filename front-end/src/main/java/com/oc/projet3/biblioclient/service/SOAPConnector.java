@@ -4,6 +4,7 @@ import com.oc.projet3.biblioclient.generated.biblio.CreateAccountRequest;
 import com.oc.projet3.biblioclient.generated.biblio.CreateAccountResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
+import org.springframework.ws.soap.client.SoapFaultClientException;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.soap.Detail;
@@ -12,7 +13,7 @@ import java.io.IOException;
 
 public class SOAPConnector extends WebServiceGatewaySupport{
 
-    public Object callWebService(String url, Object request){
+    public Object callWebService(String url, Object request) throws SoapFaultClientException {
         return getWebServiceTemplate().marshalSendAndReceive(url, request);
     }
 
