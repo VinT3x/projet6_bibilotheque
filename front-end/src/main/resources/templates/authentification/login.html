@@ -14,16 +14,22 @@
 
 <body>
 <a th:href="@{/registration}" class="btn btn-md btn-warning btn-block" role="button">Créer un compte</a>
-<a th:href="@{/}" class="btn btn-md btn-info btn-block" role="button">Page d'accueil</a>
 
 <div class="container">
 
     <h4>
         <img th:src="@{/images/biblio.png}" class="img-responsive center-block" width="200" height="200" alt="Logo"/>
-        Se connecter sur le site de la bibliothèque
+        Connectez-vous pour réserver des livres !
     </h4>
 
     <br/>
+    <div class="alert alert-danger" role="alert" th:if="${errorMessages!= null}">
+        <strong>Echec de connexion !</strong>
+        <p th:each="err : ${errorMessages}">
+            <span style="color:red" th:text="${err}"></span>
+        </p>
+    </div>
+
     <form th:action="@{/login}" method="POST" class="form-signin">
         <input type="text" id="email" name="email" th:placeholder="Email"
                class="form-control"/> <br/>

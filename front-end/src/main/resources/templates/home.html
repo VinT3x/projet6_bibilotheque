@@ -7,23 +7,67 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css"/>
 
         <title>Recherche</title>
     </head>
     <body>
-        <div class="container">
+        <div class="container" th:if="${username != null}">
             <div class="jumbotron">
                 <img alt="logo-biblio" height="100" th:src="@{/images/biblio.png}" width="100">
-                <h1>Rechercher des livres</h1>
-            </div>
-            <span th:if="${username != null}" >
-                <h6 th:text="${username}"></h6>
-            </span>
+                <h2>Recherchez et réservez des livres</h2>
 
-            <a href="/login">se connecter</a>
-            <a href="/registration">s'inscrire</a>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+                <div class="container">
+                    <a class="navbar-brand" href="#">
+                        <img src="http://placehold.it/150x50?text=Logo" alt="">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarResponsive">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">Recherche
+                                    <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/logout">se déconnecter</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Mon compte</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Mon historique</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Page Content -->
+            <div class="container">
+                <p class="mt-4" th:text="'Bienvenue ' + ${username} + ' !'"></p>
+                <p class="mt-4" th:text="'Réservez les livres que vous souhaitez puis venez les chercher le ' +
+                'jour même à la bibliotheque. Vous pourrez les garder 30 jours, à compter du jour de la réservation effectuée ' +
+                 'sur le site.'"></p>
+                <p class="mt-4" th:text="'Si vous n\'avez pas eu le temps de lire, vous pouvez demander ' +
+                'une extension de prêt, pour 30 jours de plus maximum.' +
+                 ' Attention, seulement une demande d\'extension n\'est possible. De plus, deux jours avant ' +
+                 'la fin du prêt, vous recevrez un email pour chaque livre emprunté, si vous dépassez la date de fin  ' +
+                 'de prêt, vous risquez de perde votre caution et la radiation de la bibliothèque !'"></p>
+            </div>
+            <!-- /.container -->
+
+
             <form class="form-inline" action="#" method="get">
 
                 <th:block th:insert="fragment/formSearch"></th:block>

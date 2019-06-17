@@ -5,19 +5,15 @@ import com.oc.projet3.biblioclient.service.SOAPConnector;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.ws.client.core.WebServiceTemplate;
 import org.springframework.ws.client.support.interceptor.ClientInterceptor;
 import org.springframework.ws.config.annotation.EnableWs;
 import org.springframework.ws.config.annotation.WsConfigurerAdapter;
-import org.springframework.ws.server.EndpointInterceptor;
-import org.springframework.ws.transport.WebServiceMessageSender;
-import org.springframework.ws.transport.http.HttpComponentsMessageSender;
-import sun.net.www.http.HttpClient;
 
-import java.util.Arrays;
-import java.util.List;
 
 @EnableWs
+@EnableWebMvc
 @Configuration
 public class BeanConfig extends WsConfigurerAdapter {
 
@@ -38,8 +34,8 @@ public class BeanConfig extends WsConfigurerAdapter {
         return client;
     }
 
-    // test
 
+    // test
 
     @Bean
     public WebServiceTemplate createWebServiceTemplate(Jaxb2Marshaller marshaller) {
