@@ -1,7 +1,5 @@
 package com.oc.projet3.biblioclient.controller;
 
-
-
 import com.oc.projet3.biblioclient.controller.error.ServerErrorMessage;
 import com.oc.projet3.biblioclient.entity.User;
 import com.oc.projet3.biblioclient.generated.biblio.AuthenticationRequest;
@@ -75,8 +73,6 @@ public class LoginController {
             // créer un user, penser à la déconnexion
             User user = addUserToSessionScope(request.getEmail(),request.getPassword());
             model.addAttribute("user", user);
-            model.addAttribute("successMessage", "User has been registered successfully");
-
             vue = "redirect:home";
 
         }catch (SoapFaultClientException soapFaultClientException){
@@ -98,7 +94,6 @@ public class LoginController {
         status.setComplete();
         return "authentification/login";
     }
-
 
     /**
      * Affichage du formulaire utilisateur

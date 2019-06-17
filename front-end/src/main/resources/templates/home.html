@@ -95,9 +95,6 @@
                                         <td><span th:text="${book.getSummary()}"></span></td>
                                         <td>
                                             <span th:text="${book.getAuthor().getFullname()}"></span>
-                                            <!--<span th:each="author : ${book.getAuthors()}">-->
-                                                <!--<span th:text="${author.getFullname()}"></span>-->
-                                            <!--</span>-->
                                         </td>
                                         <td>
                                             <span th:text="${book.getNumberAvailable()} == '0' ? 'indisponible' : ${book.getNumberAvailable()}"></span>
@@ -121,22 +118,17 @@
         <script>
             $(document).ready(function () {
                 $('#clk_link').click(function () {
-                    var pathArray = window.location.pathname.split('/');
-                    var secondLevelLocation = pathArray[1];
-                    var newURL = window.location.protocol + "//" + window.location.host + "/" + secondLevelLocation;
+                     var newURL = window.location.protocol + "//" + window.location.host;
 
-                    // newURL = newURL + 'search/books/bookTitle/' + title +'/authorLastname/' + lastname + '/authorFirstname/' + firstname;
                     newURL = newURL
-                        + 'search/books?title=' + $('#TitleContains').val()
+                        + '/search/books?title=' + $('#TitleContains').val()
                         + '&fullname=' + $('#fullnameAuthorContains').val();
-                        // + '&id=' + $('#firstNameAuthorContains').val();
 
                     $("#BookBlock").load(newURL);
 
                 });
             });
         </script>
-
 
     </body>
 </html>
