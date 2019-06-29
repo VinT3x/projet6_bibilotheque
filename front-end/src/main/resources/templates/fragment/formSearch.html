@@ -1,25 +1,26 @@
 <div xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-    <div class="form-group row" >
-        <div class="col-xs-2">
-            <label for="TitleContains">titre</label>
-            <input type="text" class="col-sm-10" name="TitleContains" id="TitleContains" placeholder="titre"/>
+    <fieldset class="border p-2">
+
+        <div class="form-group row h-100 justify-content-center align-items-center" >
+            <form action="#" class="form-inline" method="get">
+                <legend  class="w-auto">
+                    <h6>Recherche :</h6>
+                    <div class="col-xs-5">
+                        <input class="form-control" type="text" name="TitleContains" id="TitleContains" placeholder="titre"/>
+                        <input class="form-control" type="text" name="fullnameAuthorContains" id="fullnameAuthorContains" placeholder="nom"/>
+                        <span th:if="${categories} != null">
+                            <select class=form-control id="category">
+                                <option value="TOUS">choix de la catégorie</option>
+                                <option th:each="category : ${categories}" th:value="${category}" th:text="${category}"></option>
+                            </select>
+                        </span>
+                        <a class="btn btn-xs btn-primary" href="#" role="button" id="clk_search">Rechercher</a>
+                    </div>
+                </legend>
+            </form>
         </div>
 
-        <div class="col-xs-2">
-            <label for="fullnameAuthorContains">nom de l'auteur</label>
-            <input type="text" class="col-sm-10" name="fullnameAuthorContains" id="fullnameAuthorContains" placeholder="nom"/>
-        </div>
-
-        <!--<div class="col-xs-2">-->
-            <!--<label for="idBook">nom de l'auteur</label>-->
-            <!--<input type="text" class="col-sm-10" name="idBook" id="idBook" placeholder="id"/>-->
-        <!--</div>-->
-
-    </div>
-    <br>
-    <div class="btn-group btn-group-sm" role="group">
-        <a class="btn btn-xs btn-primary" href="#" role="button" id="clk_link">Rechercher</a>
-    </div>
+    </fieldset>
 
 </div>
 

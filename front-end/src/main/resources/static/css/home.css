@@ -1,0 +1,22 @@
+tr{line-height:0;}
+.btn{
+    margin: 1px;
+    padding: 1px;
+}
+
+th{
+    background-color: #7f2a1d;
+}
+.table-striped>tbody>tr:nth-child(odd)>td {
+    background-color: #c93620;
+}
+.table-striped>tbody>tr:nth-child(even)>td {
+    background-color: #f74125;
+}
+
+legend {
+    display: block;
+    padding-left: 2px;
+    padding-right: 2px;
+    border: #FF1C19;
+}

@@ -149,6 +149,7 @@
                 <xs:element name="id" type="xs:long" minOccurs="0"/>
                 <xs:element name="title" type="xs:string" minOccurs="0"/>
                 <xs:element name="fullname" type="xs:string" minOccurs="0"/>
+                <xs:element name="category" type="tns:Category" minOccurs="0"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -161,15 +162,17 @@
         </xs:complexType>
     </xs:element>
 
+
     <xs:element name="createBookRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="title" type="tns:NonEmptyString"/>
                 <xs:element name="summary" type="xs:string"/>
-                <xs:element name="cote" type="xs:string"/>
+                <xs:element name="numberOfPage" type="tns:PositiveInteger"/>
                 <xs:element name="dateOfficialRelease" type="xs:date"/>
                 <xs:element name="numberOfCopies" type="tns:PositiveInteger" />
                 <xs:element name="authorId" type="xs:long" />
+                <xs:element name="category" type="tns:Category"/>
             </xs:sequence>
 
         </xs:complexType>
@@ -190,10 +193,11 @@
                 <xs:element name="id" type="xs:positiveInteger" />
                 <xs:element name="title" type="tns:NonEmptyString" minOccurs="0"/>
                 <xs:element name="summary" type="xs:string" minOccurs="0"/>
-                <xs:element name="cote" type="xs:string" minOccurs="0"/>
+                <xs:element name="numberOfPage" type="tns:PositiveInteger" minOccurs="0"/>
                 <xs:element name="dateOfficialRelease" type="xs:date" minOccurs="0"/>
-                <xs:element name="numberofcopies" type="xs:int" minOccurs="0"/>
+                <xs:element name="numberOfcopies" type="xs:int" minOccurs="0"/>
                 <xs:element name="authorId" type="xs:positiveInteger" minOccurs="0"/>
+                <xs:element name="category" type="tns:Category" minOccurs="0"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -324,7 +328,7 @@
             <xs:element name="title" type="xs:string"/>
             <xs:element name="summary" type="xs:string"/>
             <xs:element name="dateOfficialRelease" type="xs:date"/>
-            <xs:element name="cote" type="xs:string"/>
+            <xs:element name="numberOfPage" type="xs:int"/>
             <xs:element name="numberOfCopies" type="xs:int"/>
             <xs:element name="numberAvailable" type="xs:int"/>
             <xs:element name="author" type="tns:authorWS"/>
@@ -361,6 +365,25 @@
             <xs:element name="message" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
+
+    <xs:complexType name="Category">
+        <xs:sequence>
+            <xs:element name="elementCategory" type="tns:constantType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="constantType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value= "ROMAN" />
+            <xs:enumeration value="ART_CULTURE" />
+            <xs:enumeration value="BD" />
+            <xs:enumeration value="ENSEIGNEMENT_EDUCATION" />
+            <xs:enumeration value="SANTE_BIEN_ETRE" />
+            <xs:enumeration value="HISTOIRE_GEOGRAPHIE" />
+            <xs:enumeration value="JEUNESSE" />
+            <xs:enumeration value="LANGUES" />
+        </xs:restriction>
+    </xs:simpleType>
 
     <xs:simpleType name="NonEmptyString">
         <xs:restriction base="xs:string">

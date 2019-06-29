@@ -1,0 +1,21 @@
+<div xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+        <p th:text="${book.getId()}"></p>
+    <div class="modal fade" th:id="'getDetailsBookModal' + ${book.getId()}" tabindex="-1"
+         role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body" id="getCode" style="background-color: ghostwhite">
+                    <div class="container">
+                        <h2 class="mt-4" th:text="${book.getTitle()}"></h2>
+                        <p class="mt-4" th:text="'Résumé : ' + ${book.getResume()}"></p>
+                    </div>
+                </div>
+                <div class="modal-footer" style="background-color: ghostwhite">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

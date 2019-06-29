@@ -1,7 +1,6 @@
 package com.oc.projet3.bibliows.service;
 
 import com.oc.projet3.bibliows.dao.*;
-import com.oc.projet3.bibliows.entities.Author;
 import com.oc.projet3.bibliows.entities.Book;
 import com.oc.projet3.bibliows.entities.LendingBook;
 import com.oc.projet3.bibliows.entities.Member;
@@ -29,18 +28,16 @@ public class LendingBookServiceImpl implements LendingBookService {
     private final LendingBookRepository lendingBookRepository;
     private final BookRepository bookRepository;
     private final MemberRepository memberRepository;
-    private final FindService findService;
     // application.properties get delay day for a book's reservation
     @Value("${delayDay_reserveBook:0}")
     int nb_delayForReservation;
     private ServiceStatus serviceStatus = new ServiceStatus();
 
     @Autowired
-    public LendingBookServiceImpl(LendingBookRepository lendingBookRepository, BookRepository bookRepository, MemberRepository memberRepository, FindService findService) {
+    public LendingBookServiceImpl(LendingBookRepository lendingBookRepository, BookRepository bookRepository, MemberRepository memberRepository) {
         this.lendingBookRepository = lendingBookRepository;
         this.bookRepository = bookRepository;
         this.memberRepository = memberRepository;
-        this.findService = findService;
     }
 
     @Override
@@ -50,14 +47,14 @@ public class LendingBookServiceImpl implements LendingBookService {
 
         Optional<Book> bookToLendOptional = bookRepository.findById(request.getBookId());
         if (!bookToLendOptional.isPresent())
-            throw new WSException("Ce livre n'est pas présent !");
+            throw new WSException("Ce livre n'est pas disponible !");
 
         Optional<Member> memberOptional = memberRepository.findById(request.getAccountId());
         if (!memberOptional.isPresent())
             throw new WSException("Cet utilisateur n'existe pas !");
 
         if (lendingBookRepository.countReservedBookByBookIdAndMemberId(request.getBookId(), request.getAccountId()) > 0)
-            throw new WSException("Vous avez déjà prêté ce livre !");
+            throw new WSException("Vous avez déjà emprunté ce livre !");
 
         Book bookToLend = bookToLendOptional.get();
 
@@ -119,7 +116,7 @@ public class LendingBookServiceImpl implements LendingBookService {
 
         // si la date de fin est inférieure à la date de fin initiale + 1 jour (alors on peut ajouter 1 mois)
         if (delay_deadlineDate_startDate > (nb_delayForReservation + 1))
-            throw new WSException("Vous ne pouvez étendre la durée qu'une fois !");
+            throw new WSException("Vous ne pouvez étendre la durée du prêt qu'une seule fois !");
 
         calDeadLine.add(GregorianCalendar.DATE, nb_delayForReservation);
         lendingBook.setDeadlinedate(calDeadLine);
@@ -212,28 +209,6 @@ public class LendingBookServiceImpl implements LendingBookService {
         }
 
         return response;
-
-//        List<LendingBook> reserveBookList = findService.findReserveBook(request.getEmail(), request.isCurrent());
-//
-//
-//        for (ReserveBook reserveBook : reserveBookList) {
-//            ReserveBookWS reserveBookWS = new ReserveBookWS();
-//            convertReserveBookToReserveBookWS(reserveBook, reserveBookWS);
-//            reserveBookWS.setStartdate(ConvertUtils.convertCalendarToXMLGregorianCalendar(reserveBook.getStartdate()));
-//            reserveBookWS.setDeadlinedate(ConvertUtils.convertCalendarToXMLGregorianCalendar(reserveBook.getDeadlinedate()));
-//            if (reserveBook.getDeliverydate() != null) {
-//                reserveBookWS.setDeliverydate(ConvertUtils.convertCalendarToXMLGregorianCalendar(reserveBook.getDeliverydate()));
-//            }
-//            reserveBookWS.setIdBook(reserveBook.getBook().getId());
-//            reserveBookWS.setTitle(reserveBook.getBook().getTitle());
-//            response.getReserveBooks().add(reserveBookWS);
-//        }
-//        serviceStatus.setStatusCode("SUCCESS");
-//        serviceStatus.setMessage("List of reservations of " + request.getEmail());
-//
-//        response.setServiceStatus(serviceStatus);
-//
-//        return response;
     }
 
     @Override

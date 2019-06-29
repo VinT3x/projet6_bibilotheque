@@ -66,9 +66,3 @@ public class CustomValidatingInterceptor extends org.springframework.ws.soap.ser
     }
 }
 
-//                    }else if (arrOfStrBib.length >1){
-//                        String champ = arrOfStrBib[1].replaceFirst("' n'est pas valide.","");
-//                        if (champ.equals("fullname")){
-//                            msg = "Veuillez compléter le champ nom";
-//                        }
-

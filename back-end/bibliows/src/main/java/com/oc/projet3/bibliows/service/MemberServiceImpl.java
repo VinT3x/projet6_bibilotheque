@@ -54,6 +54,7 @@ public class MemberServiceImpl implements MemberService{
 
         if( passwordEncoder.matches(request.getPassword(),userDetails.getPassword()) ){
             response.setEmail(userDetails.getUsername());
+
             logger.info("Connexion de " + request.getEmail());
         }
         else {

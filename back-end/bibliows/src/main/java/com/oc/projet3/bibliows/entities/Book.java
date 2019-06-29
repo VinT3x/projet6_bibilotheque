@@ -9,6 +9,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import java.util.Calendar;
 
+import static javax.persistence.EnumType.STRING;
+
 @Entity
 @NoArgsConstructor
 @Table(name = "books", uniqueConstraints=@UniqueConstraint(columnNames={"title", "author_id"}))
@@ -42,22 +44,18 @@ public class Book {
     @Getter    @Setter
     private Calendar dateOfficialRelease;
 
-    @Column(length = 30, nullable = false)
+    @Column(nullable = false)
     @Getter    @Setter
-    private String cote;
+    private int numberOfPage;
+
+    @Column(nullable = false)
+    @Enumerated(STRING)
+    @Getter    @Setter
+    private Category category;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
     @Getter    @Setter
     private Author author;
-
-
-//    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
-//    @JoinTable(name = "books_reserveBooks",
-//            joinColumns = @JoinColumn(name = "book_id"),
-//            inverseJoinColumns = @JoinColumn(name = "booking_id"))
-//    @Getter    @Setter
-//    private Set<ReserveBook> reserveBooks= new HashSet<>();
-
 
 }

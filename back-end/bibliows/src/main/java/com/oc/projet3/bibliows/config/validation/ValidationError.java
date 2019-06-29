@@ -26,7 +26,7 @@ public class ValidationError {
         String paramFieldMsgValue = properties.getProperty(keyField);
 
         if (paramFieldMsgValue == null )
-            throw new  RuntimeException("Propriété " + keyField + "non présente dans le fichier " + PROPERTIES_FILE );
+            throw new  RuntimeException("Propriété " + keyField + " non présente dans le fichier " + PROPERTIES_FILE );
 
         return paramFieldMsgValue;
     }
