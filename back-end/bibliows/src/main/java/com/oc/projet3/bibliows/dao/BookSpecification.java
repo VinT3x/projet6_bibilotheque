@@ -23,6 +23,9 @@ public class BookSpecification implements Specification<Book> {
         if(filter.getId()!= null && filter.getId()!=0){
             predicate.getExpressions().add(criteriaBuilder.equal(root.get("id"), filter.getId()));
         }
+        if(filter.getCategory()!=null){
+            predicate.getExpressions().add(criteriaBuilder.equal(root.get("category"), filter.getCategory()));
+        }
         if(filter.getTitle()!=null){
             predicate.getExpressions().add(criteriaBuilder.like(criteriaBuilder.lower(root.get("title")), "%"+filter.getTitle().toLowerCase()+"%"));
         }
@@ -32,6 +35,7 @@ public class BookSpecification implements Specification<Book> {
             }
 
         }
+
 
         return criteriaBuilder.and(predicate);
     }

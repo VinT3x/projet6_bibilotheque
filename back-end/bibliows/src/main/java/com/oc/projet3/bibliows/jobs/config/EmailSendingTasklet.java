@@ -1,6 +1,6 @@
 package com.oc.projet3.bibliows.jobs.config;
 
-import com.oc.projet3.bibliows.config.MailContentBuilder;
+import com.oc.projet3.bibliows.config.email.MailContentBuilder;
 import com.oc.projet3.bibliows.dao.LendingBookRepository;
 import com.oc.projet3.bibliows.entities.LendingBook;
 import org.apache.logging.log4j.LogManager;

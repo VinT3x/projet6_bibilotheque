@@ -66,8 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable().headers().frameOptions().disable();
-
-//                .exceptionHandling().accessDeniedPage("/Access_Denied");
+;
         httpSecurity.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
         httpSecurity.formLogin().successHandler(authenticationSuccessHandler);
         httpSecurity.formLogin().failureHandler(authenticationFailureHandler);

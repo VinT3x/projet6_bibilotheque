@@ -3,6 +3,7 @@ package com.oc.projet3.bibliows.service;
 import com.oc.projet3.bibliows.dao.MemberSpecification;
 import com.oc.projet3.bibliows.entities.Member;
 import com.oc.projet3.bibliows.dao.MemberRepository;
+import com.oc.projet3.bibliows.exceptions.WSConnectionException;
 import com.oc.projet3.bibliows.exceptions.WSException;
 import com.oc.projet3.bibliows.security.BiblioUserDetailsService;
 import com.oc.projet3.gs_ws.*;
@@ -46,17 +47,19 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public AuthenticationResponse connection(AuthenticationRequest request){
+    public AuthenticationResponse connection(AuthenticationRequest request) throws WSException {
         AuthenticationResponse response = new AuthenticationResponse();
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
 
         if( passwordEncoder.matches(request.getPassword(),userDetails.getPassword()) ){
             response.setEmail(userDetails.getUsername());
+
             logger.info("Connexion de " + request.getEmail());
         }
         else {
             logger.error("Tentative de connexion de " + request.getEmail());
+            throw new WSConnectionException("Echec de connexion");
         }
 
         return response;
@@ -71,7 +74,7 @@ public class MemberServiceImpl implements MemberService{
         Optional<Member> memberToFind = memberRepository.findByEmail(request.getEmail());
 
         if (memberToFind.isPresent())
-            throw new WSException("L'utilisateur existe déjà");
+            throw new WSException("Cet utilisateur existe déjà");
 
         Member member = new Member();
         BeanUtils.copyProperties(request, member);

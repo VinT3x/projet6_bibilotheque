@@ -1,4 +1,4 @@
-package com.oc.projet3.bibliows.config;
+package com.oc.projet3.bibliows.config.email;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

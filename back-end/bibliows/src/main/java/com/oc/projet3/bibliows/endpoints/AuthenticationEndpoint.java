@@ -1,5 +1,6 @@
 package com.oc.projet3.bibliows.endpoints;
 
+import com.oc.projet3.bibliows.exceptions.WSException;
 import com.oc.projet3.bibliows.service.MemberService;
 import com.oc.projet3.gs_ws.AuthenticationRequest;
 import com.oc.projet3.gs_ws.AuthenticationResponse;
@@ -24,7 +25,7 @@ public class AuthenticationEndpoint {
 
     @PayloadRoot(namespace = "http://oc.com/projet3/bibliows/anonymous", localPart = "authenticationRequest")
     @ResponsePayload
-    public AuthenticationResponse authentication(@RequestPayload AuthenticationRequest request) {
+    public AuthenticationResponse authentication(@RequestPayload AuthenticationRequest request) throws WSException {
 
         return memberService.connection(request);
 

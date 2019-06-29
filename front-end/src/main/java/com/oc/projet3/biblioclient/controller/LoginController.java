@@ -1,39 +1,39 @@
 package com.oc.projet3.biblioclient.controller;
 
-
-
-import com.oc.projet3.biblioclient.generated.biblio.AccountWS;
+import com.oc.projet3.biblioclient.controller.error.ServerErrorMessage;
+import com.oc.projet3.biblioclient.entity.User;
+import com.oc.projet3.biblioclient.generated.biblio.AuthenticationRequest;
 import com.oc.projet3.biblioclient.generated.biblio.CreateAccountRequest;
-import com.oc.projet3.biblioclient.generated.biblio.CreateAccountResponse;
-import com.oc.projet3.biblioclient.generated.biblio.MemberWS;
-import com.oc.projet3.biblioclient.service.AccountService;
+import com.oc.projet3.biblioclient.generated.biblio.FindAccountsRequest;
+import com.oc.projet3.biblioclient.generated.biblio.FindAccountsResponse;
 import com.oc.projet3.biblioclient.service.SOAPConnector;
-import com.sun.xml.internal.ws.fault.ServerSOAPFaultException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.ws.soap.SoapFaultDetail;
-import org.springframework.ws.soap.SoapFaultDetailElement;
 import org.springframework.ws.soap.client.SoapFaultClientException;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
 
-import javax.lang.model.element.Element;
 import javax.validation.Valid;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMResult;
-import java.util.Iterator;
+import java.util.List;
 
 @Controller
+@SessionAttributes( value="user", types={User.class} )
 public class LoginController {
 
-    final
+    @Value("${uri_anonymous}")
+    private String URI_ANONYMOUS;
+
+    @Value("${uri_biblio}")
+    private String URI_BIBLIO;
+
+    final private
     SOAPConnector soapConnector;
 
     @Autowired
@@ -41,94 +41,108 @@ public class LoginController {
         this.soapConnector = soapConnector;
     }
 
-    @RequestMapping(value={"/login"}, method = RequestMethod.GET)
-    public ModelAndView login(){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("authentification/login");
-        return modelAndView;
+    @ModelAttribute("user")
+    public User getUser() {
+        return new User();
+
     }
 
-//    @RequestMapping(value={"/login"}, method = RequestMethod.POST)
-//    public ModelAndView connection(@RequestParam("email") String email, @RequestParam("password") String password){
-//        AuthenticationResponse response = biblioClient.toConnect(email,password);
-//
-//        ModelAndView modelAndView = new ModelAndView();
-//
-//        if ( response.getEmail()!=null ){
-//            modelAndView.addObject("username", response.getEmail());
-//            modelAndView.setViewName("home");
-//        }else{
-//            modelAndView.addObject("isErrorConnection", true);
-//            modelAndView.setViewName("authentification/login");
-//        }
-//
-//        return modelAndView;
-//    }
-
-
-
-    @RequestMapping(value="/registration", method = RequestMethod.GET)
-    public ModelAndView registration(){
-        ModelAndView modelAndView = new ModelAndView();
-        AccountWS member = new AccountWS();
-        modelAndView.addObject("member", member);
-        modelAndView.setViewName("authentification/registration2");
-        return modelAndView;
+    @ModelAttribute("user")
+    public User addUserToSessionScope(String email, String password) {
+        return new User(email, password);
     }
 
 
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public ModelAndView createNewUser(@Valid AccountWS accountWS) {
-        ModelAndView modelAndView = new ModelAndView();
+    /**
+     * Affichage du formulaire de connexion
+     * @return formulaire connexion
+     */
+    @GetMapping(value={"/login"})
+    public String login(Model model){
+        return "authentification/login";
+    }
 
-        CreateAccountRequest request = new CreateAccountRequest();
-        request.setFirstname(accountWS.getFirstname());
-        request.setLastname(accountWS.getLastname());
-        request.setEmail(accountWS.getEmail());
-        request.setPassword(accountWS.getPassword());
 
-         CreateAccountResponse response = null;
+    /**
+     * connexion au webservice
+     * @param model
+     * @param request objet pour la requete de connexion
+     * @return l'url de redirection home si connexion sinon vers le formulaire login
+     */
+    @PostMapping(value = "/login")
+    public String connexion(@Valid AuthenticationRequest request, Model model) {
+        String vue;
         try {
-            response = (CreateAccountResponse) soapConnector.callWebService("http://localhost:8080/anonymous/createAccount", request);
-            modelAndView.addObject("successMessage", "User has been registered successfully");
-            modelAndView.setViewName("authentification/login");
-        }catch (SoapFaultClientException e){
-            System.out.println(e.getFaultStringOrReason());
-            modelAndView.addObject("errorMessage", e.getMessage());
-            modelAndView.setViewName("authentification/registration2");
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-            try {
-                Element element = getDetail(e);
 
-            } catch (TransformerException e1) {
-                e1.printStackTrace();
-            }
+            soapConnector.callWebService(URI_ANONYMOUS + "/authentication", request);
 
+            FindAccountsRequest findAccountsRequest = new FindAccountsRequest();
+            findAccountsRequest.setEmail(request.getEmail());
 
-            SoapFaultDetail soapFaultDetail = e.getSoapFault().getFaultDetail(); // <soapFaultDetail> node
-            // if there is no fault soapFaultDetail ...
-            if (soapFaultDetail == null) {
-                throw e;
-            }
-            SoapFaultDetailElement detailElementChild = soapFaultDetail.getDetailEntries().next();
-            Source detailSource = detailElementChild.getSource();
-            Object detail = soapConnector.unmarshall(detailSource);
-//            JAXBElement<serviceException> source = (JAXBElement<serviceException>)detail;
-//            System.out.println("Text::"+source.getText()); //prints : Locale is invalid.
+            User user = addUserToSessionScope(request.getEmail(),request.getPassword());
+            FindAccountsResponse findAccountsResponse = (FindAccountsResponse) soapConnector.callWebService(URI_BIBLIO + "/findAccount", findAccountsRequest, user);
+
+            user.setFirstname(findAccountsResponse.getMembers().get(0).getFirstname());
+            user.setLastname(findAccountsResponse.getMembers().get(0).getLastname());
+            user.setIdMember(findAccountsResponse.getMembers().get(0).getId());
+            model.addAttribute("user", user);
+
+            vue = "redirect:home";
+
+        }catch (SoapFaultClientException soapFaultClientException){
+
+            List<String> list = ServerErrorMessage.getListError(soapFaultClientException);
+            model.addAttribute("errorMessages", list);
+            vue = "authentification/login";
         }
 
-                  // modelAndView.setViewName("authentification/registration");
-        return modelAndView;
+        return vue;
     }
 
-    private Element getDetail(SoapFaultClientException e) throws TransformerException {
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        Transformer transformer = transformerFactory.newTransformer();
-        DOMResult result = new DOMResult();
-        transformer.transform(e.getSoapFault().getSource(), result);
-        NodeList nl = ((Document)result.getNode()).getElementsByTagName("detail");
-        return (Element)nl.item(0);
+    /**
+     * Permet de se déconnecter
+     * @return formulaire connexion
+     */
+    @GetMapping(value={"/logout"})
+    public String logout(SessionStatus status){
+        status.setComplete();
+        return "authentification/login";
+    }
+
+    /**
+     * Affichage du formulaire utilisateur
+     * @param accountRequest objet pour la creation d'un compte
+     * @return formulaire utilisateur
+     */
+    @GetMapping(value="/registration")
+    public String registration(Model model, CreateAccountRequest accountRequest){
+        model.addAttribute("member", accountRequest);
+        return "authentification/registration";
+    }
+
+    /**
+     * Creation d'un utilisateur
+     * @param accountRequest objet account généré
+     * @return ModelAndView
+     */
+    @PostMapping(value = "/registration")
+    public ModelAndView createNewUser(@Valid CreateAccountRequest accountRequest) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        try {
+
+            soapConnector.callWebService(URI_ANONYMOUS + "/createAccount", accountRequest);
+            modelAndView.setViewName("authentification/login");
+
+        }catch (SoapFaultClientException soapFaultClientException){
+
+            List<String> list = ServerErrorMessage.getListError(soapFaultClientException);
+            modelAndView.addObject("errorMessages", list);
+            modelAndView.addObject("member",accountRequest);
+            modelAndView.setViewName("authentification/registration");
+
+        }
+        return modelAndView;
     }
 }
 

@@ -5,6 +5,7 @@ import com.oc.projet3.bibliows.entities.Author;
 import com.oc.projet3.bibliows.entities.Book;
 import com.oc.projet3.bibliows.dao.AuthorRepository;
 import com.oc.projet3.bibliows.dao.BookRepository;
+import com.oc.projet3.bibliows.entities.Category;
 import com.oc.projet3.bibliows.exceptions.*;
 import com.oc.projet3.gs_ws.*;
 import org.apache.logging.log4j.LogManager;
@@ -84,6 +85,7 @@ public class BookServiceImpl implements BookService{
         book.setAuthor(author.get());
         book.setNumberAvailable(request.getNumberOfCopies());
         book.setDateOfficialRelease(ConvertUtils.convertXMLGregorianCalendarToCalendar(request.getDateOfficialRelease()));
+        book.setCategory(Category.valueOf(request.getCategory().getElementCategory().value()));
         Book bookSaved = bookRepository.save(book);
         response.setBook(convertBookToBookWS(bookSaved));
 
@@ -141,21 +143,25 @@ public class BookServiceImpl implements BookService{
             bookToUpdate.setSummary(request.getSummary());
         }
 
-        if( request.getNumberofcopies()!=null ){
+        if( request.getNumberOfcopies()!=null ){
             int nbBookLending = bookToUpdate.getNumberOfCopies() - bookToUpdate.getNumberAvailable();
-            if( request.getNumberofcopies() < nbBookLending ){
+            if( request.getNumberOfcopies() < nbBookLending ){
                 throw new WSBadNumberException("Le nombre de livre ne peut pas être inférieur au nombre de livre prêté !");
             }
-            bookToUpdate.setNumberOfCopies(request.getNumberofcopies());
-            bookToUpdate.setNumberAvailable(request.getNumberofcopies() - nbBookLending);
+            bookToUpdate.setNumberOfCopies(request.getNumberOfcopies());
+            bookToUpdate.setNumberAvailable(request.getNumberOfcopies() - nbBookLending);
         }
 
-        if ( request.getCote()!=null ){
-            bookToUpdate.setCote(request.getCote());
+        if ( request.getNumberOfPage()!=null ){
+            bookToUpdate.setNumberOfPage(request.getNumberOfPage());
         }
 
         if (request.getDateOfficialRelease()!=null){
             bookToUpdate.setDateOfficialRelease(ConvertUtils.convertXMLGregorianCalendarToCalendar(request.getDateOfficialRelease()));
+        }
+
+        if (request.getCategory()!=null){
+            bookToUpdate.setCategory(Category.valueOf(request.getCategory().getElementCategory().value()));
         }
 
         bookRepository.save(bookToUpdate);
@@ -201,6 +207,10 @@ public class BookServiceImpl implements BookService{
         Book bookSearch = new Book();
         bookSearch.setId(request.getId());
         bookSearch.setTitle(request.getTitle());
+        if (request.getCategory() != null) {
+            bookSearch.setCategory(Category.valueOf(request.getCategory().getElementCategory().value()));
+        }
+
 
         Author authorSearch = new Author();
         authorSearch.setFullname(request.getFullname());

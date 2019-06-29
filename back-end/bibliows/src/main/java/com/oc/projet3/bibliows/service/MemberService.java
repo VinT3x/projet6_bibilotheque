@@ -5,7 +5,7 @@ import com.oc.projet3.gs_ws.*;
 
 public interface MemberService {
 
-    AuthenticationResponse connection(AuthenticationRequest request);
+    AuthenticationResponse connection(AuthenticationRequest request) throws WSException;
 
     CreateAccountResponse createAccount(CreateAccountRequest request) throws WSException;
 

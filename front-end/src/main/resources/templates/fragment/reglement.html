@@ -1,0 +1,27 @@
+<div xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+    <div class="modal fade" id="getReglementModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body" id="getCode" style="background-color: ghostwhite">
+                    <div class="container">
+                        <p class="mt-4" th:text="'Bienvenue ' + ${user.getFirstname()} + ' !'"></p>
+                        <p class="mt-4" th:text="'Réservez les livres que vous souhaitez puis venez les chercher ' +
+                        ' à la bibliotheque. Vous pourrez les garder 30 jours, à compter du jour de la réservation.'"></p>
+                        <p class="mt-4" th:text="'Si vous n\'avez pas terminé le livre, vous pourrez demander ' +
+                        'une extension de prêt, pour 30 jours supplémentaires. Une seule extension est autorisée.'"></p>
+                        <p class="mt-4" th:text="'Deux jours avant la fin du prêt, vous recevrez pour chaque emprunt un' +
+                        ' email pour notifier que l\'échéance approche ou est dépassée.'"></p>
+                        <p class="mt-4" style="color: #FF1C19" th:text="'Attention, si vous ne rapportez pas le livre ' +
+                        'avant la date de fin prévue, vous risquez de perde votre caution et la radiation des membres ' +
+                        ' de la bibliothèque !'"></p>
+                    </div>
+                </div>
+                <div class="modal-footer" style="background-color: ghostwhite">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

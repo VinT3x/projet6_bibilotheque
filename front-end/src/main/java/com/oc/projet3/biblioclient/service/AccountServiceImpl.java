@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AccountServiceImpl implements AccountService {
 
-    final
+    private final
     SOAPConnector soapConnector;
 
     @Autowired
@@ -16,6 +16,9 @@ public class AccountServiceImpl implements AccountService {
         this.soapConnector = soapConnector;
     }
 
+    /**
+     * {@link AccountService#createAccount(CreateAccountRequest)}
+     */
     @Override
     public CreateAccountResponse createAccount(CreateAccountRequest request) {
 

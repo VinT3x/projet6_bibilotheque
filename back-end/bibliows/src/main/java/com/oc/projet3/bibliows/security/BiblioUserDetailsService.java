@@ -26,7 +26,7 @@ public class BiblioUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) {
         Optional<Member> user = userRepository.findByEmail(email);
         if (! user.isPresent()) {
-            throw new UsernameNotFoundException(email);
+            throw new UsernameNotFoundException("login ou mot de passe invalide");
         }
 
         return new org.springframework.security.core.userdetails.User(

@@ -3,38 +3,87 @@
       xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css"/>
+        <link th:href="@{/css/home.css}" rel="stylesheet">
 
         <title>Recherche</title>
     </head>
     <body>
-        <div class="container">
-            <div class="jumbotron">
-                <img alt="logo-biblio" height="100" th:src="@{/images/biblio.png}" width="100">
-                <h1>Rechercher des livres</h1>
+        <div class="container" th:if="${user != null}">
+            <div class="jumbotron mt-1 p-1 mb-4" style="height: 100px; background-color: yellowgreen">
+                <h2>
+                <img  class="float-left m-0 p-0" alt="logo-biblio" th:src="@{/images/biblio.png}" height="100" width="100">
+                Recherchez et réservez des livres</h2>
             </div>
-            <span th:if="${username != null}" >
-                <h6 th:text="${username}"></h6>
-            </span>
 
-            <a href="/login">se connecter</a>
-            <a href="/registration">s'inscrire</a>
-            <form class="form-inline" action="#" method="get">
+            <!-- Navigation -->
+            <nav class="navbar navbar-expand-lg navbar-light static-top" style="height: 20px; background-color: deepskyblue">
+                <div class="container">
+                    <div class="collapse navbar-collapse" id="navbarResponsive">
+                        <span style="color:ghostwhite" th:text="'Bonjour ' + ${user.getFirstname()}"></span>
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="modal" data-target="#getReglementModal">Le réglement</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Mon compte</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Mon historique</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Contact</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/logout">Se déconnecter</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
 
-                <th:block th:insert="fragment/formSearch"></th:block>
+            <div class="mt-4" id="LoanBlock">
+                <div th:fragment="loansList">
+                    <span th:if="${list_loans != null} and ${list_loans.size() &gt; 0 }">
+                        <h6>Vos réservations</h6>
+                            <table class="table table-striped table-dark">
+                                <thead style="height: 10px">
+                                    <tr>
+                                        <th scope="col">Livre</th>
+                                        <th scope="col">Date de fin de prêt</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="loan : ${list_loans}">
+                                    <td><span th:text="${loan.getTitle()}"></span></td>
+                                    <td><span th:text="${loan.getDeadlinedate()}"></span></td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            <a class="btn btn-xs btn-primary" th:onclick="'doExtend('+${loan.getId()}+')'">Prolonger</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                    </span>
+                </div>
+            </div>
 
-            </form>
+            <th:block th:insert="fragment/formSearch"></th:block>
+
             <br>
             <!--liste livre-->
 
             <div id="BookBlock">
                 <div th:fragment="booksList">
                     <span th:if="${list_books != null} and ${list_books.size() &gt; 0 }">
+                            <h6>Résultats</h6>
                             <table class="table table-striped table-dark">
                                 <thead>
                                     <tr>
@@ -42,50 +91,66 @@
                                         <th scope="col">Résumé</th>
                                         <th scope="col">Auteur</th>
                                         <th scope="col">Disponibilité</th>
-                                        <th scope="col" th:if="${username != null}"></th>
+                                        <!--<th scope="col" ></th>-->
+                                        <th scope="col" ></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="book : ${list_books}">
+                                    <tr th:each="book : ${list_books}">
                                         <td><span th:text="${book.getTitle()}"></span></td>
                                         <td><span th:text="${book.getSummary()}"></span></td>
                                         <td>
                                             <span th:text="${book.getAuthor().getFullname()}"></span>
-                                            <!--<span th:each="author : ${book.getAuthors()}">-->
-                                                <!--<span th:text="${author.getFullname()}"></span>-->
-                                            <!--</span>-->
                                         </td>
                                         <td>
                                             <span th:text="${book.getNumberAvailable()} == '0' ? 'indisponible' : ${book.getNumberAvailable()}"></span>
                                         </td>
-                                        <td th:if="${username != null}">
-                                            <div class="btn-group btn-group-sm" role="group">
-                                                <a class="btn btn-xs btn-primary" th:href="@{/loan/{id}(id=${book.getId()})}">Réserver</a>
-                                            </div>
+                                        <!--<td>-->
+                                            <!--<span th:if="${book.getNumberAvailable()} > '0'">-->
+                                                <!--<a class="btn btn-xs btn-primary"  th:onclick="'doAjaxPost('+${book.getId()}+')'">Réserver</a>-->
+                                            <!--</span>-->
+                                        <!--</td>-->
+                                         <td>
+                                            <span th:if="${book.getNumberAvailable()} > '0'">
+                                                <a class="btn btn-xs btn-primary"  th:onclick="'doAjaxPost('+${book.getId()}+')'">Détails & Réservation</a>
+                                                <!--<a class="nav-link" href="#" data-toggle="modal" th:attr="data-target='#getDetailsBookModal'+${book.getId()}" th:text="'#getDetailsBookModal'+${book.getId()}">Détails et réservation</a>-->
+                                            </span>
                                         </td>
-                                </tr>
+                                    </tr>
                                 </tbody>
                             </table>
 
                     </span>
                     <span th:if="${list_books == null } or ${list_books.size() == 0 }">
-                        Aucun résultat
+                        <p style="height: 10px">Aucun résultat</p>
                     </span>
                 </div>
             </div>
         </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="getCodeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body" id="getCode" style="background-color: antiquewhite"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <th:block th:insert="fragment/reglement"></th:block>
+
+
+
         <script>
             $(document).ready(function () {
-                $('#clk_link').click(function () {
-                    var pathArray = window.location.pathname.split('/');
-                    var secondLevelLocation = pathArray[1];
-                    var newURL = window.location.protocol + "//" + window.location.host + "/" + secondLevelLocation;
+                $('#clk_search').click(function () {
+                    var newURL = window.location.protocol + "//" + window.location.host;
 
-                    // newURL = newURL + 'search/books/bookTitle/' + title +'/authorLastname/' + lastname + '/authorFirstname/' + firstname;
                     newURL = newURL
-                        + 'search/books?title=' + $('#TitleContains').val()
-                        + '&fullname=' + $('#fullnameAuthorContains').val();
-                        // + '&id=' + $('#firstNameAuthorContains').val();
+                        + '/search/books?title=' + $('#TitleContains').val()
+                        + '&fullname=' + $('#fullnameAuthorContains').val()
+                        + '&category=' + $('#category option:selected').val();
 
                     $("#BookBlock").load(newURL);
 
@@ -93,6 +158,144 @@
             });
         </script>
 
+        <script type="text/javascript">
 
+            function doExtend(id) {
+
+                $.ajax({
+                    type: 'POST',
+                    url : "/loan/extend/" + id,
+                    data: '',
+                    success: function(response){
+                        $("#getCode").html(response.fontcolor("green"));
+                        $("#getCodeModal").modal('show');
+
+                        setTimeout(function(){
+                            $('#getCodeModal').modal('hide')
+                        }, 2000);
+
+                        // refresh des livres empruntés
+                        var newURL2 = window.location.protocol + "//" + window.location.host;
+
+                        newURL2 = newURL2
+                            + '/loan/findLoan';
+
+                        $("#LoanBlock").load(newURL2);
+                    },
+                    error: function (data) {
+                        $("#getCode").html(data.responseText.fontcolor("red"));
+                        $("#getCodeModal").modal('show');
+
+
+                        setTimeout(function(){
+                            $('#getCodeModal').modal('hide')
+                        }, 2000);
+                    }
+                });
+
+            }
+        </script>
+
+        <script type="text/javascript">
+
+            function doAjaxPost(id) {
+                var newURL = window.location.protocol + "//" + window.location.host;
+
+                newURL = newURL
+                    + '/loan/' + id;
+
+                $.ajax({
+                    type: 'POST',
+                    url : "/loan/" + id,
+                    data: '',
+                    success: function(response){
+                        $("#getCode").html(response.fontcolor("green"));
+                        $("#getCodeModal").modal('show');
+                        // $("#LoanBlock").load(location.href + "#LoanBlock");
+                        setTimeout(function(){
+                            $('#getCodeModal').modal('hide')
+                        }, 2000);
+                        // refresh de la liste des résultats de la recherche (nb available -1)
+                        var newURL = window.location.protocol + "//" + window.location.host;
+
+                        newURL = newURL
+                            + '/search/books?title=' + $('#TitleContains').val()
+                            + '&fullname=' + $('#fullnameAuthorContains').val()
+                            + '&category=' + $('#category option:selected').val();
+
+                        $("#BookBlock").load(newURL);
+
+                        // refresh des livres empruntés
+                        var newURL2 = window.location.protocol + "//" + window.location.host;
+
+                        newURL2 = newURL2
+                            + '/loan/findLoan';
+
+                        $("#LoanBlock").load(newURL2);
+                    },
+                    error: function (data) {
+                        $("#getCode").html(data.responseText.fontcolor("red"));
+                        $("#getCodeModal").modal('show');
+
+
+                        setTimeout(function(){
+                            $('#getCodeModal').modal('hide')
+                        }, 2000);
+                    }
+                });
+
+            }
+        </script>
+
+        <script type="text/javascript">
+
+            function doAjaxDetailsBookPost(id) {
+                var newURL = window.location.protocol + "//" + window.location.host;
+
+                newURL = newURL
+                    + '/getDetailsBook/' + id;
+
+                $.ajax({
+                    type: 'POST',
+                    url : "/getDetailsBook/" + id,
+                    data: '',
+                    success: function(response){
+                        $("#getCode").html(response.fontcolor("green"));
+                        $("#getCodeModal").modal('show');
+                        // $("#LoanBlock").load(location.href + "#LoanBlock");
+                        setTimeout(function(){
+                            $('#getCodeModal').modal('hide')
+                        }, 2000);
+                        // refresh de la liste des résultats de la recherche (nb available -1)
+                        var newURL = window.location.protocol + "//" + window.location.host;
+
+                        newURL = newURL
+                            + '/search/books?title=' + $('#TitleContains').val()
+                            + '&fullname=' + $('#fullnameAuthorContains').val()
+                            + '&category=' + $('#category option:selected').val();
+
+                        $("#BookBlock").load(newURL);
+
+                        // refresh des livres empruntés
+                        var newURL2 = window.location.protocol + "//" + window.location.host;
+
+                        newURL2 = newURL2
+                            + '/loan/findLoan';
+
+                        $("#LoanBlock").load(newURL2);
+                    },
+                    error: function (data) {
+                        $("#getCode").html(data.responseText.fontcolor("red"));
+                        $("#getCodeModal").modal('show');
+
+
+                        setTimeout(function(){
+                            $('#getCodeModal').modal('hide')
+                        }, 2000);
+                    }
+                });
+
+            }
+        </script>
     </body>
 </html>
