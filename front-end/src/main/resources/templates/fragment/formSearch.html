@@ -10,8 +10,8 @@
                         <input class="form-control" type="text" name="fullnameAuthorContains" id="fullnameAuthorContains" placeholder="nom"/>
                         <span th:if="${categories} != null">
                             <select class=form-control id="category">
-                                <option value="TOUS">choix de la catégorie</option>
-                                <option th:each="category : ${categories}" th:value="${category}" th:text="${category}"></option>
+                                <option value=0>choix de la catégorie</option>
+                                <option th:each="category : ${categories}" th:value="${category.getId()}" th:text="${category.getLabel()}"></option>
                             </select>
                         </span>
                         <a class="btn btn-xs btn-primary" href="#" role="button" id="clk_search">Rechercher</a>

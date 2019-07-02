@@ -8,9 +8,9 @@ public interface BookService {
      * Requête le WS, pour rechercher les livres correpondants aux paramètres
      * @param title, titre du livre
      * @param fullname, nom prénom de l'auteur
-     * @param category, cateégorie du livre
+     * @param categoryId, cateégorie du livre
      * @param user, utilisateur courant (connecté)
      * @return FindBooksResponse
      */
-    FindBooksResponse findBooks(String title, String fullname, String category, User user);
+    FindBooksResponse findBooks(String title, String fullname, long categoryId, User user);
 }

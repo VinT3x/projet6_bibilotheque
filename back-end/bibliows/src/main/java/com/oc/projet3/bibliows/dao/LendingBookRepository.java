@@ -14,9 +14,6 @@ import java.util.List;
 @Repository
 public interface LendingBookRepository extends JpaRepository<LendingBook,Long>, JpaSpecificationExecutor<LendingBook> {
 
-    @Query(value = "select count(*) from reservebook rb where rb.book_id=:book_id and rb.deliverydate is null", nativeQuery = true)
-    int countReservedBookByBookId(@Param("book_id") Long book_id);
-
     @Query(value = "select count(*) from lendingbook rb where rb.book_id=:book_id and rb.member_id=:member_id and rb.deliverydate is null", nativeQuery = true)
     int countReservedBookByBookIdAndMemberId(@Param("book_id") Long book_id,@Param("member_id") Long member_id);
 

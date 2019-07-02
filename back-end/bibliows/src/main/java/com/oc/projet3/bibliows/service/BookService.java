@@ -1,6 +1,7 @@
 package com.oc.projet3.bibliows.service;
 
 import com.oc.projet3.bibliows.exceptions.WSException;
+import com.oc.projet3.bibliows.exceptions.WSNotFoundExceptionException;
 import com.oc.projet3.gs_ws.*;
 
 /**
@@ -38,5 +39,5 @@ public interface BookService {
      * @param request
      * @return FindBooksResponse
      */
-    FindBooksResponse findBooks(FindBooksRequest request);
+    FindBooksResponse findBooks(FindBooksRequest request) throws WSNotFoundExceptionException;
 }

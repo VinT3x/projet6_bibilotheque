@@ -149,7 +149,7 @@
                 <xs:element minOccurs="0" name="id" type="xs:long"/>
                 <xs:element minOccurs="0" name="title" type="xs:string"/>
                 <xs:element minOccurs="0" name="fullname" type="xs:string"/>
-                <xs:element minOccurs="0" name="category" type="tns:Category"/>
+                <xs:element minOccurs="0" name="categoryId" type="xs:long"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -172,7 +172,7 @@
                 <xs:element name="dateOfficialRelease" type="xs:date"/>
                 <xs:element name="numberOfCopies" type="tns:PositiveInteger"/>
                 <xs:element name="authorId" type="xs:long"/>
-                <xs:element name="category" type="tns:Category"/>
+                <xs:element name="categoryId" type="xs:long"/>
             </xs:sequence>
 
         </xs:complexType>
@@ -197,7 +197,7 @@
                 <xs:element minOccurs="0" name="dateOfficialRelease" type="xs:date"/>
                 <xs:element minOccurs="0" name="numberOfcopies" type="xs:int"/>
                 <xs:element minOccurs="0" name="authorId" type="xs:positiveInteger"/>
-                <xs:element minOccurs="0" name="category" type="tns:Category"/>
+                <xs:element minOccurs="0" name="categoryId" type="xs:long"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -221,6 +221,59 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!--Category-->
+    <xs:element name="createCategoryRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="label" type="tns:NonEmptyString"/>
+            </xs:sequence>
+        </xs:complexType>
+
+    </xs:element>
+
+    <xs:element name="createCategoryResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="category" type="tns:categoryWS"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="updateCategoryRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:positiveInteger"/>
+                <xs:element name="label" type="tns:NonEmptyString"/>
+            </xs:sequence>
+        </xs:complexType>
+
+    </xs:element>
+
+    <xs:element name="updateCategoryResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="category" type="tns:categoryWS"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="findCategoriesRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="idCategory" type="xs:long"/>
+                <xs:element minOccurs="0" name="label" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="findCategoriesResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="categories" type="tns:categoryWS"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -332,6 +385,7 @@
             <xs:element name="numberOfCopies" type="xs:int"/>
             <xs:element name="numberAvailable" type="xs:int"/>
             <xs:element name="author" type="tns:authorWS"/>
+            <xs:element name="category" type="tns:categoryWS"/>
             <xs:element maxOccurs="unbounded" minOccurs="0" name="lendingBooks" type="tns:lendingBookWS"/>
         </xs:sequence>
     </xs:complexType>
@@ -343,6 +397,13 @@
             <xs:element minOccurs="0" name="dateOfDeath" type="xs:date"/>
             <xs:element name="fullname" type="xs:string"/>
             <xs:element name="nationality" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="categoryWS">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="label" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
 
@@ -365,25 +426,6 @@
             <xs:element name="message" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
-
-    <xs:complexType name="Category">
-        <xs:sequence>
-            <xs:element name="elementCategory" type="tns:constantType"/>
-        </xs:sequence>
-    </xs:complexType>
-
-    <xs:simpleType name="constantType">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="ROMAN"/>
-            <xs:enumeration value="ART_CULTURE"/>
-            <xs:enumeration value="BD"/>
-            <xs:enumeration value="ENSEIGNEMENT_EDUCATION"/>
-            <xs:enumeration value="SANTE_BIEN_ETRE"/>
-            <xs:enumeration value="HISTOIRE_GEOGRAPHIE"/>
-            <xs:enumeration value="JEUNESSE"/>
-            <xs:enumeration value="LANGUES"/>
-        </xs:restriction>
-    </xs:simpleType>
 
     <xs:simpleType name="NonEmptyString">
         <xs:restriction base="xs:string">
@@ -426,6 +468,10 @@
     <wsdl:part element="sch:updateAuthorResponse" name="updateAuthorResponse">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="findCategoriesRequest">
+    <wsdl:part element="sch:findCategoriesRequest" name="findCategoriesRequest">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="updateBookRequest">
     <wsdl:part element="sch:updateBookRequest" name="updateBookRequest">
     </wsdl:part>
@@ -436,6 +482,10 @@
   </wsdl:message>
   <wsdl:message name="updateAuthorRequest">
     <wsdl:part element="sch:updateAuthorRequest" name="updateAuthorRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="findCategoriesResponse">
+    <wsdl:part element="sch:findCategoriesResponse" name="findCategoriesResponse">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="lendingBookResponse">
@@ -510,6 +560,10 @@
     <wsdl:part element="sch:updateBookResponse" name="updateBookResponse">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="updateCategoryResponse">
+    <wsdl:part element="sch:updateCategoryResponse" name="updateCategoryResponse">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="deleteAuthorRequest">
     <wsdl:part element="sch:deleteAuthorRequest" name="deleteAuthorRequest">
     </wsdl:part>
@@ -534,12 +588,24 @@
     <wsdl:part element="sch:cancelLendingBookResponse" name="cancelLendingBookResponse">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="createCategoryRequest">
+    <wsdl:part element="sch:createCategoryRequest" name="createCategoryRequest">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="deleteAccountRequest">
     <wsdl:part element="sch:deleteAccountRequest" name="deleteAccountRequest">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="createCategoryResponse">
+    <wsdl:part element="sch:createCategoryResponse" name="createCategoryResponse">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="updateAccountRequest">
     <wsdl:part element="sch:updateAccountRequest" name="updateAccountRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateCategoryRequest">
+    <wsdl:part element="sch:updateCategoryRequest" name="updateCategoryRequest">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="booksPort">
@@ -559,6 +625,12 @@
       <wsdl:input message="tns:updateAuthorRequest" name="updateAuthorRequest">
     </wsdl:input>
       <wsdl:output message="tns:updateAuthorResponse" name="updateAuthorResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findCategories">
+      <wsdl:input message="tns:findCategoriesRequest" name="findCategoriesRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:findCategoriesResponse" name="findCategoriesResponse">
     </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="updateBook">
@@ -627,6 +699,12 @@
       <wsdl:output message="tns:findBooksResponse" name="findBooksResponse">
     </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="updateCategory">
+      <wsdl:input message="tns:updateCategoryRequest" name="updateCategoryRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:updateCategoryResponse" name="updateCategoryResponse">
+    </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="cancelLendingBook">
       <wsdl:input message="tns:cancelLendingBookRequest" name="cancelLendingBookRequest">
     </wsdl:input>
@@ -637,6 +715,12 @@
       <wsdl:input message="tns:updateAccountRequest" name="updateAccountRequest">
     </wsdl:input>
       <wsdl:output message="tns:updateAccountResponse" name="updateAccountResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createCategory">
+      <wsdl:input message="tns:createCategoryRequest" name="createCategoryRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:createCategoryResponse" name="createCategoryResponse">
     </wsdl:output>
     </wsdl:operation>
   </wsdl:portType>
@@ -666,6 +750,15 @@
         <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output name="updateAuthorResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findCategories">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="findCategoriesRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="findCategoriesResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
@@ -768,6 +861,15 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="updateCategory">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="updateCategoryRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="updateCategoryResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="cancelLendingBook">
       <soap:operation soapAction=""/>
       <wsdl:input name="cancelLendingBookRequest">
@@ -783,6 +885,15 @@
         <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output name="updateAccountResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createCategory">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="createCategoryRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createCategoryResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>

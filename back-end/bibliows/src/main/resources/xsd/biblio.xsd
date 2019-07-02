@@ -149,7 +149,7 @@
                 <xs:element name="id" type="xs:long" minOccurs="0"/>
                 <xs:element name="title" type="xs:string" minOccurs="0"/>
                 <xs:element name="fullname" type="xs:string" minOccurs="0"/>
-                <xs:element name="category" type="tns:Category" minOccurs="0"/>
+                <xs:element name="categoryId" type="xs:long" minOccurs="0"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -172,7 +172,7 @@
                 <xs:element name="dateOfficialRelease" type="xs:date"/>
                 <xs:element name="numberOfCopies" type="tns:PositiveInteger" />
                 <xs:element name="authorId" type="xs:long" />
-                <xs:element name="category" type="tns:Category"/>
+                <xs:element name="categoryId" type="xs:long"/>
             </xs:sequence>
 
         </xs:complexType>
@@ -197,7 +197,7 @@
                 <xs:element name="dateOfficialRelease" type="xs:date" minOccurs="0"/>
                 <xs:element name="numberOfcopies" type="xs:int" minOccurs="0"/>
                 <xs:element name="authorId" type="xs:positiveInteger" minOccurs="0"/>
-                <xs:element name="category" type="tns:Category" minOccurs="0"/>
+                <xs:element name="categoryId" type="xs:long" minOccurs="0"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -221,6 +221,59 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!--Category-->
+    <xs:element name="createCategoryRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="label" type="tns:NonEmptyString"/>
+            </xs:sequence>
+        </xs:complexType>
+
+    </xs:element>
+
+    <xs:element name="createCategoryResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="category" type="tns:categoryWS"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="updateCategoryRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:positiveInteger" />
+                <xs:element name="label" type="tns:NonEmptyString"/>
+            </xs:sequence>
+        </xs:complexType>
+
+    </xs:element>
+
+    <xs:element name="updateCategoryResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="category" type="tns:categoryWS"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="findCategoriesRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="idCategory" type="xs:long" minOccurs="0"/>
+                <xs:element name="label" type="xs:string" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="findCategoriesResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="categories" type="tns:categoryWS" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -332,6 +385,7 @@
             <xs:element name="numberOfCopies" type="xs:int"/>
             <xs:element name="numberAvailable" type="xs:int"/>
             <xs:element name="author" type="tns:authorWS"/>
+            <xs:element name="category" type="tns:categoryWS"/>
             <xs:element name="lendingBooks" type="tns:lendingBookWS" minOccurs="0" maxOccurs="unbounded" />
         </xs:sequence>
     </xs:complexType>
@@ -343,6 +397,13 @@
             <xs:element name="dateOfDeath" type="xs:date" minOccurs="0"/>
             <xs:element name="fullname" type="xs:string" />
             <xs:element name="nationality" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="categoryWS">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="label" type="xs:string" />
         </xs:sequence>
     </xs:complexType>
 
@@ -365,25 +426,6 @@
             <xs:element name="message" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
-
-    <xs:complexType name="Category">
-        <xs:sequence>
-            <xs:element name="elementCategory" type="tns:constantType"/>
-        </xs:sequence>
-    </xs:complexType>
-
-    <xs:simpleType name="constantType">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value= "ROMAN" />
-            <xs:enumeration value="ART_CULTURE" />
-            <xs:enumeration value="BD" />
-            <xs:enumeration value="ENSEIGNEMENT_EDUCATION" />
-            <xs:enumeration value="SANTE_BIEN_ETRE" />
-            <xs:enumeration value="HISTOIRE_GEOGRAPHIE" />
-            <xs:enumeration value="JEUNESSE" />
-            <xs:enumeration value="LANGUES" />
-        </xs:restriction>
-    </xs:simpleType>
 
     <xs:simpleType name="NonEmptyString">
         <xs:restriction base="xs:string">

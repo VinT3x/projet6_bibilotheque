@@ -1,6 +1,7 @@
 package com.oc.projet3.bibliows.service;
 
 import com.oc.projet3.bibliows.dao.BookSpecification;
+import com.oc.projet3.bibliows.dao.CategoryRepository;
 import com.oc.projet3.bibliows.entities.Author;
 import com.oc.projet3.bibliows.entities.Book;
 import com.oc.projet3.bibliows.dao.AuthorRepository;
@@ -31,14 +32,16 @@ public class BookServiceImpl implements BookService{
 
     private BookRepository bookRepository;
     private AuthorRepository authorRepository;
+    private CategoryRepository categoryRepository;
     private ServiceStatus serviceStatus = new ServiceStatus();
 
     private static Logger logger = LogManager.getLogger(BookServiceImpl.class);
 
     @Autowired
-    public BookServiceImpl(BookRepository bookRepository, AuthorRepository authorRepository) {
+    public BookServiceImpl(BookRepository bookRepository, AuthorRepository authorRepository, CategoryRepository categoryRepository) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
+        this.categoryRepository = categoryRepository;
     }
 
 
@@ -74,6 +77,12 @@ public class BookServiceImpl implements BookService{
         if ( ! author.isPresent())
             throw new WSNotFoundExceptionException("Cet auteur n'est pas présent. Veuillez vous assurez que l'id de l'auteur est correct !");
 
+
+        Optional<Category> category = categoryRepository.findById(request.getCategoryId());
+        if ( ! category.isPresent())
+            throw new WSNotFoundExceptionException("Cette catégorie n'existe pas !");
+
+
         Optional<Book> bookOptional = bookRepository.findBooksByTitleAndAuthor(request.getTitle(),author.get());
         if ( bookOptional.isPresent())
             throw new WSAlreadyExistException("Ce livre existe déjà !");
@@ -85,7 +94,7 @@ public class BookServiceImpl implements BookService{
         book.setAuthor(author.get());
         book.setNumberAvailable(request.getNumberOfCopies());
         book.setDateOfficialRelease(ConvertUtils.convertXMLGregorianCalendarToCalendar(request.getDateOfficialRelease()));
-        book.setCategory(Category.valueOf(request.getCategory().getElementCategory().value()));
+        book.setCategory(category.get());
         Book bookSaved = bookRepository.save(book);
         response.setBook(convertBookToBookWS(bookSaved));
 
@@ -108,13 +117,14 @@ public class BookServiceImpl implements BookService{
         Book bookToUpdate = bookToUpdateOptional.get();
         Author author;
         String title;
+
         boolean isTitleModified = false;
         boolean isAuthorModified = false;
 
         if ( request.getAuthorId() != null && request.getAuthorId().longValue() != bookToUpdate.getAuthor().getId()) {
             Optional<Author> authorOptional = authorRepository.findById(request.getAuthorId().longValue());
             if (! authorOptional.isPresent())
-                throw new WSNotFoundExceptionException("Cet auteur n'est pas présent. Veuillez vous assurez que l'id de l'auteur est correct !");
+                throw new WSNotFoundExceptionException("Cet auteur n'est pas présent en base. Veuillez vous assurez que l'id de l'auteur est correct !");
 
             author = authorOptional.get();
 
@@ -128,6 +138,14 @@ public class BookServiceImpl implements BookService{
             isTitleModified = true;
         }else {
             title = bookToUpdate.getTitle();
+        }
+
+        if ( request.getCategoryId() != null ) {
+            Optional<Category> categoryOptional = categoryRepository.findById(request.getCategoryId());
+            if (! categoryOptional.isPresent())
+                throw new WSNotFoundExceptionException("Cette catégorie n'existe pas !");
+
+            bookToUpdate.setCategory(categoryOptional.get());
         }
 
         if ( isTitleModified || isAuthorModified ){
@@ -158,10 +176,6 @@ public class BookServiceImpl implements BookService{
 
         if (request.getDateOfficialRelease()!=null){
             bookToUpdate.setDateOfficialRelease(ConvertUtils.convertXMLGregorianCalendarToCalendar(request.getDateOfficialRelease()));
-        }
-
-        if (request.getCategory()!=null){
-            bookToUpdate.setCategory(Category.valueOf(request.getCategory().getElementCategory().value()));
         }
 
         bookRepository.save(bookToUpdate);
@@ -201,14 +215,18 @@ public class BookServiceImpl implements BookService{
      * {@link BookService#findBooks(FindBooksRequest)}
      */
     @Override
-    public FindBooksResponse findBooks(FindBooksRequest request){
+    public FindBooksResponse findBooks(FindBooksRequest request) throws WSNotFoundExceptionException {
         FindBooksResponse response = new FindBooksResponse();
 
         Book bookSearch = new Book();
         bookSearch.setId(request.getId());
         bookSearch.setTitle(request.getTitle());
-        if (request.getCategory() != null) {
-            bookSearch.setCategory(Category.valueOf(request.getCategory().getElementCategory().value()));
+
+        if ( request.getCategoryId() != null ) {
+            Optional<Category> categoryOptional = categoryRepository.findById(request.getCategoryId());
+            if (! categoryOptional.isPresent())
+                throw new WSNotFoundExceptionException("Cette catégorie n'existe pas !");
+            bookSearch.setCategory(categoryOptional.get());
         }
 
 

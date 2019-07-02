@@ -9,7 +9,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import java.util.Calendar;
 
-import static javax.persistence.EnumType.STRING;
 
 @Entity
 @NoArgsConstructor
@@ -48,8 +47,8 @@ public class Book {
     @Getter    @Setter
     private int numberOfPage;
 
-    @Column(nullable = false)
-    @Enumerated(STRING)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
     @Getter    @Setter
     private Category category;
 
