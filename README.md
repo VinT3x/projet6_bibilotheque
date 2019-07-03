@@ -1,16 +1,26 @@
 # biblio - SOAP webservice serveur et client
 
-Installation
+__Installation__
 
-    Pré-requis :
-  
-       - PostgreSQL est installé en version 8 ou supérieure https://www.postgresql.org/download/
+    __Pré-requis :__
     
-       - java 8 est installé
+    Pour installer l'application les outils suivants doivent être installés :
   
-    Installation depuis les sources :
-  
-       - télécharger les sources
+       - PostgreSQL version 8 ou supérieure https://www.postgresql.org/download/
     
-Pour installer l'application le WS, exécuter depuis un terminal ou une invite de commande, la commande suivante :
-java -jar bibliows-0.0.1-SNAPSHOT.jar
+       - java 8
+       
+       - maven
+  
+    __Installation et lancement de l'application :__
+    
+        base de données :
+       - créer une base de données nommée "biblio"
+       
+       installer le WS et son client :
+  
+       - télécharger les sources et les dezipper à l'em^lacement de votre choix que l'on nommera %REP_INSTALL% 
+       - depuis une invite de commande, se positionner au niveau de l'emplacement du fichier POM (%REP_INSTALL%\biblio-master\biblio-master\back-end\bibliows pour le WS)
+       - lancer la commande **mvn clean package**, 
+       - se placer au niveau du jar **bibliows-0.0.1-SNAPSHOT.jar** généré sous %REP_INSTALL%\biblio-master\biblio-master\back-end\bibliows\target
+       - exécuter la commande **java -jar bibliows-0.0.1-SNAPSHOT.jar**
