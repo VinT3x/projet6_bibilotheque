@@ -1,7 +1,6 @@
 package com.oc.projet3.bibliows.dao;
 
 import com.oc.projet3.bibliows.entities.Author;
-import com.oc.projet3.bibliows.entities.Member;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;

@@ -1,12 +1,11 @@
 package com.oc.projet3.bibliows.exceptions;
 
-import javax.xml.namespace.QName;
-
-
 import com.oc.projet3.gs_ws.ServiceStatus;
 import org.springframework.ws.soap.SoapFault;
 import org.springframework.ws.soap.SoapFaultDetail;
 import org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolver;
+
+import javax.xml.namespace.QName;
 
 
 

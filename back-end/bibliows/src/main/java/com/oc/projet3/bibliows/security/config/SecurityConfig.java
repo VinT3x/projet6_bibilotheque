@@ -62,8 +62,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().antMatchers(HttpMethod.GET,"/ws/wsBooks.wsdl").permitAll()
                 .and()
                 .authorizeRequests().antMatchers(HttpMethod.POST,"/ws/**").hasAuthority("USER")
-//                .authorizeRequests().antMatchers("/ws/**").permitAll()
-//                .authorizeRequests().antMatchers(HttpMethod.POST, "/ws/createAuthor", "/ws/createAuthorRequest", "/ws/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable().headers().frameOptions().disable();

@@ -27,6 +27,8 @@ public class LendingBookSpecification implements Specification<LendingBook> {
 
         if (filter.getDeliverydate() == null) {
             predicate.getExpressions().add(criteriaBuilder.isNull(root.get("deliverydate")));
+        }else {
+            predicate.getExpressions().add(criteriaBuilder.isNotNull(root.get("deliverydate")));
         }
 
 

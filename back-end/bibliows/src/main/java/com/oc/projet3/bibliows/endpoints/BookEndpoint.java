@@ -4,9 +4,7 @@ import com.oc.projet3.bibliows.exceptions.WSException;
 import com.oc.projet3.bibliows.exceptions.WSNotFoundExceptionException;
 import com.oc.projet3.bibliows.service.BookService;
 import com.oc.projet3.gs_ws.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;

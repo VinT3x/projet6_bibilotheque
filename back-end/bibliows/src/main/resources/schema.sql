@@ -3,8 +3,16 @@ create database biblio
 
 create SCHEMA IF NOT EXISTS public;
 
-create sequence batch_step_execution_seq;
 
+create table if not exists batch_job_instance
+(
+  category_id bigserial not null
+    constraint categories_pkey
+      primary key,
+  label varchar(50) not null
+);
+
+create sequence batch_step_execution_seq;
 alter sequence batch_step_execution_seq owner to postgres;
 
 create sequence batch_job_execution_seq;

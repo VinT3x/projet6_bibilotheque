@@ -1,7 +1,7 @@
 package com.oc.projet3.bibliows.config.validation;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Properties;
 
 public class ValidationError {
 

@@ -3,8 +3,6 @@ package com.oc.projet3.biblioclient.service;
 import com.oc.projet3.biblioclient.entity.User;
 import com.oc.projet3.biblioclient.generated.biblio.CreateAccountRequest;
 import com.oc.projet3.biblioclient.generated.biblio.CreateAccountResponse;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.ws.soap.client.SoapFaultClientException;
 

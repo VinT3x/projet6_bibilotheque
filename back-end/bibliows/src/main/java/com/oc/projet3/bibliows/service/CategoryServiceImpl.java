@@ -5,7 +5,6 @@ import com.oc.projet3.bibliows.dao.CategorySpecification;
 import com.oc.projet3.bibliows.entities.Category;
 import com.oc.projet3.bibliows.exceptions.WSException;
 import com.oc.projet3.bibliows.exceptions.WSNotFoundExceptionException;
-
 import com.oc.projet3.gs_ws.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

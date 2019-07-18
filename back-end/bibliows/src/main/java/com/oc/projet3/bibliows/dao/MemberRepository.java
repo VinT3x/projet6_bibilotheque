@@ -1,6 +1,5 @@
 package com.oc.projet3.bibliows.dao;
 
-import com.oc.projet3.bibliows.entities.Book;
 import com.oc.projet3.bibliows.entities.Member;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

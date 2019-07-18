@@ -29,8 +29,6 @@ public class Category {
     @Getter    @Setter
     private String label;
 
-
-
     @OneToMany(mappedBy = "category",
             cascade = CascadeType.ALL,
             orphanRemoval = true)

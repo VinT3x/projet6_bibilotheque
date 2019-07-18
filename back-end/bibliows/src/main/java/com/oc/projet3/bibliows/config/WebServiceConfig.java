@@ -3,7 +3,6 @@ package com.oc.projet3.bibliows.config;
 import com.oc.projet3.bibliows.config.validation.CustomValidatingInterceptor;
 import com.oc.projet3.bibliows.exceptions.DetailSoapFaultDefinitionExceptionResolver;
 import com.oc.projet3.bibliows.exceptions.ServiceFaultException;
-
 import lombok.var;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;

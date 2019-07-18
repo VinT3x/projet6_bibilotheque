@@ -1,6 +1,9 @@
 package com.oc.projet3.bibliows.service;
 
-import com.oc.projet3.bibliows.dao.*;
+import com.oc.projet3.bibliows.dao.BookRepository;
+import com.oc.projet3.bibliows.dao.LendingBookRepository;
+import com.oc.projet3.bibliows.dao.LendingBookSpecification;
+import com.oc.projet3.bibliows.dao.MemberRepository;
 import com.oc.projet3.bibliows.entities.Book;
 import com.oc.projet3.bibliows.entities.LendingBook;
 import com.oc.projet3.bibliows.entities.Member;
@@ -184,9 +187,11 @@ public class LendingBookServiceImpl implements LendingBookService {
         LendingBook lendingBookSearch = new LendingBook();
         lendingBookSearch.setId(request.getIdLending());
         lendingBookSearch.setIscancel(false);
-//        if (request.isCurrent() != null){
-//            lendingBookSearch.setDeliverydate(null);
-//        }
+        if (request.isCurrent()){
+            lendingBookSearch.setDeliverydate(null);
+        }else{
+            lendingBookSearch.setDeliverydate(Calendar.getInstance());
+        }
 
         Book bookSearch = new Book();
         bookSearch.setId(request.getIdBook());
