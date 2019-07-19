@@ -42,10 +42,6 @@ INSERT INTO public.books (book_id, category_id, date_official_release, number_av
 SELECT nextval('books_book_id_seq');
 SELECT currval('books_book_id_seq');
 
-INSERT INTO public.members (member_id, active, email, firstname, lastname, password, role) VALUES (1, true, 'test@test.fr', 'prénom', 'nom', '$2a$10$pLYQ.il6DPoIbwjGbP.wreyFz43GMadt5VWGfx9v.bzkP.WWsEYkm', 'USER');
-SELECT nextval('members_member_id_seq');
-SELECT currval('members_member_id_seq');
-
 INSERT INTO public.categories (category_id, label) VALUES (1, 'Roman');
 INSERT INTO public.categories (category_id, label) VALUES (2, 'Art et Culture');
 INSERT INTO public.categories (category_id, label) VALUES (3, 'Bande dessinée');
