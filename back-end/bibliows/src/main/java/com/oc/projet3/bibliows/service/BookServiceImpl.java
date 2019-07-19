@@ -63,6 +63,10 @@ public class BookServiceImpl implements BookService{
         authorWS.setDateOfDeath(ConvertUtils.convertCalendarToXMLGregorianCalendar(book.getAuthor().getDateOfDeath()));
         bookWS.setAuthor(authorWS);
 
+        CategoryWS categoryWS = new CategoryWS();
+        BeanUtils.copyProperties(book.getCategory(), categoryWS);
+        bookWS.setCategory(categoryWS);
+
         return bookWS;
 
     }
