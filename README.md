@@ -15,7 +15,7 @@ __Installation__
     __Installation et lancement de l'application :__
     
         base de données :
-       - créer une base de données, vous pourrez par exemple la nommer "biblio"
+       - créer une base de données portant le nom "biblio".
        
        installer et démarrer le WS :  
        - télécharger les sources et les dézipper à l'emplacement de votre choix que l'on nommera %REP_INSTALL%
