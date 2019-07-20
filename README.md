@@ -32,6 +32,7 @@ __Installation__
        - se placer à l'emplacement du jar **biblioclient-1.0-SNAPSHOT.jar** généré sous %REP_INSTALL%\biblio\front-end\target\
        - exécuter la commande **java -jar biblioclient-1.0-SNAPSHOT.jar**
        
+       Pour que l'envoi des emails fonctionne, il faudra désactiver votre antivirus.
        
        __configuration__ 
         La configuration a été réalisée pour que l'application (client et WS) fonctionne sur une même machine. Si les l'installation a été réalisée sur plusieurs machines, il faudra modifier la configuration (voir ci-dessous paragraphe configuration). De plus, pour la démonstration, l'envoi des emails de relance a été programmée toutes les 2 minutes. Il est possible de changer la fréquence. Voici quelques exemples de configuration :
