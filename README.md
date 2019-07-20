@@ -16,7 +16,6 @@ __Installation__
       base de données :
        - créer une base de données portant le nom "biblio", avec comme utilisateur propriétaire "postgres" et le mot de passe "admin".
        
-            
        installer et démarrer le WS :  
        - télécharger les sources et les dézipper à l'emplacement de votre choix que l'on nommera %REP_INSTALL%
        
@@ -35,15 +34,14 @@ __Installation__
        
        
        __configuration__ 
-      
-       Par défaut, l'application (client et WS) fonctionne sur une même machine, la configuration n'a pas besoin d'être modifiée. L'envoi de mail de relance est programmé toutes les 2 minutes. Il est possible de changer la fréquence d'envoi, l'expéditeur et autres paramètres.
-       
+        La configuration a été réalisée pour que l'application (client et WS) fonctionne sur une même machine. Si les l'installation a été réalisée sur plusieurs machines, il faudra modifier la configuration (voir ci-dessous paragraphe configuration). De plus, pour la démonstration, l'envoi des emails de relance a été programmée toutes les 2 minutes. Il est possible de changer la fréquence. Voici quelques exemples de configuration :
+   
        Pour le web service, la configuration est sous %REP_INSTALL%\biblio\back-end\bibliows\src\main\resources\application.properties.
-       Ce fichier permet de :
-           Envoi des emails :  - , il est possible de changer la fréquence. Il faut modifier la valeur de la clé app.email.cron
+       Ce fichier permet de paramétrer :
+           les envoi des emails :  - , il est possible de changer la fréquence. Il faut modifier la valeur de la clé app.email.cron
                                - configuration de la messagerie pour l'envoi des emails. Il faut modifier les valeurs des clés app.mail.username, app.mail.password, app.mail.host et app.mail.port
                         
-            Accès à la base de données, voici les clés :
+            l'accès à la base de données, voici les clés :
                 spring.datasource.url = --> exemple de valeur :  jdbc:postgresql://localhost:5432/biblio
                 spring.datasource.username
                 spring.datasource.password
