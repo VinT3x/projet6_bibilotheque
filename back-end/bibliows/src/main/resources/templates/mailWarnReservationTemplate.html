@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<h3 th:text="'Bonjour ' + ${firstname}">Bonjour prénom</h3>
+<p> <span th:text="'Vous avez r&eacute;serv&eacute; le livre ' + ${title} + ', le ' + ${reservationdate} + '.'"></span></p>
+<p>Le livre est disponible.</p>
+<p th:text="'Vous avez ' + ${delayHourForRetrieveBook} +' heures pour le r&eacute;p&eacute;rer &agrave; la biblioth&egrave;que.'"></p>
+<br>
+<p>Bonne journ&eacute;e.</p>
+<p>La biblioth&egrave;que</p>
+
+</body>
+</html>

@@ -1,16 +1,14 @@
 package com.oc.projet3.bibliows.service;
 
+import com.oc.projet3.bibliows.dao.MemberRepository;
 import com.oc.projet3.bibliows.dao.MemberSpecification;
 import com.oc.projet3.bibliows.entities.Member;
-import com.oc.projet3.bibliows.dao.MemberRepository;
 import com.oc.projet3.bibliows.exceptions.WSConnectionException;
 import com.oc.projet3.bibliows.exceptions.WSException;
 import com.oc.projet3.bibliows.security.BiblioUserDetailsService;
 import com.oc.projet3.gs_ws.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -170,5 +167,10 @@ public class MemberServiceImpl implements MemberService{
         }
 
         return response;
+    }
+
+    @Override
+    public Optional<Member> findById(long id){
+        return memberRepository.findById(id);
     }
 }

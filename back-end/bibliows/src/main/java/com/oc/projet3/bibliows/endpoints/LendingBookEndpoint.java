@@ -25,9 +25,9 @@ public class LendingBookEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "lendingBookRequest")
     @ResponsePayload
-    public LendingBookResponse lendingBook(@RequestPayload LendingBookRequest request) throws WSException {
+    public LendingBookResponse addLendingBook(@RequestPayload LendingBookRequest request) throws WSException {
 
-        return lendingBookService.lendingBook(request);
+        return lendingBookService.addLendingBook(request);
 
     }
 
