@@ -112,6 +112,7 @@ public class LendingBookServiceImpl implements LendingBookService {
 
         Calendar calStart = lendingBook.getStartdate();
         Calendar calDeadLine = lendingBook.getDeadlinedate();
+        Calendar calCurrent = Calendar.getInstance();
 
         // calcul de la difference en jour entre la date de fin de pret et la date de debut de prêt
         long diff = calDeadLine.getTime().getTime() - calStart.getTime().getTime();
@@ -120,6 +121,10 @@ public class LendingBookServiceImpl implements LendingBookService {
         // si la date de fin est inférieure à la date de fin initiale + 1 jour (alors on peut ajouter 1 mois)
         if (delay_deadlineDate_startDate > (nb_delayForReservation + 1))
             throw new WSException("Vous ne pouvez étendre la durée du prêt qu'une seule fois !");
+
+        // si la date de fin est passée, on ne peut pas prolonger
+        if (calDeadLine.getTime().getTime() - calCurrent.getTime().getTime() < 0)
+            throw new WSException("La date de fin du prêt est dépassée. Vous ne pouvez pas étendre la durée du prêt !");
 
         calDeadLine.add(GregorianCalendar.DATE, nb_delayForReservation);
         lendingBook.setDeadlinedate(calDeadLine);
