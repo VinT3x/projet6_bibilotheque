@@ -9,6 +9,8 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
+import javax.mail.MessagingException;
+
 @Endpoint
 public class WaitingListEndpoint {
 
@@ -33,7 +35,7 @@ public class WaitingListEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "cancelToWaitingListRequest")
     @ResponsePayload
-    public CancelToWaitingListResponse cancelToWaitingList(@RequestPayload CancelToWaitingListRequest request) throws WSException {
+    public CancelToWaitingListResponse cancelToWaitingList(@RequestPayload CancelToWaitingListRequest request) throws WSException, MessagingException {
 
         return waitingListService.cancelToWaitingList(request);
     }
@@ -43,6 +45,13 @@ public class WaitingListEndpoint {
     public RetrieveToWaitingListResponse retrieveToWaitingList(@RequestPayload RetrieveToWaitingListRequest request) throws WSException {
 
         return waitingListService.retrieveToWaitingList(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "findWaitingListRequest")
+    @ResponsePayload
+    public FindWaitingListResponse findWaitingList(@RequestPayload FindWaitingListRequest request) throws WSException {
+
+        return waitingListService.findWaitingListByUser(request.getEmail());
     }
 
 }

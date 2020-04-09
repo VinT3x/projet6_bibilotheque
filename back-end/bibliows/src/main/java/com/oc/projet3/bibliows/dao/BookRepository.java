@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.repository.query.QueryByExampleExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,10 +24,6 @@ public interface BookRepository extends JpaRepository<Book, Long>, JpaSpecificat
 
     Integer countBooksByAuthor_Id(Long id);
 
+    List<Book> findBooksByNumberAvailableGreaterThan(int nb);
 
-//    List<Book> findBooksByTitleContainsOrIdAndAuthorFullnameContainsOrderByTitle(String title,Long id, String fullname);
-//    List<Book> findBooksByTitleContainsAndIdIs(String title,Long id);
-//
-//    @Query("from Book b where b.title like '%?1%' and b.id ?2")
-//    List<Book> maRequêteAvecQueryDeRechercheParNomEtPrenom(String nom, String prenom);
 }

@@ -30,7 +30,14 @@ public class MailContentBuilder {
         context.setVariable("title", title);
         context.setVariable("startdate", reservationdate);
         context.setVariable("delayHourForRetrieveBook", delayHourForRetrieveBook);
-        return templateEngine.process("mailTemplate", context);
+        return templateEngine.process("mailWarnReservationTemplate", context);
+    }
+
+    public String buildWarnCancelReservation(String firstname, String title) {
+        Context context = new Context();
+        context.setVariable("firstname", firstname);
+        context.setVariable("title", title);
+        return templateEngine.process("mailWarnCancelReservationTemplate", context);
     }
 
 }

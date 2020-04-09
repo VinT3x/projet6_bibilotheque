@@ -1,7 +1,11 @@
 package com.oc.projet3.bibliows.service;
 
+import com.oc.projet3.bibliows.entities.Book;
+import com.oc.projet3.bibliows.entities.LendingBook;
 import com.oc.projet3.bibliows.exceptions.WSException;
 import com.oc.projet3.gs_ws.*;
+
+import javax.mail.MessagingException;
 
 public interface LendingBookService {
     /**
@@ -35,7 +39,7 @@ public interface LendingBookService {
      * @return ReturnLendingBookResponse
      * @throws WSException
      */
-    ReturnLendingBookResponse returnLendingBook(ReturnLendingBookRequest request) throws WSException;
+    ReturnLendingBookResponse returnLendingBook(ReturnLendingBookRequest request) throws WSException, MessagingException;
 
 
     /**
@@ -55,9 +59,11 @@ public interface LendingBookService {
 
     /**
      * Vérifie si le livre est en cours d'emprunt ou pas par un membre donné
-     * @param idBook
-     * @param idMember
-     * @return boolean
+     * @param idBook, id du livre
+     * @param idMember, id du membre
+     * @return LendingBook
      */
-    boolean isAlreadyLentByMember(long idBook, long idMember);
+    LendingBook isAlreadyLentByMember(long idBook, long idMember);
+
+    LendingBook getFirstBookAvailable(Book book);
 }

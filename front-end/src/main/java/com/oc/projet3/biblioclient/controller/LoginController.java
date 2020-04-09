@@ -2,20 +2,14 @@ package com.oc.projet3.biblioclient.controller;
 
 import com.oc.projet3.biblioclient.controller.error.ServerErrorMessage;
 import com.oc.projet3.biblioclient.entity.User;
-import com.oc.projet3.biblioclient.generated.biblio.AuthenticationRequest;
-import com.oc.projet3.biblioclient.generated.biblio.CreateAccountRequest;
-import com.oc.projet3.biblioclient.generated.biblio.FindAccountsRequest;
-import com.oc.projet3.biblioclient.generated.biblio.FindAccountsResponse;
+import com.oc.projet3.biblioclient.generated.biblio.*;
 import com.oc.projet3.biblioclient.service.SOAPConnector;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.ws.soap.client.SoapFaultClientException;
@@ -143,6 +137,31 @@ public class LoginController {
 
         }
         return modelAndView;
+    }
+
+    @PostMapping(value="/user/update/")
+    @ResponseBody
+    public ResponseEntity<?>  updateAccount(@ModelAttribute("user") User user,  @RequestBody(required = false) String password) {
+
+        if (user.getEmail() != null) {
+
+            try {
+                UpdateAccountRequest accountRequest =  new UpdateAccountRequest();
+                accountRequest.setId(user.getIdMember());
+                accountRequest.setEmail(user.getEmail());
+                accountRequest.setPassword(password);
+                soapConnector.callWebService(URI_BIBLIO + "/updateAccount", accountRequest, user);
+                return ResponseEntity.ok().body("Mise à jour réalisée avec succès.");
+
+            } catch (SoapFaultClientException soapFaultClientException) {
+
+                String msg = ServerErrorMessage.getListError(soapFaultClientException).get(0);
+                return ResponseEntity.badRequest().body(msg);
+            }
+
+        } else {
+            return ResponseEntity.badRequest().body("Vous devez vous connecter !");
+        }
     }
 }
 

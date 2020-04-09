@@ -40,6 +40,10 @@ public class Book {
 
     @Column(nullable = false)
     @Getter    @Setter
+    private int numberOfCopiesForReservation;
+
+    @Column(nullable = false)
+    @Getter    @Setter
     private int numberReservationAvailable;
 
     @Column(nullable = false)
@@ -60,5 +64,9 @@ public class Book {
     @JoinColumn(name = "author_id")
     @Getter    @Setter
     private Author author;
+
+    @Column(nullable = true)
+    @Getter    @Setter
+    private Long reservedForMemberId;
 
 }

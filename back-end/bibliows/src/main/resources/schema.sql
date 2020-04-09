@@ -144,6 +144,8 @@ create table if not exists books
             check (number_of_copies >= 1),
     number_of_page integer not null,
     number_reservation_available integer not null,
+    reserved_for_member_id bigint,
+    number_of_copies_for_reservation integer,
     summary varchar(2000) not null,
     title varchar(200) not null,
     author_id bigint
@@ -182,7 +184,7 @@ create table if not exists lendingbook
             primary key,
     deadlinedate date,
     deliverydate date,
-    iscancel boolean not null,
+    canceled boolean not null,
     startdate timestamp,
     book_id bigint
         constraint fk1ep4rrvju3lktf0uuirb3e972
@@ -222,3 +224,5 @@ create table if not exists waiting_list
 );
 
 alter table waiting_list owner to postgres;
+
+create sequence hibernate_sequence;

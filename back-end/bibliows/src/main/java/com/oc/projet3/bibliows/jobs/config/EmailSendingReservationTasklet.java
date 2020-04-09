@@ -1,8 +1,8 @@
 package com.oc.projet3.bibliows.jobs.config;
 
 import com.oc.projet3.bibliows.config.email.MailContentBuilder;
-import com.oc.projet3.bibliows.dao.LendingBookRepository;
 import com.oc.projet3.bibliows.entities.WaitingList;
+import com.oc.projet3.bibliows.service.EmailService;
 import com.oc.projet3.bibliows.service.WaitingListService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,6 +29,8 @@ public class EmailSendingReservationTasklet implements Tasklet {
     @Autowired
     private WaitingListService waitingListService;
     @Autowired
+    private EmailService emailService;
+    @Autowired
     private JavaMailSender emailSender;
     @Autowired
     private MailContentBuilder mailContentBuilder;
@@ -38,14 +40,14 @@ public class EmailSendingReservationTasklet implements Tasklet {
     @Value("${delayHourForRetrieveBook}")
     private int delayHourForRetrieveBook;
 
-    public void sendEmail(){
+    public void reservationWarnBookAvailable() throws MessagingException {
 
-    }
+        List<WaitingList> listWaitingList = waitingListService.findWaitingListCandidateToLendingBook();
 
-
-    public void warnReservationBookAvailable() {
-        WaitingList waitingList = waitingListService.findOlderWaitingListActiveByBookIdAndMemberId();
-
+        for (WaitingList wl: listWaitingList) {
+            // les livres sont disponibles, envoi d'un mail au premier de la liste d'attente
+            emailService.toWarnBookAvailable(wl);
+        }
     }
 
     public void cancelReservation() throws MessagingException {
@@ -54,76 +56,15 @@ public class EmailSendingReservationTasklet implements Tasklet {
 
         for (WaitingList wl: listWaitingList) {
             // màj statut cancelled à true et envoi d'un mail
-            toWarnWaitingListCancelled(waitingListService.cancel(wl));
+            emailService.toWarnWaitingListCancelled(waitingListService.toCancel(wl));
         }
 
     }
 
-
-    public void toWarnBookAvailable(WaitingList wl) throws MessagingException {
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        String to = wl.getMember().getEmail();
-
-        logger.info("Alerte réservation disponible {} pour {}.", to, wl.getBook().getTitle());
-
-        MimeMessage message = emailSender.createMimeMessage();
-
-        boolean multipart = true;
-
-        MimeMessageHelper helper = new MimeMessageHelper(message, multipart, "utf-8");
-
-        String content = mailContentBuilder.buildWarnReservation(
-                wl.getMember().getFirstname(),
-                wl.getBook().getTitle(),
-                dateFormat.format(wl.getReservationDate().getTime()),
-                String.valueOf(delayHourForRetrieveBook));
-
-        message.setContent(content, "text/html");
-
-        helper.setTo(to);
-
-        String buffer = "Le livre " +
-                wl.getBook().getTitle() +
-                " est disponible";
-        helper.setSubject(buffer);
-
-        this.emailSender.send(message);
-    }
-
-    public void toWarnWaitingListCancelled(WaitingList wl) throws MessagingException {
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        String to = wl.getMember().getEmail();
-
-        logger.info("Alerte réservation disponible {} pour {}.", to, wl.getBook().getTitle());
-
-        MimeMessage message = emailSender.createMimeMessage();
-
-        boolean multipart = true;
-
-        MimeMessageHelper helper = new MimeMessageHelper(message, multipart, "utf-8");
-
-        String content = mailContentBuilder.buildWarnReservation(
-                wl.getMember().getFirstname(),
-                wl.getBook().getTitle(),
-                dateFormat.format(wl.getReservationDate().getTime()),
-                String.valueOf(delayHourForRetrieveBook));
-
-        message.setContent(content, "text/html");
-
-        helper.setTo(to);
-
-        String buffer = "Le livre " +
-                wl.getBook().getTitle() +
-                " est disponible";
-        helper.setSubject(buffer);
-
-        this.emailSender.send(message);
-    }
-
-
     @Override
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-        sendEmail();
+        cancelReservation();
+        reservationWarnBookAvailable();
         return null;
     }
 }

@@ -1,5 +1,4 @@
 /target/
-/logs/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
@@ -25,3 +24,5 @@
 /nbdist/
 /.nb-gradle/
 src/main/generated-java/
+src/main/java/META-INF/
+src/main/java/com/oc/projet3/biblioclient/generated/

@@ -416,6 +416,23 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:element name="findWaitingListRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="email" type="tns:ValidateEmail" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="findWaitingListResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="waitingList" type="tns:waitingListWS" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
     <xs:complexType name="memberWS">
         <xs:sequence>
             <xs:element name="id" type="xs:long"/>
@@ -434,6 +451,8 @@
             <xs:element name="numberOfPage" type="xs:int"/>
             <xs:element name="numberOfCopies" type="xs:int"/>
             <xs:element name="numberAvailable" type="xs:int"/>
+            <xs:element name="numberReserved" type="xs:int"/>
+            <xs:element name="firstLoanDeadLineDate" type="xs:date" minOccurs="0"/>
             <xs:element name="author" type="tns:authorWS"/>
             <xs:element name="category" type="tns:categoryWS"/>
             <xs:element name="lendingBooks" type="tns:lendingBookWS" minOccurs="0" maxOccurs="unbounded" />

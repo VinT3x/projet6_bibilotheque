@@ -9,7 +9,6 @@ import com.oc.projet3.bibliows.entities.LendingBook;
 import com.oc.projet3.bibliows.entities.Member;
 import com.oc.projet3.bibliows.entities.WaitingList;
 import com.oc.projet3.bibliows.exceptions.WSException;
-import com.oc.projet3.bibliows.jobs.config.EmailSendingReservationTasklet;
 import com.oc.projet3.gs_ws.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,30 +30,24 @@ import java.util.*;
 @Transactional("transactionManager")
 public class LendingBookServiceImpl implements LendingBookService {
     private static Logger logger = LogManager.getLogger(LendingBookServiceImpl.class);
-    private final LendingBookRepository lendingBookRepository;
-    private final BookRepository bookRepository;
-    private final MemberRepository memberRepository;
-    private final WaitingListService waitingListService;
-    private final EmailSendingReservationTasklet emailSendingReservationTasklet;
+
+    @Autowired
+    LendingBookRepository lendingBookRepository;
+    @Autowired
+    BookRepository bookRepository;
+    @Autowired
+    MemberRepository memberRepository;
+    @Autowired
+    WaitingListService waitingListService;
+    @Autowired
+    EmailService emailService;
 
     // application.properties get delay day for a book's reservation
     @Value("${delayDay_reserveBook:0}")
     int delayForReservation;
 
-    @Value("${delayHourForRetrieveBook:0}")
-    int delayHourForRetrieveBook;
-    // Le prêt commence tout de suite
-    Calendar calendar = Calendar.getInstance();
     private ServiceStatus serviceStatus = new ServiceStatus();
 
-    @Autowired
-    public LendingBookServiceImpl(LendingBookRepository lendingBookRepository, BookRepository bookRepository, MemberRepository memberRepository, WaitingListService waitingListService, EmailSendingReservationTasklet emailSendingReservationTasklet) {
-        this.lendingBookRepository = lendingBookRepository;
-        this.bookRepository = bookRepository;
-        this.memberRepository = memberRepository;
-        this.waitingListService = waitingListService;
-        this.emailSendingReservationTasklet = emailSendingReservationTasklet;
-    }
 
     @Override
     public LendingBookResponse addLendingBook(LendingBookRequest request) throws WSException {
@@ -73,26 +66,26 @@ public class LendingBookServiceImpl implements LendingBookService {
 
     @Override
     public LendingBookWS createLendingBook(long bookId, long memberId) throws WSException {
-        Optional<Book> bookToLendOptional = bookRepository.findById(bookId);
-        if (!bookToLendOptional.isPresent())
-            throw new WSException("Ce livre n'est pas disponible !");
+        Book bookToLend = bookRepository.findById(bookId)
+                .orElseThrow(() -> new WSException("Ce livre n'est pas disponible !"));
 
-        Optional<Member> memberOptional = memberRepository.findById(memberId);
-        if (!memberOptional.isPresent())
-            throw new WSException("Cet utilisateur n'existe pas !");
+        Member member = memberRepository.findById(memberId).
+                orElseThrow(() -> new WSException("Cet utilisateur n'existe pas !"));
 
         if (lendingBookRepository.countReservedBookByBookIdAndMemberId(bookId, memberId) > 0)
             throw new WSException("Vous avez déjà emprunté ce livre !");
 
-        Book bookToLend = bookToLendOptional.get();
+        if (waitingListService.getOnWaitingListActiveByBookIdAndMemberId(bookToLend, member).isPresent()){
+            throw new  WSException("Vous êtes sur liste d'attente !");
+        }
 
         if (bookToLend.getNumberAvailable() == 0)
             throw new WSException("Ce livre n'est pas disponible !");
 
         LendingBook lendingBook = new LendingBook();
         lendingBook.setBook(bookToLend);
-        lendingBook.setMember(memberOptional.get());
-        lendingBook.setIscancel(false);
+        lendingBook.setMember(member);
+        lendingBook.setCanceled(false);
 
         // Le prêt commence tout de suite
         Calendar calendar = Calendar.getInstance();
@@ -153,7 +146,7 @@ public class LendingBookServiceImpl implements LendingBookService {
     }
 
     @Override
-    public ReturnLendingBookResponse returnLendingBook(ReturnLendingBookRequest request) throws WSException {
+    public ReturnLendingBookResponse returnLendingBook(ReturnLendingBookRequest request) throws WSException, MessagingException {
 
         ReturnLendingBookResponse response = new ReturnLendingBookResponse();
 
@@ -164,20 +157,20 @@ public class LendingBookServiceImpl implements LendingBookService {
         lendingBook.setDeliverydate(Calendar.getInstance());
         lendingBookRepository.save(lendingBook);
 
-        // alert first reservation
-        waitingListService.findOlderWaitingListActiveByBookIdAndMemberId(lendingBook.getBook().getId(), lendingBook.getMember().getId())
-                .ifPresent(waitingList -> {
-                    try {
-                        setAlertReservation(waitingList);
-                        emailSendingReservationTasklet.toWarnBookAvailable(waitingList, delayHourForRetrieveBook);
-                    } catch (MessagingException e) {
-                        e.printStackTrace();
-                    }
-                });
-
-
         // update number of copies available
         Book book = lendingBook.getBook();
+
+        // alert first reservation
+        WaitingList wl = waitingListService.findOlderWaitingListActiveByBook(lendingBook.getBook());
+        if (wl != null){
+            waitingListService.setAlertReservation(wl);
+            emailService.toWarnBookAvailable(wl);
+            waitingListService.toCancel(wl);
+            book.setReservedForMemberId(wl.getMember().getId());
+        }else{
+            book.setReservedForMemberId(null);
+        }
+
         book.setNumberAvailable(book.getNumberAvailable() + 1);
         bookRepository.save(book);
 
@@ -191,18 +184,8 @@ public class LendingBookServiceImpl implements LendingBookService {
         return response;
     }
 
-    private void cancelReservation(WaitingList wlTocancel){
-        wlTocancel.setCanceled(true);
-        waitingListService.persist(wlTocancel);
-    }
 
-    private void setAlertReservation(WaitingList wl){
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        calendar.add(Calendar.HOUR_OF_DAY,delayHourForRetrieveBook);
-        wl.setAlertDate(calendar);
-        waitingListService.persist(wl);
-    }
+
 
     //convert entities entity to ws entity
     private LendingBookWS convertLendingBookToLendingBookWS(LendingBook lendingBook) {
@@ -228,7 +211,7 @@ public class LendingBookServiceImpl implements LendingBookService {
 
         LendingBook lendingBookSearch = new LendingBook();
         lendingBookSearch.setId(request.getIdLending());
-        lendingBookSearch.setIscancel(false);
+        lendingBookSearch.setCanceled(false);
         if (request.isCurrent()) {
             lendingBookSearch.setDeliverydate(null);
         } else {
@@ -278,14 +261,14 @@ public class LendingBookServiceImpl implements LendingBookService {
 
 
         // update boolean cancel
-        lendingBook.setIscancel(true);
+        lendingBook.setCanceled(true);
         lendingBook.setDeliverydate(Calendar.getInstance());
         lendingBookRepository.save(lendingBook);
 
         serviceStatus.setStatusCode("SUCCESS");
         serviceStatus.setMessage("Prêt annulé !");
 
-        logger.info("Prêt " + lendingBook.getId() + " annulé.");
+        logger.info("Prêt {} annulé.",lendingBook.getId());
 
         response.setServiceStatus(serviceStatus);
 
@@ -293,8 +276,15 @@ public class LendingBookServiceImpl implements LendingBookService {
     }
 
     @Override
-    public boolean isAlreadyLentByMember(long idBook, long idMember) {
-        return lendingBookRepository.existsLendingBookByBookIdAndMemberIdAndDeliverydateIsNull(idBook, idMember);
+    public LendingBook isAlreadyLentByMember(long idBook, long idMember) {
+        Book book = bookRepository.getBookById(idBook);
+        Member member = memberRepository.getOne(idMember);
+        return lendingBookRepository.findLendingBookByBookAndMemberAndDeliverydateIsNull(book, member);
+    }
+
+    @Override
+    public LendingBook getFirstBookAvailable(Book book) {
+        return lendingBookRepository.getFirstByDeadline(book);
     }
 
 }
