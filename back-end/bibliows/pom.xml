@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.oc.projet3</groupId>
     <artifactId>bibliows</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <packaging>jar</packaging>
     <name>bibliows</name>
     <description>Gestion de bibliotheques</description>
@@ -79,7 +79,7 @@
             <artifactId>hibernate-core</artifactId>
             <version>5.2.10.Final</version>
         </dependency>
-<!--SECURITE-->
+        <!--SECURITE-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
@@ -92,7 +92,7 @@
             <artifactId>httpclient</artifactId>
             <version>${httpclient.version}</version>
         </dependency>
-<!--BATCH-->
+        <!--BATCH-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-batch</artifactId>
@@ -107,7 +107,7 @@
             <artifactId>spring-context</artifactId>
             <version>5.1.4.RELEASE</version>
         </dependency>
-<!--EMAIL-->
+        <!--EMAIL-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>

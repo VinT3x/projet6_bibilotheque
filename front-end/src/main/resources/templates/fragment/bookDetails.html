@@ -1,0 +1,42 @@
+<div xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <div class="modal fade" id="getBookDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: ghostwhite">
+                    <h5 class="modal-title" id="bookTitle"></h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" id="getCode" style="background-color: ghostwhite">
+
+                    <b>nombre de page</b>
+                    <p id="bookNumberOfPage"></p>
+                    <b id="bookNumberAvailableLabel"></b>
+                    <p id="bookNumberAvailable"></p>
+                    <b id="bookNumberOnWaitingListLabel"></b>
+                    <p id="bookNumberOnWaitingList"></p>
+                    <b id="bookFirstLoanDeadLineDateLabel"></b>
+                    <p id="bookFirstLoanDeadLineDate"></p>
+                    <b>date de publication</b>
+                    <p id="bookDateOfficialRelease"></p>
+                    <b>résumé</b>
+                    <p id="bookSummary"></p>
+                </div>
+                <div class="modal-footer" style="background-color: ghostwhite">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-primary btn-block" th:text="Réserver" id="btnLoan" data-dismiss="modal">Register User</button>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="getBookDetailsCodeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body" id="getBookDetailsCode" style="background-color: antiquewhite"></div>
+        </div>
+    </div>
+</div>

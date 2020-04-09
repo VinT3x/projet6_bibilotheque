@@ -19,4 +19,6 @@ public interface MemberService {
     FindAccountsResponse findAccount(FindAccountsRequest request);
 
     Optional<Member> findById(long id);
+
+    Optional<Member> findByEmail(String email);
 }

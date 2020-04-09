@@ -1,9 +1,9 @@
 package com.oc.projet3.biblioclient.config;
 
-import javax.xml.transform.Source;
-
 import org.springframework.ws.WebServiceMessage;
 import org.springframework.ws.client.support.interceptor.AbstractValidatingInterceptor;
+
+import javax.xml.transform.Source;
 
 public class PayloadValidatingInterceptor extends AbstractValidatingInterceptor {
 

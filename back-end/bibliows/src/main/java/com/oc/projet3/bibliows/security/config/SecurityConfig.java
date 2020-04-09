@@ -19,7 +19,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableWebSecurity(debug = true)
+//@EnableWebSecurity(debug = false)
+@EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true,jsr250Enabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -54,19 +55,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity
-        .httpBasic()
+                .httpBasic()
                 .and()
                 .authorizeRequests().antMatchers("/anonymous/**").permitAll()
                 .and()
                 .authorizeRequests().antMatchers(HttpMethod.GET,"/ws/wsBooks.wsdl").permitAll()
                 .and()
                 .authorizeRequests().antMatchers(HttpMethod.POST,"/ws/**").hasAuthority("USER")
-//                .authorizeRequests().antMatchers("/ws/**").permitAll()
-//                .authorizeRequests().antMatchers(HttpMethod.POST, "/ws/createAuthor", "/ws/createAuthorRequest", "/ws/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable().headers().frameOptions().disable();
-;
+        ;
         httpSecurity.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
         httpSecurity.formLogin().successHandler(authenticationSuccessHandler);
         httpSecurity.formLogin().failureHandler(authenticationFailureHandler);
@@ -86,4 +85,3 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 }
-

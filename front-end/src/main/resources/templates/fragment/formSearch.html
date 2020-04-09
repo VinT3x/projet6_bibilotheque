@@ -4,14 +4,13 @@
         <div class="form-group row h-100 justify-content-center align-items-center" >
             <form action="#" class="form-inline" method="get">
                 <legend  class="w-auto">
-                    <h6>Recherche :</h6>
                     <div class="col-xs-5">
                         <input class="form-control" type="text" name="TitleContains" id="TitleContains" placeholder="titre"/>
                         <input class="form-control" type="text" name="fullnameAuthorContains" id="fullnameAuthorContains" placeholder="nom"/>
                         <span th:if="${categories} != null">
                             <select class=form-control id="category">
-                                <option value="TOUS">choix de la catégorie</option>
-                                <option th:each="category : ${categories}" th:value="${category}" th:text="${category}"></option>
+                                <option value=0>choix de la catégorie</option>
+                                <option th:each="category : ${categories}" th:value="${category.getId()}" th:text="${category.getLabel()}"></option>
                             </select>
                         </span>
                         <a class="btn btn-xs btn-primary" href="#" role="button" id="clk_search">Rechercher</a>

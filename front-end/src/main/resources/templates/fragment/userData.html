@@ -1,0 +1,118 @@
+<div xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+    <div class="modal fade" id="getUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: ghostwhite">
+                    <h5 class="modal-title">Mes données personnelles</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" id="getCode" style="background-color: ghostwhite">
+                    <div class="container">
+                        <form autocomplete="off" action="#" method="post" role="form">
+                            <table border="0">
+                                <tr>
+                                    <td>Nom</td>
+                                    <td th:text="${user.getLastname()}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Prénom</td>
+                                    <td th:text="${user.getFirstname()}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td th:text="${user.getEmail()}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Mot de passe</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="password" name="password" id="password"
+                                               placeholder="changer" class="form-control input-sm" />
+                                    </td>
+                                    <td>
+                                        <input type="password" name="passwordConfirm" id="passwordConfirm"
+                                         placeholder="confirmer" class="form-control input-sm" />
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer" style="background-color: ghostwhite">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-primary btn-block" th:text="Enregistrer" th:onclick="'updateAccount()'">Register User</button>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="getUserCodeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body" id="getUserCode" style="background-color: antiquewhite"></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function updateAccount() {
+        if($("#password").val() !== $("#passwordConfirm").val()) {
+            $("#getUserCode").html('Le mot de passe et sa confirmation ne sont pas identiques'.fontcolor("red"));
+            $("#getUserCodeModal").modal('show');
+
+
+            setTimeout(function () {
+                $('#getUserCodeModal').modal('hide')
+            }, 2000);
+        }else if ($("#password").val() === ''){
+            $("#getUserCode").html('Veuillez saisir un nouveau de passe ou cliquez sur le bouton "fermer"'.fontcolor("red"));
+            $("#getUserCodeModal").modal('show');
+
+
+            setTimeout(function () {
+                $('#getUserCodeModal').modal('hide')
+            }, 2000);
+        }else{
+            $.ajax({
+                type: 'POST',
+                url : "/user/update/",
+                data: $("#password").val(),
+                contentType : 'text/plain', // This was added to delete the =
+                success: function(response){
+                    $("#getUserCode").html(response.fontcolor("green"));
+                    $("#getUserCodeModal").modal('show');
+
+                    setTimeout(function(){
+                        $('#getUserCodeModal').modal('hide')
+                    }, 2000);
+
+                    setTimeout(function(){
+                        $('#getUserModal').modal('hide')
+                    }, 2000);
+                },
+                error: function (data) {
+                    $("#getUserCode").html(data.responseText.fontcolor("red"));
+                    $("#getUserCodeModal").modal('show');
+
+
+                    setTimeout(function(){
+                        $('#getUserCodeModal').modal('hide')
+                    }, 2000);
+                }
+            });
+        }
+
+
+
+    }
+</script>

@@ -41,32 +41,6 @@ public class ConvertUtils {
         return authorWS;
 
     }
-//
-//    BookingWS convertBookingToBookingWS(Booking booking){
-//        if(booking != null){
-//            BookingWS bookingWS = new BookingWS();
-//            BeanUtils.copyProperties(booking,bookingWS);
-//
-//            // convert calendar to gregorian calendar
-//            bookingWS.setStartdate(convertCalendarToXMLGregorianCalendar(booking.getStartdate()));
-//            bookingWS.setDeadlinedate(convertCalendarToXMLGregorianCalendar(booking.getDeadlinedate()));
-//            bookingWS.setDeliverydate(convertCalendarToXMLGregorianCalendar(booking.getDeliverydate()));
-//            return bookingWS;
-//        }else{
-//            return null;
-//        }
-//
-//    }
-//
-//    MemberWS convertAccountToAccountWS(Member member){
-//        if(member != null){
-//            MemberWS memberWS = new MemberWS();
-//            BeanUtils.copyProperties(member,memberWS);
-//            return memberWS;
-//        }else{
-//            return null;
-//        }
-//    }
 
     BookWS convertBookToBookWS(Book book){
         BookWS bookWS = new BookWS();
@@ -107,7 +81,7 @@ public class ConvertUtils {
         if (calendar!=null){
             // convert calendar to gregorian calendar
             XMLGregorianCalendar xmlGregorianCalendar = null;
-            String FORMATER = "yyyy-MM-dd";
+            final String FORMATER = "yyyy-MM-dd";
 
             DateFormat format = new SimpleDateFormat(FORMATER);
 
@@ -122,15 +96,5 @@ public class ConvertUtils {
             return null;
         }
     }
-
-//    protected Calendar convertXMLGregorianCalendarToCalendar(XMLGregorianCalendar xmlGregorianCalendar)
-//    {
-//        Calendar calendar = null;
-//        if (xmlGregorianCalendar != null)
-//            return xmlGregorianCalendar.toGregorianCalendar();
-//        else {
-//            throw new FormatDateException();
-//        }
-//    }
 
 }

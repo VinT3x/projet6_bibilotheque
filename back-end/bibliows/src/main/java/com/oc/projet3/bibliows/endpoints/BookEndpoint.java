@@ -1,6 +1,7 @@
 package com.oc.projet3.bibliows.endpoints;
 
 import com.oc.projet3.bibliows.exceptions.WSException;
+import com.oc.projet3.bibliows.exceptions.WSNotFoundExceptionException;
 import com.oc.projet3.bibliows.service.BookService;
 import com.oc.projet3.gs_ws.*;
 
@@ -50,7 +51,7 @@ public class BookEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "findBooksRequest")
     @ResponsePayload
-    public FindBooksResponse FindBooks(@RequestPayload FindBooksRequest request){
+    public FindBooksResponse FindBooks(@RequestPayload FindBooksRequest request) throws WSNotFoundExceptionException {
 
         return bookService.findBooks(request);
 

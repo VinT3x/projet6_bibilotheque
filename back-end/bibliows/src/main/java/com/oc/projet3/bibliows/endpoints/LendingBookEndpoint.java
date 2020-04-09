@@ -10,6 +10,8 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
+import javax.mail.MessagingException;
+
 @Endpoint
 public class LendingBookEndpoint {
 
@@ -33,7 +35,7 @@ public class LendingBookEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "returnLendingBookRequest")
     @ResponsePayload
-    public ReturnLendingBookResponse returnLendingBook(@RequestPayload ReturnLendingBookRequest request) throws WSException {
+    public ReturnLendingBookResponse returnLendingBook(@RequestPayload ReturnLendingBookRequest request) throws WSException, MessagingException {
 
         return lendingBookService.returnLendingBook(request);
     }

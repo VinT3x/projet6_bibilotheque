@@ -1,7 +1,12 @@
 package com.oc.projet3.bibliows.service;
 
+import com.oc.projet3.bibliows.entities.Book;
 import com.oc.projet3.bibliows.exceptions.WSException;
+import com.oc.projet3.bibliows.exceptions.WSNotFoundExceptionException;
 import com.oc.projet3.gs_ws.*;
+
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Livre WS
@@ -38,5 +43,16 @@ public interface BookService {
      * @param request
      * @return FindBooksResponse
      */
-    FindBooksResponse findBooks(FindBooksRequest request);
+    FindBooksResponse findBooks(FindBooksRequest request) throws WSNotFoundExceptionException;
+
+    List<Book> findBookAvailableToLoan();
+
+    /**
+     *  récupérer un livre par son id
+     * @param id
+     * @return Book
+     */
+    Optional<Book> findById(long id);
+
+    Book persist(Book book);
 }
