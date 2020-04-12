@@ -32,11 +32,10 @@ import java.util.Optional;
 @Transactional("transactionManager")
 public class AuthorServiceImpl implements AuthorService {
 
+    private static Logger logger = LogManager.getLogger(AuthorServiceImpl.class);
     private BookRepository bookRepository;
     private AuthorRepository authorRepository;
     private ServiceStatus serviceStatus = new ServiceStatus();
-
-    private static Logger logger = LogManager.getLogger(AuthorServiceImpl.class);
 
 
     @Autowired
@@ -47,10 +46,11 @@ public class AuthorServiceImpl implements AuthorService {
 
     /**
      * Conversion de l'entité Author en AuthorWS
+     *
      * @param author
      * @return AuthorWS
      */
-    private AuthorWS authorToAuthorWS(Author author){
+    private AuthorWS authorToAuthorWS(Author author) {
 
         AuthorWS authorWS = new AuthorWS();
         BeanUtils.copyProperties(author, authorWS);
@@ -75,8 +75,8 @@ public class AuthorServiceImpl implements AuthorService {
             throw new WSAlreadyExistException("Cet auteur existe déjà !");
 
         Calendar dateOfDeath = null;
-        if(request.getDateOfDeath()!= null){
-            dateOfDeath=request.getDateOfDeath().toGregorianCalendar();
+        if (request.getDateOfDeath() != null) {
+            dateOfDeath = request.getDateOfDeath().toGregorianCalendar();
         }
 
         Author author = new Author(
@@ -86,7 +86,7 @@ public class AuthorServiceImpl implements AuthorService {
                 request.getNationality()
         );
 
-        authorRepository.save(author);
+        author = authorRepository.save(author);
 
         // convertion en AuthorWS
         response.setAuthor(authorToAuthorWS(author));
@@ -120,14 +120,14 @@ public class AuthorServiceImpl implements AuthorService {
         Calendar dateOfBirth;
         if (request.getDateOfBirth() != null) {
             dateOfBirth = ConvertUtils.convertXMLGregorianCalendarToCalendar(request.getDateOfBirth());
-         } else {
+        } else {
             dateOfBirth = author.getDateOfBirth();
         }
 
         Author authorToFind = authorRepository.findAuthorsByFullnameAndDateOfBirth(fullname, dateOfBirth);
 
 
-        if (authorToFind != null && (! authorToFind.getId().equals(author.getId())) )
+        if (authorToFind != null && (!authorToFind.getId().equals(author.getId())))
             throw new WSAlreadyExistException("L'auteur " + request.getFullname() + " existe déjà !");
 
         author.setFullname(fullname);
@@ -158,14 +158,14 @@ public class AuthorServiceImpl implements AuthorService {
 
         Optional<Author> authorToFind = authorRepository.findById(request.getId());
 
-        if (! authorToFind.isPresent())
+        if (!authorToFind.isPresent())
             throw new WSNotFoundExceptionException("L'auteur n'existe pas !");
 
-        if (bookRepository.countBooksByAuthor_Id(request.getId()) == 0){
+        if (bookRepository.countBooksByAuthor_Id(request.getId()) == 0) {
             authorRepository.delete(authorToFind.get());
             serviceStatus.setStatusCode("SUCCESS");
             serviceStatus.setMessage("Author deleted Successfully");
-        }else{
+        } else {
             serviceStatus.setStatusCode("FAILED");
             serviceStatus.setMessage("Author associated with book");
         }
@@ -194,7 +194,7 @@ public class AuthorServiceImpl implements AuthorService {
 
         List<Author> authorList = authorRepository.findAll(authorSpecification);
 
-        for (Author author: authorList) {
+        for (Author author : authorList) {
             response.getAuthors().add(authorToAuthorWS(author));
         }
 
