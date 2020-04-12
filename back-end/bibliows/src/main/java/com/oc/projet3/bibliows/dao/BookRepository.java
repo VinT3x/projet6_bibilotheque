@@ -24,10 +24,6 @@ public interface BookRepository extends JpaRepository<Book, Long>, JpaSpecificat
 
     Integer countBooksByAuthor_Id(Long id);
 
+    List<Book> findBooksByNumberAvailableGreaterThan(int nb);
 
-//    List<Book> findBooksByTitleContainsOrIdAndAuthorFullnameContainsOrderByTitle(String title,Long id, String fullname);
-//    List<Book> findBooksByTitleContainsAndIdIs(String title,Long id);
-//
-//    @Query("from Book b where b.title like '%?1%' and b.id ?2")
-//    List<Book> maRequêteAvecQueryDeRechercheParNomEtPrenom(String nom, String prenom);
 }

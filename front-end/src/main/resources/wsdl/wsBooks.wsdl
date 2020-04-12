@@ -1,906 +1,1078 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://oc.com/projet3/bibliows/service/biblio-producing-web-service" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://oc.com/projet3/bibliows/biblio-producing-web-service" targetNamespace="http://oc.com/projet3/bibliows/biblio-producing-web-service">
-  <wsdl:types>
-    <xs:schema xmlns:tns="http://oc.com/projet3/bibliows/service/biblio-producing-web-service" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">
-    <!--AUTHOR-->
-    <xs:element name="findAuthorsRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element minOccurs="0" name="id" type="xs:long"/>
-                <xs:element minOccurs="0" name="dateOfBirth" type="xs:date"/>
-                <xs:element minOccurs="0" name="dateOfDeath" type="xs:date"/>
-                <xs:element minOccurs="0" name="fullname" type="xs:string"/>
-                <xs:element minOccurs="0" name="nationality" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
+    <wsdl:types>
+        <xs:schema xmlns:tns="http://oc.com/projet3/bibliows/service/biblio-producing-web-service" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">
+            <!--AUTHOR-->
+            <xs:element name="findAuthorsRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="id" type="xs:long"/>
+                        <xs:element minOccurs="0" name="dateOfBirth" type="xs:date"/>
+                        <xs:element minOccurs="0" name="dateOfDeath" type="xs:date"/>
+                        <xs:element minOccurs="0" name="fullname" type="xs:string"/>
+                        <xs:element minOccurs="0" name="nationality" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
 
-    <xs:element name="findAuthorsResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element maxOccurs="unbounded" minOccurs="0" name="authors" type="tns:authorWS"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
+            <xs:element name="findAuthorsResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="authors" type="tns:authorWS"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
 
-    <xs:element name="updateAuthorRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="id" type="xs:long"/>
-                <xs:element minOccurs="0" name="dateOfBirth" type="xs:date"/>
-                <xs:element minOccurs="0" name="dateOfDeath" type="xs:date"/>
-                <xs:element minOccurs="0" name="fullname" type="tns:NonEmptyString"/>
-                <xs:element minOccurs="0" name="nationality" type="tns:NonEmptyString"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
+            <xs:element name="updateAuthorRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="id" type="xs:long"/>
+                        <xs:element minOccurs="0" name="dateOfBirth" type="xs:date"/>
+                        <xs:element minOccurs="0" name="dateOfDeath" type="xs:date"/>
+                        <xs:element minOccurs="0" name="fullname" type="tns:NonEmptyString"/>
+                        <xs:element minOccurs="0" name="nationality" type="tns:NonEmptyString"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
 
-    <xs:element name="updateAuthorResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="author" type="tns:authorWS"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
+            <xs:element name="updateAuthorResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="author" type="tns:authorWS"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
 
-    <xs:element name="deleteAuthorRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="id" type="xs:long"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
+            <xs:element name="deleteAuthorRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="id" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
 
-    <xs:element name="deleteAuthorResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
+            <xs:element name="deleteAuthorResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
 
-    <xs:element name="createAuthorRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="dateOfBirth" type="xs:date"/>
-                <xs:element minOccurs="0" name="dateOfDeath" type="xs:date"/>
-                <xs:element name="fullname" type="tns:NonEmptyString"/>
-                <xs:element name="nationality" type="tns:NonEmptyString"/>
-            </xs:sequence>
+            <xs:element name="createAuthorRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="dateOfBirth" type="xs:date"/>
+                        <xs:element minOccurs="0" name="dateOfDeath" type="xs:date"/>
+                        <xs:element name="fullname" type="tns:NonEmptyString"/>
+                        <xs:element name="nationality" type="tns:NonEmptyString"/>
+                    </xs:sequence>
 
-        </xs:complexType>
+                </xs:complexType>
 
-    </xs:element>
+            </xs:element>
 
-    <xs:element name="createAuthorResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="author" type="tns:authorWS"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="createAuthorSoapHeaders">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="clientId" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-
-    <!--ACCOUNT-->
-    <xs:element name="findAccountsRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element minOccurs="0" name="id" type="xs:long"/>
-                <xs:element minOccurs="0" name="email" type="xs:string"/>
-                <xs:element minOccurs="0" name="firstname" type="xs:string"/>
-                <xs:element minOccurs="0" name="lastname" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="findAccountsResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element maxOccurs="unbounded" minOccurs="0" name="members" type="tns:memberWS"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="deleteAccountRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="id" type="xs:long"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="deleteAccountResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="updateAccountRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="id" type="xs:long"/>
-                <xs:element minOccurs="0" name="email" type="tns:ValidateEmail"/>
-                <xs:element minOccurs="0" name="firstname" type="tns:NonEmptyString"/>
-                <xs:element minOccurs="0" name="lastname" type="tns:NonEmptyString"/>
-                <xs:element minOccurs="0" name="password" type="tns:ValidatePassword"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="updateAccountResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="member" type="tns:memberWS"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <!--BOOK-->
-    <xs:element name="findBooksRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element minOccurs="0" name="id" type="xs:long"/>
-                <xs:element minOccurs="0" name="title" type="xs:string"/>
-                <xs:element minOccurs="0" name="fullname" type="xs:string"/>
-                <xs:element minOccurs="0" name="categoryId" type="xs:long"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="findBooksResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element maxOccurs="unbounded" minOccurs="0" name="books" type="tns:bookWS"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
+            <xs:element name="createAuthorResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="author" type="tns:authorWS"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="createAuthorSoapHeaders">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="clientId" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
 
 
-    <xs:element name="createBookRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="title" type="tns:NonEmptyString"/>
-                <xs:element name="summary" type="xs:string"/>
-                <xs:element name="numberOfPage" type="tns:PositiveInteger"/>
-                <xs:element name="dateOfficialRelease" type="xs:date"/>
-                <xs:element name="numberOfCopies" type="tns:PositiveInteger"/>
-                <xs:element name="authorId" type="xs:long"/>
-                <xs:element name="categoryId" type="xs:long"/>
-            </xs:sequence>
+            <!--ACCOUNT-->
+            <xs:element name="findAccountsRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="id" type="xs:long"/>
+                        <xs:element minOccurs="0" name="email" type="xs:string"/>
+                        <xs:element minOccurs="0" name="firstname" type="xs:string"/>
+                        <xs:element minOccurs="0" name="lastname" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
 
-        </xs:complexType>
+            <xs:element name="findAccountsResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="members" type="tns:memberWS"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
 
-    </xs:element>
+            <xs:element name="deleteAccountRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="id" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
 
-    <xs:element name="createBookResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="book" type="tns:bookWS"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
+            <xs:element name="deleteAccountResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="updateAccountRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="id" type="xs:long"/>
+                        <xs:element minOccurs="0" name="email" type="tns:ValidateEmail"/>
+                        <xs:element minOccurs="0" name="firstname" type="tns:NonEmptyString"/>
+                        <xs:element minOccurs="0" name="lastname" type="tns:NonEmptyString"/>
+                        <xs:element minOccurs="0" name="password" type="tns:ValidatePassword"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
 
-    <xs:element name="updateBookRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="id" type="xs:positiveInteger"/>
-                <xs:element minOccurs="0" name="title" type="tns:NonEmptyString"/>
-                <xs:element minOccurs="0" name="summary" type="xs:string"/>
-                <xs:element minOccurs="0" name="numberOfPage" type="tns:PositiveInteger"/>
-                <xs:element minOccurs="0" name="dateOfficialRelease" type="xs:date"/>
-                <xs:element minOccurs="0" name="numberOfcopies" type="xs:int"/>
-                <xs:element minOccurs="0" name="authorId" type="xs:positiveInteger"/>
-                <xs:element minOccurs="0" name="categoryId" type="xs:long"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
+            <xs:element name="updateAccountResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="member" type="tns:memberWS"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
 
-    <xs:element name="updateBookResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="book" type="tns:bookWS"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="deleteBookRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="id" type="xs:long"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
+            <!--BOOK-->
+            <xs:element name="findBooksRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="id" type="xs:long"/>
+                        <xs:element minOccurs="0" name="title" type="xs:string"/>
+                        <xs:element minOccurs="0" name="fullname" type="xs:string"/>
+                        <xs:element minOccurs="0" name="categoryId" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
 
-    <xs:element name="deleteBookResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <!--Category-->
-    <xs:element name="createCategoryRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="label" type="tns:NonEmptyString"/>
-            </xs:sequence>
-        </xs:complexType>
-
-    </xs:element>
-
-    <xs:element name="createCategoryResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="category" type="tns:categoryWS"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="updateCategoryRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="id" type="xs:positiveInteger"/>
-                <xs:element name="label" type="tns:NonEmptyString"/>
-            </xs:sequence>
-        </xs:complexType>
-
-    </xs:element>
-
-    <xs:element name="updateCategoryResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="category" type="tns:categoryWS"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="findCategoriesRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element minOccurs="0" name="idCategory" type="xs:long"/>
-                <xs:element minOccurs="0" name="label" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="findCategoriesResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element maxOccurs="unbounded" minOccurs="0" name="categories" type="tns:categoryWS"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <!--LENDING BOOK-->
-
-    <xs:element name="lendingBookRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="book_id" type="xs:long"/>
-                <xs:element name="account_id" type="xs:long"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="lendingBookResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="lendingBook" type="tns:lendingBookWS"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="extendLendingBookRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="id" type="xs:long"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="extendLendingBookResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="idLendingBook" type="xs:long"/>
-                <xs:element name="deadLineEndingBook" type="xs:date"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="cancelLendingBookRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="id" type="xs:long"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="cancelLendingBookResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="findLendingBookRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element minOccurs="0" name="idLending" type="xs:long"/>
-                <xs:element minOccurs="0" name="email" type="tns:ValidateEmail"/>
-                <xs:element minOccurs="0" name="current" type="xs:boolean"/>
-                <xs:element minOccurs="0" name="idBook" type="xs:long"/>
-                <xs:element minOccurs="0" name="title" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="findLendingBookResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element maxOccurs="unbounded" minOccurs="0" name="lendingBooks" type="tns:lendingBookWS"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="returnLendingBookRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="id" type="xs:long"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="returnLendingBookResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:complexType name="memberWS">
-        <xs:sequence>
-            <xs:element name="id" type="xs:long"/>
-            <xs:element name="email" type="xs:string"/>
-            <xs:element name="firstname" type="xs:string"/>
-            <xs:element name="lastname" type="xs:string"/>
-        </xs:sequence>
-    </xs:complexType>
-
-    <xs:complexType name="bookWS">
-        <xs:sequence>
-            <xs:element name="id" type="xs:long"/>
-            <xs:element name="title" type="xs:string"/>
-            <xs:element name="summary" type="xs:string"/>
-            <xs:element name="dateOfficialRelease" type="xs:date"/>
-            <xs:element name="numberOfPage" type="xs:int"/>
-            <xs:element name="numberOfCopies" type="xs:int"/>
-            <xs:element name="numberAvailable" type="xs:int"/>
-            <xs:element name="author" type="tns:authorWS"/>
-            <xs:element name="category" type="tns:categoryWS"/>
-            <xs:element maxOccurs="unbounded" minOccurs="0" name="lendingBooks" type="tns:lendingBookWS"/>
-        </xs:sequence>
-    </xs:complexType>
-
-    <xs:complexType name="authorWS">
-        <xs:sequence>
-            <xs:element name="id" type="xs:long"/>
-            <xs:element name="dateOfBirth" type="xs:date"/>
-            <xs:element minOccurs="0" name="dateOfDeath" type="xs:date"/>
-            <xs:element name="fullname" type="xs:string"/>
-            <xs:element name="nationality" type="xs:string"/>
-        </xs:sequence>
-    </xs:complexType>
-
-    <xs:complexType name="categoryWS">
-        <xs:sequence>
-            <xs:element name="id" type="xs:long"/>
-            <xs:element name="label" type="xs:string"/>
-        </xs:sequence>
-    </xs:complexType>
-
-    <xs:complexType name="lendingBookWS">
-        <xs:sequence>
-            <xs:element name="id" type="xs:long"/>
-            <xs:element minOccurs="0" name="deadlinedate" type="xs:date"/>
-            <xs:element minOccurs="0" name="deliverydate" type="xs:date"/>
-            <xs:element minOccurs="0" name="startdate" type="xs:date"/>
-            <xs:element minOccurs="0" name="title" type="xs:string"/>
-            <xs:element minOccurs="0" name="idBook" type="xs:long"/>
-            <xs:element minOccurs="0" name="email" type="xs:string"/>
-            <xs:element minOccurs="0" name="idAccount" type="xs:long"/>
-        </xs:sequence>
-    </xs:complexType>
-
-    <xs:complexType name="serviceStatus">
-        <xs:sequence>
-            <xs:element name="statusCode" type="xs:string"/>
-            <xs:element name="message" type="xs:string"/>
-        </xs:sequence>
-    </xs:complexType>
-
-    <xs:simpleType name="NonEmptyString">
-        <xs:restriction base="xs:string">
-            <xs:minLength value="1"/>
-            <xs:pattern value="[\s\S]*[^ ][\s\S]*"/>
-        </xs:restriction>
-    </xs:simpleType>
+            <xs:element name="findBooksResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="books" type="tns:bookWS"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
 
 
-    <xs:simpleType id="PositiveInteger" name="PositiveInteger">
-        <xs:restriction base="xs:int">
-            <xs:minInclusive value="1"/>
-        </xs:restriction>
-    </xs:simpleType>
+            <xs:element name="createBookRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="title" type="tns:NonEmptyString"/>
+                        <xs:element name="summary" type="xs:string"/>
+                        <xs:element name="numberOfPage" type="tns:PositiveInteger"/>
+                        <xs:element name="dateOfficialRelease" type="xs:date"/>
+                        <xs:element name="numberOfCopies" type="tns:PositiveInteger"/>
+                        <xs:element name="authorId" type="xs:long"/>
+                        <xs:element name="categoryId" type="xs:long"/>
+                    </xs:sequence>
 
-    <xs:simpleType name="ValidateEmail">
-        <xs:restriction base="xs:string">
-            <xs:pattern value="[A-Za-z0-9_]+([-+.'][A-Za-z0-9_]+)*@[A-Za-z0-9_]+([-.][A-Za-z0-9_]+)*\.[A-Za-z0-9_]+([-.][A-Za-z0-9_]+)*"/>
-        </xs:restriction>
-    </xs:simpleType>
+                </xs:complexType>
 
-    <xs:simpleType name="ValidatePassword">
-        <xs:restriction base="xs:string">
-            <xs:minLength value="5"/>
-        </xs:restriction>
-    </xs:simpleType>
+            </xs:element>
+
+            <xs:element name="createBookResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="book" type="tns:bookWS"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="updateBookRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="id" type="xs:positiveInteger"/>
+                        <xs:element minOccurs="0" name="title" type="tns:NonEmptyString"/>
+                        <xs:element minOccurs="0" name="summary" type="xs:string"/>
+                        <xs:element minOccurs="0" name="numberOfPage" type="tns:PositiveInteger"/>
+                        <xs:element minOccurs="0" name="dateOfficialRelease" type="xs:date"/>
+                        <xs:element minOccurs="0" name="numberOfcopies" type="xs:int"/>
+                        <xs:element minOccurs="0" name="authorId" type="xs:positiveInteger"/>
+                        <xs:element minOccurs="0" name="categoryId" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="updateBookResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="book" type="tns:bookWS"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="deleteBookRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="id" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="deleteBookResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <!--Category-->
+            <xs:element name="createCategoryRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="label" type="tns:NonEmptyString"/>
+                    </xs:sequence>
+                </xs:complexType>
+
+            </xs:element>
+
+            <xs:element name="createCategoryResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="category" type="tns:categoryWS"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="updateCategoryRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="id" type="xs:positiveInteger"/>
+                        <xs:element name="label" type="tns:NonEmptyString"/>
+                    </xs:sequence>
+                </xs:complexType>
+
+            </xs:element>
+
+            <xs:element name="updateCategoryResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="category" type="tns:categoryWS"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="findCategoriesRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="idCategory" type="xs:long"/>
+                        <xs:element minOccurs="0" name="label" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="findCategoriesResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="categories" type="tns:categoryWS"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <!--LENDING BOOK-->
+
+            <xs:element name="lendingBookRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="book_id" type="xs:long"/>
+                        <xs:element name="account_id" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="lendingBookResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="lendingBook" type="tns:lendingBookWS"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="extendLendingBookRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="id" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="extendLendingBookResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="idLendingBook" type="xs:long"/>
+                        <xs:element name="deadLineEndingBook" type="xs:date"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="cancelLendingBookRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="id" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="cancelLendingBookResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="findLendingBookRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="idLending" type="xs:long"/>
+                        <xs:element minOccurs="0" name="email" type="tns:ValidateEmail"/>
+                        <xs:element minOccurs="0" name="current" type="xs:boolean"/>
+                        <xs:element minOccurs="0" name="idBook" type="xs:long"/>
+                        <xs:element minOccurs="0" name="title" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="findLendingBookResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="lendingBooks" type="tns:lendingBookWS"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="returnLendingBookRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="id" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="returnLendingBookResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <!--    WaitingList-->
+            <xs:element name="addToWaitingListRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="book_id" type="xs:long"/>
+                        <xs:element name="account_id" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="addToWaitingListResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="waitingList" type="tns:waitingListWS"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="cancelToWaitingListRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="id" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="cancelToWaitingListResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="retrieveToWaitingListRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="waitingList_id" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="retrieveToWaitingListResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="lendingBook" type="tns:lendingBookWS"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="findWaitingListRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="email" type="tns:ValidateEmail"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="findWaitingListResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="waitingList" type="tns:waitingListWS"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
 
 
-</xs:schema>
-  </wsdl:types>
-  <wsdl:message name="deleteBookResponse">
-    <wsdl:part element="sch:deleteBookResponse" name="deleteBookResponse">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="deleteAuthorResponse">
-    <wsdl:part element="sch:deleteAuthorResponse" name="deleteAuthorResponse">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="updateAuthorResponse">
-    <wsdl:part element="sch:updateAuthorResponse" name="updateAuthorResponse">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="findCategoriesRequest">
-    <wsdl:part element="sch:findCategoriesRequest" name="findCategoriesRequest">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="updateBookRequest">
-    <wsdl:part element="sch:updateBookRequest" name="updateBookRequest">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="returnLendingBookResponse">
-    <wsdl:part element="sch:returnLendingBookResponse" name="returnLendingBookResponse">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="updateAuthorRequest">
-    <wsdl:part element="sch:updateAuthorRequest" name="updateAuthorRequest">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="findCategoriesResponse">
-    <wsdl:part element="sch:findCategoriesResponse" name="findCategoriesResponse">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="lendingBookResponse">
-    <wsdl:part element="sch:lendingBookResponse" name="lendingBookResponse">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="createAuthorRequest">
-    <wsdl:part element="sch:createAuthorRequest" name="createAuthorRequest">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="createBookRequest">
-    <wsdl:part element="sch:createBookRequest" name="createBookRequest">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="findLendingBookRequest">
-    <wsdl:part element="sch:findLendingBookRequest" name="findLendingBookRequest">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="lendingBookRequest">
-    <wsdl:part element="sch:lendingBookRequest" name="lendingBookRequest">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="deleteAccountResponse">
-    <wsdl:part element="sch:deleteAccountResponse" name="deleteAccountResponse">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="findAuthorsResponse">
-    <wsdl:part element="sch:findAuthorsResponse" name="findAuthorsResponse">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="findAccountsResponse">
-    <wsdl:part element="sch:findAccountsResponse" name="findAccountsResponse">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="findAuthorsRequest">
-    <wsdl:part element="sch:findAuthorsRequest" name="findAuthorsRequest">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="createAuthorResponse">
-    <wsdl:part element="sch:createAuthorResponse" name="createAuthorResponse">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="createBookResponse">
-    <wsdl:part element="sch:createBookResponse" name="createBookResponse">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="extendLendingBookResponse">
-    <wsdl:part element="sch:extendLendingBookResponse" name="extendLendingBookResponse">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="findAccountsRequest">
-    <wsdl:part element="sch:findAccountsRequest" name="findAccountsRequest">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="findBooksRequest">
-    <wsdl:part element="sch:findBooksRequest" name="findBooksRequest">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="deleteBookRequest">
-    <wsdl:part element="sch:deleteBookRequest" name="deleteBookRequest">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="extendLendingBookRequest">
-    <wsdl:part element="sch:extendLendingBookRequest" name="extendLendingBookRequest">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="findBooksResponse">
-    <wsdl:part element="sch:findBooksResponse" name="findBooksResponse">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="updateBookResponse">
-    <wsdl:part element="sch:updateBookResponse" name="updateBookResponse">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="updateCategoryResponse">
-    <wsdl:part element="sch:updateCategoryResponse" name="updateCategoryResponse">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="deleteAuthorRequest">
-    <wsdl:part element="sch:deleteAuthorRequest" name="deleteAuthorRequest">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="cancelLendingBookRequest">
-    <wsdl:part element="sch:cancelLendingBookRequest" name="cancelLendingBookRequest">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="returnLendingBookRequest">
-    <wsdl:part element="sch:returnLendingBookRequest" name="returnLendingBookRequest">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="findLendingBookResponse">
-    <wsdl:part element="sch:findLendingBookResponse" name="findLendingBookResponse">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="updateAccountResponse">
-    <wsdl:part element="sch:updateAccountResponse" name="updateAccountResponse">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="cancelLendingBookResponse">
-    <wsdl:part element="sch:cancelLendingBookResponse" name="cancelLendingBookResponse">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="createCategoryRequest">
-    <wsdl:part element="sch:createCategoryRequest" name="createCategoryRequest">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="deleteAccountRequest">
-    <wsdl:part element="sch:deleteAccountRequest" name="deleteAccountRequest">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="createCategoryResponse">
-    <wsdl:part element="sch:createCategoryResponse" name="createCategoryResponse">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="updateAccountRequest">
-    <wsdl:part element="sch:updateAccountRequest" name="updateAccountRequest">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="updateCategoryRequest">
-    <wsdl:part element="sch:updateCategoryRequest" name="updateCategoryRequest">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:portType name="booksPort">
-    <wsdl:operation name="deleteBook">
-      <wsdl:input message="tns:deleteBookRequest" name="deleteBookRequest">
-    </wsdl:input>
-      <wsdl:output message="tns:deleteBookResponse" name="deleteBookResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="deleteAuthor">
-      <wsdl:input message="tns:deleteAuthorRequest" name="deleteAuthorRequest">
-    </wsdl:input>
-      <wsdl:output message="tns:deleteAuthorResponse" name="deleteAuthorResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="updateAuthor">
-      <wsdl:input message="tns:updateAuthorRequest" name="updateAuthorRequest">
-    </wsdl:input>
-      <wsdl:output message="tns:updateAuthorResponse" name="updateAuthorResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="findCategories">
-      <wsdl:input message="tns:findCategoriesRequest" name="findCategoriesRequest">
-    </wsdl:input>
-      <wsdl:output message="tns:findCategoriesResponse" name="findCategoriesResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="updateBook">
-      <wsdl:input message="tns:updateBookRequest" name="updateBookRequest">
-    </wsdl:input>
-      <wsdl:output message="tns:updateBookResponse" name="updateBookResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="returnLendingBook">
-      <wsdl:input message="tns:returnLendingBookRequest" name="returnLendingBookRequest">
-    </wsdl:input>
-      <wsdl:output message="tns:returnLendingBookResponse" name="returnLendingBookResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="lendingBook">
-      <wsdl:input message="tns:lendingBookRequest" name="lendingBookRequest">
-    </wsdl:input>
-      <wsdl:output message="tns:lendingBookResponse" name="lendingBookResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="createAuthor">
-      <wsdl:input message="tns:createAuthorRequest" name="createAuthorRequest">
-    </wsdl:input>
-      <wsdl:output message="tns:createAuthorResponse" name="createAuthorResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="createBook">
-      <wsdl:input message="tns:createBookRequest" name="createBookRequest">
-    </wsdl:input>
-      <wsdl:output message="tns:createBookResponse" name="createBookResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="findLendingBook">
-      <wsdl:input message="tns:findLendingBookRequest" name="findLendingBookRequest">
-    </wsdl:input>
-      <wsdl:output message="tns:findLendingBookResponse" name="findLendingBookResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="deleteAccount">
-      <wsdl:input message="tns:deleteAccountRequest" name="deleteAccountRequest">
-    </wsdl:input>
-      <wsdl:output message="tns:deleteAccountResponse" name="deleteAccountResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="findAuthors">
-      <wsdl:input message="tns:findAuthorsRequest" name="findAuthorsRequest">
-    </wsdl:input>
-      <wsdl:output message="tns:findAuthorsResponse" name="findAuthorsResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="findAccounts">
-      <wsdl:input message="tns:findAccountsRequest" name="findAccountsRequest">
-    </wsdl:input>
-      <wsdl:output message="tns:findAccountsResponse" name="findAccountsResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="extendLendingBook">
-      <wsdl:input message="tns:extendLendingBookRequest" name="extendLendingBookRequest">
-    </wsdl:input>
-      <wsdl:output message="tns:extendLendingBookResponse" name="extendLendingBookResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="findBooks">
-      <wsdl:input message="tns:findBooksRequest" name="findBooksRequest">
-    </wsdl:input>
-      <wsdl:output message="tns:findBooksResponse" name="findBooksResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="updateCategory">
-      <wsdl:input message="tns:updateCategoryRequest" name="updateCategoryRequest">
-    </wsdl:input>
-      <wsdl:output message="tns:updateCategoryResponse" name="updateCategoryResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="cancelLendingBook">
-      <wsdl:input message="tns:cancelLendingBookRequest" name="cancelLendingBookRequest">
-    </wsdl:input>
-      <wsdl:output message="tns:cancelLendingBookResponse" name="cancelLendingBookResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="updateAccount">
-      <wsdl:input message="tns:updateAccountRequest" name="updateAccountRequest">
-    </wsdl:input>
-      <wsdl:output message="tns:updateAccountResponse" name="updateAccountResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="createCategory">
-      <wsdl:input message="tns:createCategoryRequest" name="createCategoryRequest">
-    </wsdl:input>
-      <wsdl:output message="tns:createCategoryResponse" name="createCategoryResponse">
-    </wsdl:output>
-    </wsdl:operation>
-  </wsdl:portType>
-  <wsdl:binding name="booksPortSoap11" type="tns:booksPort">
-    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsdl:operation name="deleteBook">
-      <soap:operation soapAction=""/>
-      <wsdl:input name="deleteBookRequest">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="deleteBookResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="deleteAuthor">
-      <soap:operation soapAction=""/>
-      <wsdl:input name="deleteAuthorRequest">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="deleteAuthorResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="updateAuthor">
-      <soap:operation soapAction=""/>
-      <wsdl:input name="updateAuthorRequest">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="updateAuthorResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="findCategories">
-      <soap:operation soapAction=""/>
-      <wsdl:input name="findCategoriesRequest">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="findCategoriesResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="updateBook">
-      <soap:operation soapAction=""/>
-      <wsdl:input name="updateBookRequest">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="updateBookResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="returnLendingBook">
-      <soap:operation soapAction=""/>
-      <wsdl:input name="returnLendingBookRequest">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="returnLendingBookResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="lendingBook">
-      <soap:operation soapAction=""/>
-      <wsdl:input name="lendingBookRequest">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="lendingBookResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="createAuthor">
-      <soap:operation soapAction=""/>
-      <wsdl:input name="createAuthorRequest">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="createAuthorResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="createBook">
-      <soap:operation soapAction=""/>
-      <wsdl:input name="createBookRequest">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="createBookResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="findLendingBook">
-      <soap:operation soapAction=""/>
-      <wsdl:input name="findLendingBookRequest">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="findLendingBookResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="deleteAccount">
-      <soap:operation soapAction=""/>
-      <wsdl:input name="deleteAccountRequest">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="deleteAccountResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="findAuthors">
-      <soap:operation soapAction=""/>
-      <wsdl:input name="findAuthorsRequest">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="findAuthorsResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="findAccounts">
-      <soap:operation soapAction=""/>
-      <wsdl:input name="findAccountsRequest">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="findAccountsResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="extendLendingBook">
-      <soap:operation soapAction=""/>
-      <wsdl:input name="extendLendingBookRequest">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="extendLendingBookResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="findBooks">
-      <soap:operation soapAction=""/>
-      <wsdl:input name="findBooksRequest">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="findBooksResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="updateCategory">
-      <soap:operation soapAction=""/>
-      <wsdl:input name="updateCategoryRequest">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="updateCategoryResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="cancelLendingBook">
-      <soap:operation soapAction=""/>
-      <wsdl:input name="cancelLendingBookRequest">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="cancelLendingBookResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="updateAccount">
-      <soap:operation soapAction=""/>
-      <wsdl:input name="updateAccountRequest">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="updateAccountResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="createCategory">
-      <soap:operation soapAction=""/>
-      <wsdl:input name="createCategoryRequest">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="createCategoryResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-  </wsdl:binding>
-  <wsdl:service name="booksPortService">
-    <wsdl:port binding="tns:booksPortSoap11" name="booksPortSoap11">
-      <soap:address location="http://localhost:8080/ws"/>
-    </wsdl:port>
-  </wsdl:service>
+            <xs:complexType name="memberWS">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:long"/>
+                    <xs:element name="email" type="xs:string"/>
+                    <xs:element name="firstname" type="xs:string"/>
+                    <xs:element name="lastname" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="bookWS">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:long"/>
+                    <xs:element name="title" type="xs:string"/>
+                    <xs:element name="summary" type="xs:string"/>
+                    <xs:element name="dateOfficialRelease" type="xs:date"/>
+                    <xs:element name="numberOfPage" type="xs:int"/>
+                    <xs:element name="numberOfCopies" type="xs:int"/>
+                    <xs:element name="numberAvailable" type="xs:int"/>
+                    <xs:element name="numberReserved" type="xs:int"/>
+                    <xs:element name="firstLoanDeadLineDate" type="xs:date"/>
+                    <xs:element name="author" type="tns:authorWS"/>
+                    <xs:element name="category" type="tns:categoryWS"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="lendingBooks" type="tns:lendingBookWS"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="authorWS">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:long"/>
+                    <xs:element name="dateOfBirth" type="xs:date"/>
+                    <xs:element minOccurs="0" name="dateOfDeath" type="xs:date"/>
+                    <xs:element name="fullname" type="xs:string"/>
+                    <xs:element name="nationality" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="categoryWS">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:long"/>
+                    <xs:element name="label" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="lendingBookWS">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:long"/>
+                    <xs:element minOccurs="0" name="deadlinedate" type="xs:date"/>
+                    <xs:element minOccurs="0" name="deliverydate" type="xs:date"/>
+                    <xs:element minOccurs="0" name="startdate" type="xs:date"/>
+                    <xs:element minOccurs="0" name="title" type="xs:string"/>
+                    <xs:element minOccurs="0" name="idBook" type="xs:long"/>
+                    <xs:element minOccurs="0" name="email" type="xs:string"/>
+                    <xs:element minOccurs="0" name="idAccount" type="xs:long"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="waitingListWS">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:long"/>
+                    <xs:element minOccurs="0" name="reservationdate" type="xs:date"/>
+                    <xs:element minOccurs="0" name="title" type="xs:string"/>
+                    <xs:element minOccurs="0" name="idBook" type="xs:long"/>
+                    <xs:element minOccurs="0" name="email" type="xs:string"/>
+                    <xs:element minOccurs="0" name="idAccount" type="xs:long"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="serviceStatus">
+                <xs:sequence>
+                    <xs:element name="statusCode" type="xs:string"/>
+                    <xs:element name="message" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:simpleType name="NonEmptyString">
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:pattern value="[\s\S]*[^ ][\s\S]*"/>
+                </xs:restriction>
+            </xs:simpleType>
+
+
+            <xs:simpleType id="PositiveInteger" name="PositiveInteger">
+                <xs:restriction base="xs:int">
+                    <xs:minInclusive value="1"/>
+                </xs:restriction>
+            </xs:simpleType>
+
+            <xs:simpleType name="ValidateEmail">
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="[A-Za-z0-9_]+([-+.'][A-Za-z0-9_]+)*@[A-Za-z0-9_]+([-.][A-Za-z0-9_]+)*\.[A-Za-z0-9_]+([-.][A-Za-z0-9_]+)*"/>
+                </xs:restriction>
+            </xs:simpleType>
+
+            <xs:simpleType name="ValidatePassword">
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="5"/>
+                </xs:restriction>
+            </xs:simpleType>
+
+
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="deleteBookResponse">
+        <wsdl:part element="sch:deleteBookResponse" name="deleteBookResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="deleteAuthorResponse">
+        <wsdl:part element="sch:deleteAuthorResponse" name="deleteAuthorResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="updateAuthorResponse">
+        <wsdl:part element="sch:updateAuthorResponse" name="updateAuthorResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="findCategoriesRequest">
+        <wsdl:part element="sch:findCategoriesRequest" name="findCategoriesRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="updateBookRequest">
+        <wsdl:part element="sch:updateBookRequest" name="updateBookRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="returnLendingBookResponse">
+        <wsdl:part element="sch:returnLendingBookResponse" name="returnLendingBookResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="updateAuthorRequest">
+        <wsdl:part element="sch:updateAuthorRequest" name="updateAuthorRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="findCategoriesResponse">
+        <wsdl:part element="sch:findCategoriesResponse" name="findCategoriesResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="lendingBookResponse">
+        <wsdl:part element="sch:lendingBookResponse" name="lendingBookResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="createAuthorRequest">
+        <wsdl:part element="sch:createAuthorRequest" name="createAuthorRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="createBookRequest">
+        <wsdl:part element="sch:createBookRequest" name="createBookRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="findLendingBookRequest">
+        <wsdl:part element="sch:findLendingBookRequest" name="findLendingBookRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="retrieveToWaitingListResponse">
+        <wsdl:part element="sch:retrieveToWaitingListResponse" name="retrieveToWaitingListResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="lendingBookRequest">
+        <wsdl:part element="sch:lendingBookRequest" name="lendingBookRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="findWaitingListRequest">
+        <wsdl:part element="sch:findWaitingListRequest" name="findWaitingListRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="deleteAccountResponse">
+        <wsdl:part element="sch:deleteAccountResponse" name="deleteAccountResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="cancelToWaitingListRequest">
+        <wsdl:part element="sch:cancelToWaitingListRequest" name="cancelToWaitingListRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="retrieveToWaitingListRequest">
+        <wsdl:part element="sch:retrieveToWaitingListRequest" name="retrieveToWaitingListRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="findAuthorsResponse">
+        <wsdl:part element="sch:findAuthorsResponse" name="findAuthorsResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="findAccountsResponse">
+        <wsdl:part element="sch:findAccountsResponse" name="findAccountsResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="findAuthorsRequest">
+        <wsdl:part element="sch:findAuthorsRequest" name="findAuthorsRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="createAuthorResponse">
+        <wsdl:part element="sch:createAuthorResponse" name="createAuthorResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="createBookResponse">
+        <wsdl:part element="sch:createBookResponse" name="createBookResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="extendLendingBookResponse">
+        <wsdl:part element="sch:extendLendingBookResponse" name="extendLendingBookResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="findAccountsRequest">
+        <wsdl:part element="sch:findAccountsRequest" name="findAccountsRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="findBooksRequest">
+        <wsdl:part element="sch:findBooksRequest" name="findBooksRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="addToWaitingListResponse">
+        <wsdl:part element="sch:addToWaitingListResponse" name="addToWaitingListResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="deleteBookRequest">
+        <wsdl:part element="sch:deleteBookRequest" name="deleteBookRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="extendLendingBookRequest">
+        <wsdl:part element="sch:extendLendingBookRequest" name="extendLendingBookRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="findBooksResponse">
+        <wsdl:part element="sch:findBooksResponse" name="findBooksResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="updateBookResponse">
+        <wsdl:part element="sch:updateBookResponse" name="updateBookResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="updateCategoryResponse">
+        <wsdl:part element="sch:updateCategoryResponse" name="updateCategoryResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="deleteAuthorRequest">
+        <wsdl:part element="sch:deleteAuthorRequest" name="deleteAuthorRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="cancelLendingBookRequest">
+        <wsdl:part element="sch:cancelLendingBookRequest" name="cancelLendingBookRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="returnLendingBookRequest">
+        <wsdl:part element="sch:returnLendingBookRequest" name="returnLendingBookRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="findLendingBookResponse">
+        <wsdl:part element="sch:findLendingBookResponse" name="findLendingBookResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="addToWaitingListRequest">
+        <wsdl:part element="sch:addToWaitingListRequest" name="addToWaitingListRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="updateAccountResponse">
+        <wsdl:part element="sch:updateAccountResponse" name="updateAccountResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="cancelLendingBookResponse">
+        <wsdl:part element="sch:cancelLendingBookResponse" name="cancelLendingBookResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="cancelToWaitingListResponse">
+        <wsdl:part element="sch:cancelToWaitingListResponse" name="cancelToWaitingListResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="createCategoryRequest">
+        <wsdl:part element="sch:createCategoryRequest" name="createCategoryRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="deleteAccountRequest">
+        <wsdl:part element="sch:deleteAccountRequest" name="deleteAccountRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="createCategoryResponse">
+        <wsdl:part element="sch:createCategoryResponse" name="createCategoryResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="updateAccountRequest">
+        <wsdl:part element="sch:updateAccountRequest" name="updateAccountRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="updateCategoryRequest">
+        <wsdl:part element="sch:updateCategoryRequest" name="updateCategoryRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="findWaitingListResponse">
+        <wsdl:part element="sch:findWaitingListResponse" name="findWaitingListResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="booksPort">
+        <wsdl:operation name="deleteBook">
+            <wsdl:input message="tns:deleteBookRequest" name="deleteBookRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:deleteBookResponse" name="deleteBookResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="deleteAuthor">
+            <wsdl:input message="tns:deleteAuthorRequest" name="deleteAuthorRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:deleteAuthorResponse" name="deleteAuthorResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="updateAuthor">
+            <wsdl:input message="tns:updateAuthorRequest" name="updateAuthorRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:updateAuthorResponse" name="updateAuthorResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="findCategories">
+            <wsdl:input message="tns:findCategoriesRequest" name="findCategoriesRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:findCategoriesResponse" name="findCategoriesResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="updateBook">
+            <wsdl:input message="tns:updateBookRequest" name="updateBookRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:updateBookResponse" name="updateBookResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="returnLendingBook">
+            <wsdl:input message="tns:returnLendingBookRequest" name="returnLendingBookRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:returnLendingBookResponse" name="returnLendingBookResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="lendingBook">
+            <wsdl:input message="tns:lendingBookRequest" name="lendingBookRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:lendingBookResponse" name="lendingBookResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="createAuthor">
+            <wsdl:input message="tns:createAuthorRequest" name="createAuthorRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:createAuthorResponse" name="createAuthorResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="createBook">
+            <wsdl:input message="tns:createBookRequest" name="createBookRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:createBookResponse" name="createBookResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="findLendingBook">
+            <wsdl:input message="tns:findLendingBookRequest" name="findLendingBookRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:findLendingBookResponse" name="findLendingBookResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="retrieveToWaitingList">
+            <wsdl:input message="tns:retrieveToWaitingListRequest" name="retrieveToWaitingListRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:retrieveToWaitingListResponse" name="retrieveToWaitingListResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="findWaitingList">
+            <wsdl:input message="tns:findWaitingListRequest" name="findWaitingListRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:findWaitingListResponse" name="findWaitingListResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="deleteAccount">
+            <wsdl:input message="tns:deleteAccountRequest" name="deleteAccountRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:deleteAccountResponse" name="deleteAccountResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="cancelToWaitingList">
+            <wsdl:input message="tns:cancelToWaitingListRequest" name="cancelToWaitingListRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:cancelToWaitingListResponse" name="cancelToWaitingListResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="findAuthors">
+            <wsdl:input message="tns:findAuthorsRequest" name="findAuthorsRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:findAuthorsResponse" name="findAuthorsResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="findAccounts">
+            <wsdl:input message="tns:findAccountsRequest" name="findAccountsRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:findAccountsResponse" name="findAccountsResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="extendLendingBook">
+            <wsdl:input message="tns:extendLendingBookRequest" name="extendLendingBookRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:extendLendingBookResponse" name="extendLendingBookResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="findBooks">
+            <wsdl:input message="tns:findBooksRequest" name="findBooksRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:findBooksResponse" name="findBooksResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="addToWaitingList">
+            <wsdl:input message="tns:addToWaitingListRequest" name="addToWaitingListRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:addToWaitingListResponse" name="addToWaitingListResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="updateCategory">
+            <wsdl:input message="tns:updateCategoryRequest" name="updateCategoryRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:updateCategoryResponse" name="updateCategoryResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="cancelLendingBook">
+            <wsdl:input message="tns:cancelLendingBookRequest" name="cancelLendingBookRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:cancelLendingBookResponse" name="cancelLendingBookResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="updateAccount">
+            <wsdl:input message="tns:updateAccountRequest" name="updateAccountRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:updateAccountResponse" name="updateAccountResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="createCategory">
+            <wsdl:input message="tns:createCategoryRequest" name="createCategoryRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:createCategoryResponse" name="createCategoryResponse">
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="booksPortSoap11" type="tns:booksPort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="deleteBook">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="deleteBookRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="deleteBookResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="deleteAuthor">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="deleteAuthorRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="deleteAuthorResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="updateAuthor">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="updateAuthorRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="updateAuthorResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="findCategories">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="findCategoriesRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="findCategoriesResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="updateBook">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="updateBookRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="updateBookResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="returnLendingBook">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="returnLendingBookRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="returnLendingBookResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="lendingBook">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="lendingBookRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="lendingBookResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="createAuthor">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="createAuthorRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="createAuthorResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="createBook">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="createBookRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="createBookResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="findLendingBook">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="findLendingBookRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="findLendingBookResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="retrieveToWaitingList">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="retrieveToWaitingListRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="retrieveToWaitingListResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="findWaitingList">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="findWaitingListRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="findWaitingListResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="deleteAccount">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="deleteAccountRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="deleteAccountResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="cancelToWaitingList">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="cancelToWaitingListRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="cancelToWaitingListResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="findAuthors">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="findAuthorsRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="findAuthorsResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="findAccounts">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="findAccountsRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="findAccountsResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="extendLendingBook">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="extendLendingBookRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="extendLendingBookResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="findBooks">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="findBooksRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="findBooksResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="addToWaitingList">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="addToWaitingListRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="addToWaitingListResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="updateCategory">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="updateCategoryRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="updateCategoryResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="cancelLendingBook">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="cancelLendingBookRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="cancelLendingBookResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="updateAccount">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="updateAccountRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="updateAccountResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="createCategory">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="createCategoryRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="createCategoryResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="booksPortService">
+        <wsdl:port binding="tns:booksPortSoap11" name="booksPortSoap11">
+            <soap:address location="http://localhost:8080/ws"/>
+        </wsdl:port>
+    </wsdl:service>
 </wsdl:definitions>

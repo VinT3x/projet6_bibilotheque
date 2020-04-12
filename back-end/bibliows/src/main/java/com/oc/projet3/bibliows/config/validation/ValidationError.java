@@ -14,12 +14,12 @@ public class ValidationError {
     }
 
     private void setProperties(String pathPropertiesFile){
-            try {
-                properties.load(getClass().getResourceAsStream(PROPERTIES_FILE));
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
+        try {
+            properties.load(getClass().getResourceAsStream(PROPERTIES_FILE));
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getErrorMsg(String keyField){

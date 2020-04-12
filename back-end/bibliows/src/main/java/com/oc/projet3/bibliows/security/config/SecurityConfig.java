@@ -55,7 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity
-        .httpBasic()
+                .httpBasic()
                 .and()
                 .authorizeRequests().antMatchers("/anonymous/**").permitAll()
                 .and()
@@ -65,7 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable().headers().frameOptions().disable();
-;
+        ;
         httpSecurity.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
         httpSecurity.formLogin().successHandler(authenticationSuccessHandler);
         httpSecurity.formLogin().failureHandler(authenticationFailureHandler);
@@ -85,4 +85,3 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 }
-

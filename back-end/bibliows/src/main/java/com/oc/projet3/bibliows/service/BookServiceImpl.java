@@ -7,6 +7,7 @@ import com.oc.projet3.bibliows.dao.CategoryRepository;
 import com.oc.projet3.bibliows.entities.Author;
 import com.oc.projet3.bibliows.entities.Book;
 import com.oc.projet3.bibliows.entities.Category;
+import com.oc.projet3.bibliows.entities.LendingBook;
 import com.oc.projet3.bibliows.exceptions.*;
 import com.oc.projet3.gs_ws.*;
 import org.apache.logging.log4j.LogManager;
@@ -35,6 +36,8 @@ public class BookServiceImpl implements BookService{
     private AuthorRepository authorRepository;
     private CategoryRepository categoryRepository;
     private ServiceStatus serviceStatus = new ServiceStatus();
+    @Autowired
+    private LendingBookService lendingBookService;
 
     private static Logger logger = LogManager.getLogger(BookServiceImpl.class);
 
@@ -62,6 +65,12 @@ public class BookServiceImpl implements BookService{
         authorWS.setDateOfBirth(ConvertUtils.convertCalendarToXMLGregorianCalendar(book.getAuthor().getDateOfBirth()));
         authorWS.setDateOfDeath(ConvertUtils.convertCalendarToXMLGregorianCalendar(book.getAuthor().getDateOfDeath()));
         bookWS.setAuthor(authorWS);
+        int nbReserved = book.getNumberOfCopiesForReservation() - book.getNumberReservationAvailable();
+        bookWS.setNumberReserved(nbReserved);
+        LendingBook lb = lendingBookService.getFirstBookAvailable(book);
+        if(lb != null){
+            bookWS.setFirstLoanDeadLineDate(ConvertUtils.convertCalendarToXMLGregorianCalendar(lb.getDeadlinedate()));
+        }
 
         CategoryWS categoryWS = new CategoryWS();
         BeanUtils.copyProperties(book.getCategory(), categoryWS);
@@ -98,6 +107,8 @@ public class BookServiceImpl implements BookService{
         BeanUtils.copyProperties(request,book);
         book.setAuthor(author.get());
         book.setNumberAvailable(request.getNumberOfCopies());
+        book.setNumberReservationAvailable(request.getNumberOfCopies() * 2);
+        book.setNumberOfCopiesForReservation(request.getNumberOfCopies() * 2);
         book.setDateOfficialRelease(ConvertUtils.convertXMLGregorianCalendarToCalendar(request.getDateOfficialRelease()));
         book.setCategory(category.get());
         Book bookSaved = bookRepository.save(book);
@@ -171,7 +182,13 @@ public class BookServiceImpl implements BookService{
             if( request.getNumberOfcopies() < nbBookLending ){
                 throw new WSBadNumberException("Le nombre de livre ne peut pas être inférieur au nombre de livre prêté !");
             }
+
+            if( request.getNumberOfcopies() * 2 < bookToUpdate.getNumberReservationAvailable() ){
+                throw new WSBadNumberException("Le nombre dépasse 2 fois le nombre de livre !");
+            }
             bookToUpdate.setNumberOfCopies(request.getNumberOfcopies());
+            bookToUpdate.setNumberReservationAvailable(request.getNumberOfcopies() * 2);
+            bookToUpdate.setNumberOfCopiesForReservation(request.getNumberOfcopies() * 2);
             bookToUpdate.setNumberAvailable(request.getNumberOfcopies() - nbBookLending);
         }
 
@@ -250,6 +267,24 @@ public class BookServiceImpl implements BookService{
         }
 
         return response;
+    }
+
+    @Override
+    public List<Book> findBookAvailableToLoan(){
+        return bookRepository.findBooksByNumberAvailableGreaterThan(0);
+    }
+
+    /**
+     * {@link BookService#findById(long)}
+     */
+    @Override
+    public Optional<Book> findById(long id) {
+        return bookRepository.findById(id);
+    }
+
+    @Override
+    public Book persist(Book book) {
+        return bookRepository.save(book);
     }
 
 

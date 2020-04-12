@@ -35,6 +35,4 @@ public class Utils {
             serviceStatus.setMessage(msg);
         }
     }
-
-
 }

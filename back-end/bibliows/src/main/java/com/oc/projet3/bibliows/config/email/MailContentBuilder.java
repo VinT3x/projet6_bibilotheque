@@ -24,4 +24,20 @@ public class MailContentBuilder {
         return templateEngine.process("mailTemplate", context);
     }
 
+    public String buildWarnReservation(String firstname, String title, String reservationdate, String delayHourForRetrieveBook) {
+        Context context = new Context();
+        context.setVariable("firstname", firstname);
+        context.setVariable("title", title);
+        context.setVariable("startdate", reservationdate);
+        context.setVariable("delayHourForRetrieveBook", delayHourForRetrieveBook);
+        return templateEngine.process("mailWarnReservationTemplate", context);
+    }
+
+    public String buildWarnCancelReservation(String firstname, String title) {
+        Context context = new Context();
+        context.setVariable("firstname", firstname);
+        context.setVariable("title", title);
+        return templateEngine.process("mailWarnCancelReservationTemplate", context);
+    }
+
 }
