@@ -111,8 +111,8 @@ public class BookServiceImpl implements BookService{
         book.setNumberOfCopiesForReservation(request.getNumberOfCopies() * 2);
         book.setDateOfficialRelease(ConvertUtils.convertXMLGregorianCalendarToCalendar(request.getDateOfficialRelease()));
         book.setCategory(category.get());
-        Book bookSaved = bookRepository.save(book);
-        response.setBook(convertBookToBookWS(bookSaved));
+        book = bookRepository.save(book);
+        response.setBook(convertBookToBookWS(book));
 
         return response;
     }

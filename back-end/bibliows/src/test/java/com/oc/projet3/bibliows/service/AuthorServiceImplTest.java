@@ -176,5 +176,5 @@ class AuthorServiceImplTest {
 
         assertThrows(WSNotFoundExceptionException.class, () -> authorService.deleteAuthor(request));
     }
-    
+
 }
