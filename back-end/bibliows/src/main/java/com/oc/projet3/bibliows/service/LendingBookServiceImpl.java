@@ -75,8 +75,8 @@ public class LendingBookServiceImpl implements LendingBookService {
         if (lendingBookRepository.countReservedBookByBookIdAndMemberId(bookId, memberId) > 0)
             throw new WSException("Vous avez déjà emprunté ce livre !");
 
-        if (waitingListService.getOnWaitingListActiveByBookIdAndMemberId(bookToLend, member).isPresent()){
-            throw new  WSException("Vous êtes sur liste d'attente !");
+        if (waitingListService.getOnWaitingListActiveByBookIdAndMemberId(bookToLend, member).isPresent()) {
+            throw new WSException("Vous êtes sur liste d'attente !");
         }
 
         if (bookToLend.getNumberAvailable() == 0)
@@ -125,19 +125,21 @@ public class LendingBookServiceImpl implements LendingBookService {
 
         Calendar calStart = lendingBook.getStartdate();
         Calendar calDeadLine = lendingBook.getDeadlinedate();
+
+
         Calendar calCurrent = Calendar.getInstance();
-
-        // calcul de la difference en jour entre la date de fin de pret et la date de debut de prêt
-        long diff = calDeadLine.getTime().getTime() - calStart.getTime().getTime();
-        float delay_deadlineDate_startDate = (diff / (1000f * 60f * 60f * 24f));
-
-        // si la date de fin est inférieure à la date de fin initiale + 1 jour (alors on peut ajouter 1 mois)
-        if (delay_deadlineDate_startDate > (delayForReservation + 1))
-            throw new WSException("Vous ne pouvez étendre la durée du prêt qu'une seule fois !");
 
         // si la date de fin est passée, on ne peut pas prolonger
         if (calDeadLine.getTime().getTime() - calCurrent.getTime().getTime() < 0)
             throw new WSException("La date de fin du prêt est dépassée. Vous ne pouvez pas étendre la durée du prêt !");
+
+        // calcul de la difference en jour entre la date de fin de pret et la date de debut de prêt
+        long diff = calDeadLine.getTime().getTime() - calStart.getTime().getTime();
+        float delayDeadlineDateStartDate = (diff / (1000f * 60f * 60f * 24f));
+
+        // si la date de fin est inférieure à la date de fin initiale + 1 jour (alors on peut ajouter 1 mois)
+        if (delayDeadlineDateStartDate > (delayForReservation + 1))
+            throw new WSException("Vous ne pouvez étendre la durée du prêt qu'une seule fois !");
 
         calDeadLine.add(GregorianCalendar.DATE, delayForReservation);
         lendingBook.setDeadlinedate(calDeadLine);
@@ -167,12 +169,12 @@ public class LendingBookServiceImpl implements LendingBookService {
 
         // alert first reservation
         WaitingList wl = waitingListService.findOlderWaitingListActiveByBook(lendingBook.getBook());
-        if (wl != null){
+        if (wl != null) {
             waitingListService.setAlertReservation(wl);
             emailService.toWarnBookAvailable(wl);
             waitingListService.toCancel(wl);
             book.setReservedForMemberId(wl.getMember().getId());
-        }else{
+        } else {
             book.setReservedForMemberId(null);
         }
 
@@ -188,8 +190,6 @@ public class LendingBookServiceImpl implements LendingBookService {
 
         return response;
     }
-
-
 
 
     //convert entities entity to ws entity
@@ -274,7 +274,7 @@ public class LendingBookServiceImpl implements LendingBookService {
         serviceStatus.setStatusCode("SUCCESS");
         serviceStatus.setMessage("Prêt annulé !");
 
-        logger.info("Prêt {} annulé.",lendingBook.getId());
+        logger.info("Prêt {} annulé.", lendingBook.getId());
 
         response.setServiceStatus(serviceStatus);
 

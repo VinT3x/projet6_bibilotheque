@@ -17,9 +17,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import java.math.BigInteger;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 
 @SpringBootTest
 class CategoryServiceImplTest {
@@ -105,7 +105,7 @@ class CategoryServiceImplTest {
 
         //WHEN
         Mockito.when(categoryRepository.findById(any())).thenReturn(Optional.of(category));
-        Mockito.when(categoryRepository.findByLabelAndIdIsNot(request.getLabel(),request.getId().intValue())).thenReturn(Optional.of(catExist));
+        Mockito.when(categoryRepository.findByLabelAndIdIsNot(request.getLabel(), request.getId().intValue())).thenReturn(Optional.of(catExist));
 
         //THEN
         assertThrows(WSNotFoundExceptionException.class, () -> categoryService.updateCategory(request));
@@ -128,7 +128,7 @@ class CategoryServiceImplTest {
 
         //WHEN
         Mockito.when(categoryRepository.findById(any())).thenReturn(Optional.of(category));
-        Mockito.when(categoryRepository.findByLabelAndIdIsNot(request.getLabel(),request.getId().intValue())).thenReturn(Optional.empty());
+        Mockito.when(categoryRepository.findByLabelAndIdIsNot(request.getLabel(), request.getId().intValue())).thenReturn(Optional.empty());
         Mockito.when(categoryRepository.save(any())).thenReturn(null);
 
         //THEN

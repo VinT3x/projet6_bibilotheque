@@ -10,6 +10,7 @@ import javax.mail.MessagingException;
 public interface LendingBookService {
     /**
      * créer un prêt à partir du endpoint
+     *
      * @param request
      * @return LendingBookResponse
      * @throws WSException
@@ -18,7 +19,8 @@ public interface LendingBookService {
 
     /**
      * créer un prêt
-     * @param bookId, id du livre à réserver
+     *
+     * @param bookId,   id du livre à réserver
      * @param memberId, id du membre qui effectue la réservation
      * @return LendingBookResponse
      * @throws WSException
@@ -27,6 +29,7 @@ public interface LendingBookService {
 
     /**
      * Prolonger la durée d'un prêt
+     *
      * @param request
      * @return
      * @throws WSException
@@ -35,6 +38,7 @@ public interface LendingBookService {
 
     /**
      * Remise à la bibliothèque d'un livre emprunté
+     *
      * @param request
      * @return ReturnLendingBookResponse
      * @throws WSException
@@ -44,6 +48,7 @@ public interface LendingBookService {
 
     /**
      * Recherche d'un prêt
+     *
      * @param request
      * @return
      */
@@ -51,6 +56,7 @@ public interface LendingBookService {
 
     /**
      * Annuler un prêt
+     *
      * @param request
      * @return CancelLendingBookResponse
      * @throws WSException
@@ -59,7 +65,8 @@ public interface LendingBookService {
 
     /**
      * Vérifie si le livre est en cours d'emprunt ou pas par un membre donné
-     * @param idBook, id du livre
+     *
+     * @param idBook,   id du livre
      * @param idMember, id du membre
      * @return LendingBook
      */
