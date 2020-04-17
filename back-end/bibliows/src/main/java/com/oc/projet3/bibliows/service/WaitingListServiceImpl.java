@@ -88,7 +88,7 @@ public class WaitingListServiceImpl implements WaitingListService {
         // decrement du nombre de livre disponinle réservé
         book.setNumberReservationAvailable(book.getNumberReservationAvailable() - 1);
 
-        // si le premier à être sur listre d'attente, on met à jour l'entité book
+        // si le premier à être sur liste d'attente, on met à jour l'entité book
         if(!waitingListRepository.existsWaitingListsByBook(book)){
             book.setReservedForMemberId(member.getId());
         }
