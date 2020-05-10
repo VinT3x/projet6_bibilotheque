@@ -9,28 +9,28 @@ import java.util.Calendar;
 
 @Entity
 @NoArgsConstructor
-@Table(name = "lendingbook")
-public class LendingBook {
+@Table(name = "waitingList")
+public class WaitingList {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name = "lendingbook_id", nullable = false)
-    @Getter    @Setter
+    @Column(name = "id", nullable = false)
+    @Getter
+    @Setter
     private Long id;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Getter    @Setter
-    private Calendar startdate;
+    private Calendar reservationDate;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Getter    @Setter
-    private Calendar deadlinedate;
-
-    @Temporal(TemporalType.DATE)
-    @Getter    @Setter
-    private Calendar deliverydate;
+    private Calendar alertDate;
 
     @Getter    @Setter
     private boolean canceled;
+
+    @Getter    @Setter
+    private boolean retrieved;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id")
@@ -41,5 +41,4 @@ public class LendingBook {
     @JoinColumn(name = "member_id")
     @Getter    @Setter
     private Member member;
-
 }

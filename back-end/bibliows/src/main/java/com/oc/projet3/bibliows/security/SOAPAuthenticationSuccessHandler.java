@@ -15,13 +15,13 @@ import java.io.IOException;
  */
 @Component
 public class SOAPAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
-        /**
-         * We make sure we clean up any authentication attributes left in the HttpServletRequest instance, and by default
-         * the method will trigger a 200 status instead of a 301 normally sent by a Spring Security form login.
-         */
-        @Override
-        public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-                                            Authentication authentication) throws IOException, ServletException {
-            clearAuthenticationAttributes(request);
-        }
+    /**
+     * We make sure we clean up any authentication attributes left in the HttpServletRequest instance, and by default
+     * the method will trigger a 200 status instead of a 301 normally sent by a Spring Security form login.
+     */
+    @Override
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+                                        Authentication authentication) throws IOException, ServletException {
+        clearAuthenticationAttributes(request);
+    }
 }

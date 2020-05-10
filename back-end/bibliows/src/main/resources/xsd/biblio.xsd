@@ -366,6 +366,73 @@
         </xs:complexType>
     </xs:element>
 
+    <!--    WaitingList-->
+    <xs:element name="addToWaitingListRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="book_id" type="xs:long"/>
+                <xs:element name="account_id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="addToWaitingListResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="waitingList" type="tns:waitingListWS"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="cancelToWaitingListRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="cancelToWaitingListResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="retrieveToWaitingListRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="waitingList_id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="retrieveToWaitingListResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="lendingBook" type="tns:lendingBookWS"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="findWaitingListRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="email" type="tns:ValidateEmail" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="findWaitingListResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="waitingList" type="tns:waitingListWS" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
     <xs:complexType name="memberWS">
         <xs:sequence>
             <xs:element name="id" type="xs:long"/>
@@ -384,6 +451,8 @@
             <xs:element name="numberOfPage" type="xs:int"/>
             <xs:element name="numberOfCopies" type="xs:int"/>
             <xs:element name="numberAvailable" type="xs:int"/>
+            <xs:element name="numberReserved" type="xs:int"/>
+            <xs:element name="firstLoanDeadLineDate" type="xs:date" minOccurs="0"/>
             <xs:element name="author" type="tns:authorWS"/>
             <xs:element name="category" type="tns:categoryWS"/>
             <xs:element name="lendingBooks" type="tns:lendingBookWS" minOccurs="0" maxOccurs="unbounded" />
@@ -413,6 +482,17 @@
             <xs:element name="deadlinedate" type="xs:date" minOccurs="0"/>
             <xs:element name="deliverydate" type="xs:date" minOccurs="0"/>
             <xs:element name="startdate" type="xs:date" minOccurs="0"/>
+            <xs:element name="title" type="xs:string" minOccurs="0"/>
+            <xs:element name="idBook" type="xs:long" minOccurs="0"/>
+            <xs:element name="email" type="xs:string" minOccurs="0"/>
+            <xs:element name="idAccount" type="xs:long" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="waitingListWS">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="reservationdate" type="xs:date" minOccurs="0"/>
             <xs:element name="title" type="xs:string" minOccurs="0"/>
             <xs:element name="idBook" type="xs:long" minOccurs="0"/>
             <xs:element name="email" type="xs:string" minOccurs="0"/>
