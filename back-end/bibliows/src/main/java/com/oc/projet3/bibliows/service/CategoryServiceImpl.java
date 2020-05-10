@@ -49,10 +49,12 @@ public class CategoryServiceImpl implements CategoryService{
             throw new WSNotFoundExceptionException("Cette catégorie existe déjà !");
 
         Category category = new Category();
-        BeanUtils.copyProperties(request,category);
-
-        Category categorySaved = categoryRepository.save(category);
-        BeanUtils.copyProperties(categorySaved,response);
+        category.setLabel(request.getLabel());
+        category = categoryRepository.save(category);
+        CategoryWS categoryWS = new CategoryWS();
+        categoryWS.setId(category.getId());
+        categoryWS.setLabel(category.getLabel());
+        response.setCategory(categoryWS);
 
         return response;
     }
@@ -87,8 +89,10 @@ public class CategoryServiceImpl implements CategoryService{
             categoryToUpdate.setLabel(request.getLabel());
             categoryRepository.save(categoryToUpdate);
         }
-        BeanUtils.copyProperties(categoryToUpdate, response);
-
+        CategoryWS catWS = new CategoryWS();
+        catWS.setLabel(request.getLabel());
+        catWS.setId(request.getId().intValue());
+        response.setCategory(catWS);
         return response;
     }
 

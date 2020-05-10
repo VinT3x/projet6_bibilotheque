@@ -22,8 +22,10 @@ $(document).on("click", ".open-GetBookDialog", function () {
             $("#bookNumberOfPage").html( data.valueOf().numberOfPage );
             $("#bookNumberAvailableLabel").html( "nombre de livre disponible(s)" );
             $("#bookNumberAvailable").html( nbAvailable );
-            $("#bookNumberOnWaitingListLabel").html("Nombre sur liste d'attente");
-            $("#bookNumberOnWaitingList").html( data.valueOf().numberReserved );
+            $("#bookNumberLentLabel").html("nombre d'ouvrage prêté");
+            $("#bookNumberLent").html( data.valueOf().numberLent + "/" + data.valueOf().numberOfCopies);
+            $("#bookNumberOnWaitingListLabel").html("nombre sur liste d'attente");
+            $("#bookNumberOnWaitingList").html( data.valueOf().numberReserved + "/" + data.valueOf().numberAvailableForReservation);
             $("#bookFirstLoanDeadLineDateLabel").html( "disponible à partir du");
             $("#bookFirstLoanDeadLineDate").html( getFormattedDate(new Date(data.valueOf().firstLoanDeadLineDate )));
             $("#bookDateOfficialRelease").html( datePub );

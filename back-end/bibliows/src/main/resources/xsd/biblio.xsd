@@ -452,6 +452,8 @@
             <xs:element name="numberOfCopies" type="xs:int"/>
             <xs:element name="numberAvailable" type="xs:int"/>
             <xs:element name="numberReserved" type="xs:int"/>
+            <xs:element name="numberAvailableForReservation" type="xs:int"/>
+            <xs:element name="numberLent" type="xs:int"/>
             <xs:element name="firstLoanDeadLineDate" type="xs:date" minOccurs="0"/>
             <xs:element name="author" type="tns:authorWS"/>
             <xs:element name="category" type="tns:categoryWS"/>
@@ -497,6 +499,8 @@
             <xs:element name="idBook" type="xs:long" minOccurs="0"/>
             <xs:element name="email" type="xs:string" minOccurs="0"/>
             <xs:element name="idAccount" type="xs:long" minOccurs="0"/>
+            <xs:element name="numberOnWaitingList" type="xs:int" minOccurs="0"/>
+            <xs:element name="positionOnWaitingList" type="xs:int" minOccurs="0"/>
         </xs:sequence>
     </xs:complexType>
 

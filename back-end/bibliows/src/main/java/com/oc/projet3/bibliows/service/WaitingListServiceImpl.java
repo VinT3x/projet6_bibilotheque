@@ -88,7 +88,7 @@ public class WaitingListServiceImpl implements WaitingListService {
         // decrement du nombre de livre disponinle réservé
         book.setNumberReservationAvailable(book.getNumberReservationAvailable() - 1);
 
-        // si le premier à être sur listre d'attente, on met à jour l'entité book
+        // si le premier à être sur liste d'attente, on met à jour l'entité book
         if(!waitingListRepository.existsWaitingListsByBook(book)){
             book.setReservedForMemberId(member.getId());
         }
@@ -238,6 +238,10 @@ public class WaitingListServiceImpl implements WaitingListService {
 
         for (WaitingList wl:waitingLists) {
             WaitingListWS waitingListWS = convertWaitingListToWaitingListWS(wl);
+//                        <xs:element name="numberOnWaitingList" type="xs:int" minOccurs="0"/>
+//            <xs:element name="positionOnWaitingList" type="xs:int" minOccurs="0"/>
+            waitingListWS.setNumberOnWaitingList(waitingListRepository.findAllByBookAndRetrievedFalseAndCanceledFalse(wl.getBook()).size());
+            waitingListWS.setPositionOnWaitingList(waitingListRepository.findAllByBookAndReservationDateBeforeAndCanceledIsFalseAndRetrievedIsFalse(wl.getBook(), wl.getReservationDate()).size() +1);
             findWaitingListResponse.getWaitingList().add(waitingListWS);
         }
 
