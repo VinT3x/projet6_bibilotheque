@@ -50,4 +50,8 @@ __Installation__
             Durée d'un prêt en jour, il faut modifier la valeur de la clé delayDay_reserveBook
         
         Pour le client, le fichier de configuration se trouve sous %REP_INSTALL%\biblio\front-end\src\main\resources\application.properties. Il contient les uri d'accès aux services.
+		
+	__Migration de la base de données :__
+      L'ajout de la fonctionnalité du ticket 1, ajout sur la liste d'attente impose la création de la table WaitingList et la mise à jour de la table Book.
+       - depuis un client de base de données (PG Admin par exemple) exécuter les scripts SQL ticket1_add_table_wating_list.sql et ticket1_alter_table_books.sql présents sous %REP_INSTALL%\biblio\back-end\bibliows\src\main\resources\SQL\
        

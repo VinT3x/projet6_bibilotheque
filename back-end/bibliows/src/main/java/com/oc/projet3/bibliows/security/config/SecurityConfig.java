@@ -57,6 +57,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity
                 .httpBasic()
                 .and()
+                .authorizeRequests().antMatchers("/h2-console/**").permitAll()
+                .and()
                 .authorizeRequests().antMatchers("/anonymous/**").permitAll()
                 .and()
                 .authorizeRequests().antMatchers(HttpMethod.GET,"/ws/wsBooks.wsdl").permitAll()

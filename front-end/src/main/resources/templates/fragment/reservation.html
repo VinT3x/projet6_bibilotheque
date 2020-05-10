@@ -21,12 +21,14 @@
                                         <thead style="height: 10px">
                                             <tr>
                                                 <th scope="col">Titre</th>
-                                                <th scope="col" class="col-md-2">Annuler</th>
+                                                <th scope="col">Position</th>
+                                                <th scope="col" class="col-md-2"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                         <tr th:each="reservation : ${list_reservations.getWaitingList()}">
                                             <td><span th:text="${reservation.getTitle()}"></span></td>
+                                            <td><span th:text="${reservation.getPositionOnWaitingList() + ' / ' + reservation.getNumberOnWaitingList()}"></span></td>
                                             <td>
                                                 <a th:onclick="'doCancelReservation('+${reservation.getId()}+')'">
                                                     <i class="fa fa-trash-o"></i>

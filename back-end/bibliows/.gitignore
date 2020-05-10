@@ -25,3 +25,4 @@
 /nbdist/
 /.nb-gradle/
 src/main/generated-java/
+/src/main/resources/biblio_dump_test.sql

@@ -71,6 +71,8 @@ public class BookServiceImpl implements BookService{
         if(lb != null){
             bookWS.setFirstLoanDeadLineDate(ConvertUtils.convertCalendarToXMLGregorianCalendar(lb.getDeadlinedate()));
         }
+        bookWS.setNumberLent(lendingBookService.getActiveLendingByBook(book).size());
+        bookWS.setNumberAvailableForReservation(book.getNumberOfCopiesForReservation());
 
         CategoryWS categoryWS = new CategoryWS();
         BeanUtils.copyProperties(book.getCategory(), categoryWS);
@@ -111,8 +113,8 @@ public class BookServiceImpl implements BookService{
         book.setNumberOfCopiesForReservation(request.getNumberOfCopies() * 2);
         book.setDateOfficialRelease(ConvertUtils.convertXMLGregorianCalendarToCalendar(request.getDateOfficialRelease()));
         book.setCategory(category.get());
-        Book bookSaved = bookRepository.save(book);
-        response.setBook(convertBookToBookWS(bookSaved));
+        book = bookRepository.save(book);
+        response.setBook(convertBookToBookWS(book));
 
         return response;
     }

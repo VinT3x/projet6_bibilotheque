@@ -1,6 +1,6 @@
+
 create SCHEMA IF NOT EXISTS public;
 
-DROP TABLE if exists authors;
 create table if not exists authors
 (
     author_id bigserial not null
@@ -13,11 +13,8 @@ create table if not exists authors
     constraint ukeubf6dr96s2qdnfwdw22s1hex
         unique (fullname, date_of_birth)
 );
-DROP SEQUENCE IF EXISTS AUTHORS_AUTHOR_ID_SEQ;
-CREATE SEQUENCE AUTHORS_AUTHOR_ID_SEQ START 1;
 
 
-DROP TABLE if exists categories;
 create table if not exists categories
 (
     category_id bigserial not null
@@ -27,10 +24,8 @@ create table if not exists categories
         constraint uk_1ybnws5535892mnjo42rdi0fl
             unique
 );
-DROP SEQUENCE IF EXISTS categories_category_id_seq;
-CREATE SEQUENCE categories_category_id_seq START 1;
 
-DROP TABLE if exists books;
+
 create table if not exists books
 (
     book_id bigserial not null
@@ -56,9 +51,6 @@ create table if not exists books
     constraint ukc6m3v05i97jx7ka4ewig9y1oa
         unique (title, author_id)
 );
-
-DROP SEQUENCE IF EXISTS books_book_id_seq;
-CREATE SEQUENCE books_book_id_seq START 1;
 
 create table if not exists members
 (
@@ -119,5 +111,4 @@ create table if not exists waiting_list
         constraint fk5xm2vgcsi7jr16i7oqoyrbfjv
             references members
 );
-
 
