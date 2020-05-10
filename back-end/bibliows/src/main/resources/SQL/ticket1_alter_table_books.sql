@@ -4,5 +4,6 @@ alter table books
     add column number_of_copies_for_reservation integer not null default 0;
 
 UPDATE public.books
-SET number_of_copies_for_reservation=number_of_copies * 2
+SET number_of_copies_for_reservation=number_of_copies * 2,
+    number_reservation_available=number_of_copies * 2
 WHERE book_id is not null;

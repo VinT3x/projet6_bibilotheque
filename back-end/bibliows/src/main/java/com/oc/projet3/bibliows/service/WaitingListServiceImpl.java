@@ -238,6 +238,10 @@ public class WaitingListServiceImpl implements WaitingListService {
 
         for (WaitingList wl:waitingLists) {
             WaitingListWS waitingListWS = convertWaitingListToWaitingListWS(wl);
+//                        <xs:element name="numberOnWaitingList" type="xs:int" minOccurs="0"/>
+//            <xs:element name="positionOnWaitingList" type="xs:int" minOccurs="0"/>
+            waitingListWS.setNumberOnWaitingList(waitingListRepository.findAllByBookAndRetrievedFalseAndCanceledFalse(wl.getBook()).size());
+            waitingListWS.setPositionOnWaitingList(waitingListRepository.findAllByBookAndReservationDateBeforeAndCanceledIsFalseAndRetrievedIsFalse(wl.getBook(), wl.getReservationDate()).size() +1);
             findWaitingListResponse.getWaitingList().add(waitingListWS);
         }
 

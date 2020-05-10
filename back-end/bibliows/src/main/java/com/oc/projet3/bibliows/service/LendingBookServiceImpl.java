@@ -293,4 +293,9 @@ public class LendingBookServiceImpl implements LendingBookService {
         return lendingBookRepository.getFirstByDeadline(book);
     }
 
+    @Override
+    public List<LendingBook> getActiveLendingByBook(Book book) {
+        return lendingBookRepository.findLendingBookByBookAndCanceledFalseAndDeliverydateIsNull(book);
+    }
+
 }

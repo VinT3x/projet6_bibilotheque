@@ -1,0 +1,1671 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="c66150f1-2014-47b7-b9b6-b8b3abf02995" activeEnvironment="Default" name="biblio" resourceRoot="" soapui-version="5.5.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="b59d0ae8-bbff-491e-82bf-0b1d83c2ecd6" wsaVersion="NONE" name="booksPortSoap11" type="wsdl" bindingName="{http://oc.com/projet3/bibliows/biblio-producing-web-service}booksPortSoap11" soapVersion="1_1" anonymous="optional" definition="file:/C:/dev/projets/projet6/new/biblio/front-end/src/main/resources/wsdl/wsBooks.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:\C:\dev\projets\projet6\new\biblio\front-end\src\main\resources\wsdl\wsBooks.wsdl"><con:part><con:url>file:\C:\dev\projets\projet6\new\biblio\front-end\src\main\resources\wsdl\wsBooks.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://oc.com/projet3/bibliows/biblio-producing-web-service" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://oc.com/projet3/bibliows/service/biblio-producing-web-service" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://oc.com/projet3/bibliows/biblio-producing-web-service">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://oc.com/projet3/bibliows/service/biblio-producing-web-service" xmlns:tns="http://oc.com/projet3/bibliows/service/biblio-producing-web-service" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <!--AUTHOR-->
+      <xs:element name="findAuthorsRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="id" type="xs:long"/>
+            <xs:element minOccurs="0" name="dateOfBirth" type="xs:date"/>
+            <xs:element minOccurs="0" name="dateOfDeath" type="xs:date"/>
+            <xs:element minOccurs="0" name="fullname" type="xs:string"/>
+            <xs:element minOccurs="0" name="nationality" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="findAuthorsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="authors" type="tns:authorWS"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="updateAuthorRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element minOccurs="0" name="dateOfBirth" type="xs:date"/>
+            <xs:element minOccurs="0" name="dateOfDeath" type="xs:date"/>
+            <xs:element minOccurs="0" name="fullname" type="tns:NonEmptyString"/>
+            <xs:element minOccurs="0" name="nationality" type="tns:NonEmptyString"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="updateAuthorResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="author" type="tns:authorWS"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="deleteAuthorRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="deleteAuthorResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="createAuthorRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="dateOfBirth" type="xs:date"/>
+            <xs:element minOccurs="0" name="dateOfDeath" type="xs:date"/>
+            <xs:element name="fullname" type="tns:NonEmptyString"/>
+            <xs:element name="nationality" type="tns:NonEmptyString"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="createAuthorResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="author" type="tns:authorWS"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="createAuthorSoapHeaders">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="clientId" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!--ACCOUNT-->
+      <xs:element name="findAccountsRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="id" type="xs:long"/>
+            <xs:element minOccurs="0" name="email" type="xs:string"/>
+            <xs:element minOccurs="0" name="firstname" type="xs:string"/>
+            <xs:element minOccurs="0" name="lastname" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="findAccountsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="members" type="tns:memberWS"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="deleteAccountRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="deleteAccountResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="updateAccountRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element minOccurs="0" name="email" type="tns:ValidateEmail"/>
+            <xs:element minOccurs="0" name="firstname" type="tns:NonEmptyString"/>
+            <xs:element minOccurs="0" name="lastname" type="tns:NonEmptyString"/>
+            <xs:element minOccurs="0" name="password" type="tns:ValidatePassword"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="updateAccountResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="member" type="tns:memberWS"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!--BOOK-->
+      <xs:element name="findBooksRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="id" type="xs:long"/>
+            <xs:element minOccurs="0" name="title" type="xs:string"/>
+            <xs:element minOccurs="0" name="fullname" type="xs:string"/>
+            <xs:element minOccurs="0" name="categoryId" type="xs:long"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="findBooksResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="books" type="tns:bookWS"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="createBookRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="title" type="tns:NonEmptyString"/>
+            <xs:element name="summary" type="xs:string"/>
+            <xs:element name="numberOfPage" type="tns:PositiveInteger"/>
+            <xs:element name="dateOfficialRelease" type="xs:date"/>
+            <xs:element name="numberOfCopies" type="tns:PositiveInteger"/>
+            <xs:element name="authorId" type="xs:long"/>
+            <xs:element name="categoryId" type="xs:long"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="createBookResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="book" type="tns:bookWS"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="updateBookRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="id" type="xs:positiveInteger"/>
+            <xs:element minOccurs="0" name="title" type="tns:NonEmptyString"/>
+            <xs:element minOccurs="0" name="summary" type="xs:string"/>
+            <xs:element minOccurs="0" name="numberOfPage" type="tns:PositiveInteger"/>
+            <xs:element minOccurs="0" name="dateOfficialRelease" type="xs:date"/>
+            <xs:element minOccurs="0" name="numberOfcopies" type="xs:int"/>
+            <xs:element minOccurs="0" name="authorId" type="xs:positiveInteger"/>
+            <xs:element minOccurs="0" name="categoryId" type="xs:long"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="updateBookResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="book" type="tns:bookWS"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="deleteBookRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="deleteBookResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!--Category-->
+      <xs:element name="createCategoryRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="label" type="tns:NonEmptyString"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="createCategoryResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="category" type="tns:categoryWS"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="updateCategoryRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="id" type="xs:positiveInteger"/>
+            <xs:element name="label" type="tns:NonEmptyString"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="updateCategoryResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="category" type="tns:categoryWS"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="findCategoriesRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="idCategory" type="xs:long"/>
+            <xs:element minOccurs="0" name="label" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="findCategoriesResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="categories" type="tns:categoryWS"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!--LENDING BOOK-->
+      <xs:element name="lendingBookRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="book_id" type="xs:long"/>
+            <xs:element name="account_id" type="xs:long"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="lendingBookResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="lendingBook" type="tns:lendingBookWS"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="extendLendingBookRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="extendLendingBookResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="idLendingBook" type="xs:long"/>
+            <xs:element name="deadLineEndingBook" type="xs:date"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="cancelLendingBookRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="cancelLendingBookResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="findLendingBookRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="idLending" type="xs:long"/>
+            <xs:element minOccurs="0" name="email" type="tns:ValidateEmail"/>
+            <xs:element minOccurs="0" name="current" type="xs:boolean"/>
+            <xs:element minOccurs="0" name="idBook" type="xs:long"/>
+            <xs:element minOccurs="0" name="title" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="findLendingBookResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="lendingBooks" type="tns:lendingBookWS"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="returnLendingBookRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="returnLendingBookResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!--WaitingList-->
+      <xs:element name="addToWaitingListRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="book_id" type="xs:long"/>
+            <xs:element name="account_id" type="xs:long"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="addToWaitingListResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="waitingList" type="tns:waitingListWS"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="cancelToWaitingListRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="cancelToWaitingListResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="serviceStatus" type="tns:serviceStatus"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="retrieveToWaitingListRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="waitingList_id" type="xs:long"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="retrieveToWaitingListResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="lendingBook" type="tns:lendingBookWS"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="findWaitingListRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="email" type="tns:ValidateEmail"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="findWaitingListResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="waitingList" type="tns:waitingListWS"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="memberWS">
+        <xs:sequence>
+          <xs:element name="id" type="xs:long"/>
+          <xs:element name="email" type="xs:string"/>
+          <xs:element name="firstname" type="xs:string"/>
+          <xs:element name="lastname" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="bookWS">
+        <xs:sequence>
+          <xs:element name="id" type="xs:long"/>
+          <xs:element name="title" type="xs:string"/>
+          <xs:element name="summary" type="xs:string"/>
+          <xs:element name="dateOfficialRelease" type="xs:date"/>
+          <xs:element name="numberOfPage" type="xs:int"/>
+          <xs:element name="numberOfCopies" type="xs:int"/>
+          <xs:element name="numberAvailable" type="xs:int"/>
+          <xs:element name="numberReserved" type="xs:int"/>
+          <xs:element name="firstLoanDeadLineDate" type="xs:date"/>
+          <xs:element name="author" type="tns:authorWS"/>
+          <xs:element name="category" type="tns:categoryWS"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="lendingBooks" type="tns:lendingBookWS"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="authorWS">
+        <xs:sequence>
+          <xs:element name="id" type="xs:long"/>
+          <xs:element name="dateOfBirth" type="xs:date"/>
+          <xs:element minOccurs="0" name="dateOfDeath" type="xs:date"/>
+          <xs:element name="fullname" type="xs:string"/>
+          <xs:element name="nationality" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="categoryWS">
+        <xs:sequence>
+          <xs:element name="id" type="xs:long"/>
+          <xs:element name="label" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="lendingBookWS">
+        <xs:sequence>
+          <xs:element name="id" type="xs:long"/>
+          <xs:element minOccurs="0" name="deadlinedate" type="xs:date"/>
+          <xs:element minOccurs="0" name="deliverydate" type="xs:date"/>
+          <xs:element minOccurs="0" name="startdate" type="xs:date"/>
+          <xs:element minOccurs="0" name="title" type="xs:string"/>
+          <xs:element minOccurs="0" name="idBook" type="xs:long"/>
+          <xs:element minOccurs="0" name="email" type="xs:string"/>
+          <xs:element minOccurs="0" name="idAccount" type="xs:long"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="waitingListWS">
+        <xs:sequence>
+          <xs:element name="id" type="xs:long"/>
+          <xs:element minOccurs="0" name="reservationdate" type="xs:date"/>
+          <xs:element minOccurs="0" name="title" type="xs:string"/>
+          <xs:element minOccurs="0" name="idBook" type="xs:long"/>
+          <xs:element minOccurs="0" name="email" type="xs:string"/>
+          <xs:element minOccurs="0" name="idAccount" type="xs:long"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="serviceStatus">
+        <xs:sequence>
+          <xs:element name="statusCode" type="xs:string"/>
+          <xs:element name="message" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="NonEmptyString">
+        <xs:restriction base="xs:string">
+          <xs:minLength value="1"/>
+          <xs:pattern value="[\s\S]*[^ ][\s\S]*"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType id="PositiveInteger" name="PositiveInteger">
+        <xs:restriction base="xs:int">
+          <xs:minInclusive value="1"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType name="ValidateEmail">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[A-Za-z0-9_]+([-+.'][A-Za-z0-9_]+)*@[A-Za-z0-9_]+([-.][A-Za-z0-9_]+)*\.[A-Za-z0-9_]+([-.][A-Za-z0-9_]+)*"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType name="ValidatePassword">
+        <xs:restriction base="xs:string">
+          <xs:minLength value="5"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="deleteBookResponse">
+    <wsdl:part element="sch:deleteBookResponse" name="deleteBookResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteAuthorResponse">
+    <wsdl:part element="sch:deleteAuthorResponse" name="deleteAuthorResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateAuthorResponse">
+    <wsdl:part element="sch:updateAuthorResponse" name="updateAuthorResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="findCategoriesRequest">
+    <wsdl:part element="sch:findCategoriesRequest" name="findCategoriesRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateBookRequest">
+    <wsdl:part element="sch:updateBookRequest" name="updateBookRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="returnLendingBookResponse">
+    <wsdl:part element="sch:returnLendingBookResponse" name="returnLendingBookResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateAuthorRequest">
+    <wsdl:part element="sch:updateAuthorRequest" name="updateAuthorRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="findCategoriesResponse">
+    <wsdl:part element="sch:findCategoriesResponse" name="findCategoriesResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="lendingBookResponse">
+    <wsdl:part element="sch:lendingBookResponse" name="lendingBookResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createAuthorRequest">
+    <wsdl:part element="sch:createAuthorRequest" name="createAuthorRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createBookRequest">
+    <wsdl:part element="sch:createBookRequest" name="createBookRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="findLendingBookRequest">
+    <wsdl:part element="sch:findLendingBookRequest" name="findLendingBookRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="retrieveToWaitingListResponse">
+    <wsdl:part element="sch:retrieveToWaitingListResponse" name="retrieveToWaitingListResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="lendingBookRequest">
+    <wsdl:part element="sch:lendingBookRequest" name="lendingBookRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="findWaitingListRequest">
+    <wsdl:part element="sch:findWaitingListRequest" name="findWaitingListRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteAccountResponse">
+    <wsdl:part element="sch:deleteAccountResponse" name="deleteAccountResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cancelToWaitingListRequest">
+    <wsdl:part element="sch:cancelToWaitingListRequest" name="cancelToWaitingListRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="retrieveToWaitingListRequest">
+    <wsdl:part element="sch:retrieveToWaitingListRequest" name="retrieveToWaitingListRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="findAuthorsResponse">
+    <wsdl:part element="sch:findAuthorsResponse" name="findAuthorsResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="findAccountsResponse">
+    <wsdl:part element="sch:findAccountsResponse" name="findAccountsResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="findAuthorsRequest">
+    <wsdl:part element="sch:findAuthorsRequest" name="findAuthorsRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createAuthorResponse">
+    <wsdl:part element="sch:createAuthorResponse" name="createAuthorResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createBookResponse">
+    <wsdl:part element="sch:createBookResponse" name="createBookResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="extendLendingBookResponse">
+    <wsdl:part element="sch:extendLendingBookResponse" name="extendLendingBookResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="findAccountsRequest">
+    <wsdl:part element="sch:findAccountsRequest" name="findAccountsRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="findBooksRequest">
+    <wsdl:part element="sch:findBooksRequest" name="findBooksRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addToWaitingListResponse">
+    <wsdl:part element="sch:addToWaitingListResponse" name="addToWaitingListResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteBookRequest">
+    <wsdl:part element="sch:deleteBookRequest" name="deleteBookRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="extendLendingBookRequest">
+    <wsdl:part element="sch:extendLendingBookRequest" name="extendLendingBookRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="findBooksResponse">
+    <wsdl:part element="sch:findBooksResponse" name="findBooksResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateBookResponse">
+    <wsdl:part element="sch:updateBookResponse" name="updateBookResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateCategoryResponse">
+    <wsdl:part element="sch:updateCategoryResponse" name="updateCategoryResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteAuthorRequest">
+    <wsdl:part element="sch:deleteAuthorRequest" name="deleteAuthorRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cancelLendingBookRequest">
+    <wsdl:part element="sch:cancelLendingBookRequest" name="cancelLendingBookRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="returnLendingBookRequest">
+    <wsdl:part element="sch:returnLendingBookRequest" name="returnLendingBookRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="findLendingBookResponse">
+    <wsdl:part element="sch:findLendingBookResponse" name="findLendingBookResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addToWaitingListRequest">
+    <wsdl:part element="sch:addToWaitingListRequest" name="addToWaitingListRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateAccountResponse">
+    <wsdl:part element="sch:updateAccountResponse" name="updateAccountResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cancelLendingBookResponse">
+    <wsdl:part element="sch:cancelLendingBookResponse" name="cancelLendingBookResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cancelToWaitingListResponse">
+    <wsdl:part element="sch:cancelToWaitingListResponse" name="cancelToWaitingListResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createCategoryRequest">
+    <wsdl:part element="sch:createCategoryRequest" name="createCategoryRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteAccountRequest">
+    <wsdl:part element="sch:deleteAccountRequest" name="deleteAccountRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createCategoryResponse">
+    <wsdl:part element="sch:createCategoryResponse" name="createCategoryResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateAccountRequest">
+    <wsdl:part element="sch:updateAccountRequest" name="updateAccountRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateCategoryRequest">
+    <wsdl:part element="sch:updateCategoryRequest" name="updateCategoryRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="findWaitingListResponse">
+    <wsdl:part element="sch:findWaitingListResponse" name="findWaitingListResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="booksPort">
+    <wsdl:operation name="deleteBook">
+      <wsdl:input message="tns:deleteBookRequest" name="deleteBookRequest"></wsdl:input>
+      <wsdl:output message="tns:deleteBookResponse" name="deleteBookResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteAuthor">
+      <wsdl:input message="tns:deleteAuthorRequest" name="deleteAuthorRequest"></wsdl:input>
+      <wsdl:output message="tns:deleteAuthorResponse" name="deleteAuthorResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateAuthor">
+      <wsdl:input message="tns:updateAuthorRequest" name="updateAuthorRequest"></wsdl:input>
+      <wsdl:output message="tns:updateAuthorResponse" name="updateAuthorResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findCategories">
+      <wsdl:input message="tns:findCategoriesRequest" name="findCategoriesRequest"></wsdl:input>
+      <wsdl:output message="tns:findCategoriesResponse" name="findCategoriesResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateBook">
+      <wsdl:input message="tns:updateBookRequest" name="updateBookRequest"></wsdl:input>
+      <wsdl:output message="tns:updateBookResponse" name="updateBookResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="returnLendingBook">
+      <wsdl:input message="tns:returnLendingBookRequest" name="returnLendingBookRequest"></wsdl:input>
+      <wsdl:output message="tns:returnLendingBookResponse" name="returnLendingBookResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="lendingBook">
+      <wsdl:input message="tns:lendingBookRequest" name="lendingBookRequest"></wsdl:input>
+      <wsdl:output message="tns:lendingBookResponse" name="lendingBookResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createAuthor">
+      <wsdl:input message="tns:createAuthorRequest" name="createAuthorRequest"></wsdl:input>
+      <wsdl:output message="tns:createAuthorResponse" name="createAuthorResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createBook">
+      <wsdl:input message="tns:createBookRequest" name="createBookRequest"></wsdl:input>
+      <wsdl:output message="tns:createBookResponse" name="createBookResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findLendingBook">
+      <wsdl:input message="tns:findLendingBookRequest" name="findLendingBookRequest"></wsdl:input>
+      <wsdl:output message="tns:findLendingBookResponse" name="findLendingBookResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveToWaitingList">
+      <wsdl:input message="tns:retrieveToWaitingListRequest" name="retrieveToWaitingListRequest"></wsdl:input>
+      <wsdl:output message="tns:retrieveToWaitingListResponse" name="retrieveToWaitingListResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findWaitingList">
+      <wsdl:input message="tns:findWaitingListRequest" name="findWaitingListRequest"></wsdl:input>
+      <wsdl:output message="tns:findWaitingListResponse" name="findWaitingListResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteAccount">
+      <wsdl:input message="tns:deleteAccountRequest" name="deleteAccountRequest"></wsdl:input>
+      <wsdl:output message="tns:deleteAccountResponse" name="deleteAccountResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cancelToWaitingList">
+      <wsdl:input message="tns:cancelToWaitingListRequest" name="cancelToWaitingListRequest"></wsdl:input>
+      <wsdl:output message="tns:cancelToWaitingListResponse" name="cancelToWaitingListResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findAuthors">
+      <wsdl:input message="tns:findAuthorsRequest" name="findAuthorsRequest"></wsdl:input>
+      <wsdl:output message="tns:findAuthorsResponse" name="findAuthorsResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findAccounts">
+      <wsdl:input message="tns:findAccountsRequest" name="findAccountsRequest"></wsdl:input>
+      <wsdl:output message="tns:findAccountsResponse" name="findAccountsResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="extendLendingBook">
+      <wsdl:input message="tns:extendLendingBookRequest" name="extendLendingBookRequest"></wsdl:input>
+      <wsdl:output message="tns:extendLendingBookResponse" name="extendLendingBookResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findBooks">
+      <wsdl:input message="tns:findBooksRequest" name="findBooksRequest"></wsdl:input>
+      <wsdl:output message="tns:findBooksResponse" name="findBooksResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addToWaitingList">
+      <wsdl:input message="tns:addToWaitingListRequest" name="addToWaitingListRequest"></wsdl:input>
+      <wsdl:output message="tns:addToWaitingListResponse" name="addToWaitingListResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateCategory">
+      <wsdl:input message="tns:updateCategoryRequest" name="updateCategoryRequest"></wsdl:input>
+      <wsdl:output message="tns:updateCategoryResponse" name="updateCategoryResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cancelLendingBook">
+      <wsdl:input message="tns:cancelLendingBookRequest" name="cancelLendingBookRequest"></wsdl:input>
+      <wsdl:output message="tns:cancelLendingBookResponse" name="cancelLendingBookResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateAccount">
+      <wsdl:input message="tns:updateAccountRequest" name="updateAccountRequest"></wsdl:input>
+      <wsdl:output message="tns:updateAccountResponse" name="updateAccountResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createCategory">
+      <wsdl:input message="tns:createCategoryRequest" name="createCategoryRequest"></wsdl:input>
+      <wsdl:output message="tns:createCategoryResponse" name="createCategoryResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="booksPortSoap11" type="tns:booksPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="deleteBook">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="deleteBookRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="deleteBookResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteAuthor">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="deleteAuthorRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="deleteAuthorResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateAuthor">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="updateAuthorRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="updateAuthorResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findCategories">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="findCategoriesRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="findCategoriesResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateBook">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="updateBookRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="updateBookResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="returnLendingBook">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="returnLendingBookRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="returnLendingBookResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="lendingBook">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="lendingBookRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="lendingBookResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createAuthor">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="createAuthorRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createAuthorResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createBook">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="createBookRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createBookResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findLendingBook">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="findLendingBookRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="findLendingBookResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieveToWaitingList">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="retrieveToWaitingListRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="retrieveToWaitingListResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findWaitingList">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="findWaitingListRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="findWaitingListResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteAccount">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="deleteAccountRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="deleteAccountResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cancelToWaitingList">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="cancelToWaitingListRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cancelToWaitingListResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findAuthors">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="findAuthorsRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="findAuthorsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findAccounts">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="findAccountsRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="findAccountsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="extendLendingBook">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="extendLendingBookRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="extendLendingBookResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findBooks">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="findBooksRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="findBooksResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addToWaitingList">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="addToWaitingListRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="addToWaitingListResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateCategory">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="updateCategoryRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="updateCategoryResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cancelLendingBook">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="cancelLendingBookRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cancelLendingBookResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateAccount">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="updateAccountRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="updateAccountResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createCategory">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="createCategoryRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createCategoryResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="booksPortService">
+    <wsdl:port binding="tns:booksPortSoap11" name="booksPortSoap11">
+      <soap:address location="http://localhost:8080/ws"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/ws</con:endpoint></con:endpoints><con:operation id="e15dd61d-37e8-402d-ba4c-6962039d020b" isOneWay="false" action="" name="addToWaitingList" bindingOperationName="addToWaitingList" type="Request-Response" outputName="addToWaitingListResponse" inputName="addToWaitingListRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="e252cdcf-4de6-4af3-9f6e-552758ddb93d" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:addToWaitingListRequest>\r
+         <bib:book_id>?</bib:book_id>\r
+         <bib:account_id>?</bib:account_id>\r
+      </bib:addToWaitingListRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/addToWaitingListRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="503f0c02-a850-41f9-b538-192c04ef5c45" isOneWay="false" action="" name="cancelLendingBook" bindingOperationName="cancelLendingBook" type="Request-Response" outputName="cancelLendingBookResponse" inputName="cancelLendingBookRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="77ac272c-8e23-441a-be6f-a3cd65aabb61" name="cancel ok"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:cancelLendingBookRequest>\r
+         <bib:id>1</bib:id>\r
+      </bib:cancelLendingBookRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/cancelLendingBookRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="046f8adf-67e0-4193-93c4-3a464ad0fdee" isOneWay="false" action="" name="cancelToWaitingList" bindingOperationName="cancelToWaitingList" type="Request-Response" outputName="cancelToWaitingListResponse" inputName="cancelToWaitingListRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="afc7ae06-31ee-4e08-b551-c32169bc710f" name="Cancel ok"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:cancelToWaitingListRequest>\r
+         <bib:id>1</bib:id>\r
+      </bib:cancelToWaitingListRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/cancelToWaitingListRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="ada1d9b6-600b-435e-a5be-f1cbcaa68966" isOneWay="false" action="" name="createAuthor" bindingOperationName="createAuthor" type="Request-Response" outputName="createAuthorResponse" inputName="createAuthorRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="a12769db-3067-48b1-be85-94d63517943f" name="create"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:createAuthorRequest>\r
+         <bib:dateOfBirth>1900-10-01</bib:dateOfBirth>\r
+         <!--Optional:-->\r
+         <bib:dateOfDeath>2029-10-31</bib:dateOfDeath>\r
+         <bib:fullname>Auteur Prénom</bib:fullname>\r
+         <bib:nationality>Anglais</bib:nationality>\r
+      </bib:createAuthorRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/createAuthorRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="5453ecae-4252-47f3-99fa-4ca004cf0fa7" isOneWay="false" action="" name="createBook" bindingOperationName="createBook" type="Request-Response" outputName="createBookResponse" inputName="createBookRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="c6461d25-666e-41f7-8956-b1d2b285c1e5" name="create ok"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:createBookRequest>\r
+         <bib:title>titre test</bib:title>\r
+         <bib:summary>résumé du livre</bib:summary>\r
+         <bib:numberOfPage>200</bib:numberOfPage>\r
+         <bib:dateOfficialRelease>2012-12-12</bib:dateOfficialRelease>\r
+         <bib:numberOfCopies>4</bib:numberOfCopies>\r
+         <bib:authorId>1</bib:authorId>\r
+         <bib:categoryId>1</bib:categoryId>\r
+      </bib:createBookRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/createBookRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="192e087b-6baa-4d88-893a-8bb8195e4ebf" isOneWay="false" action="" name="createCategory" bindingOperationName="createCategory" type="Request-Response" outputName="createCategoryResponse" inputName="createCategoryRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="71dbb214-b8ce-4877-9290-e175d7b4bdcb" name="create ok"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:createCategoryRequest>\r
+         <bib:label>roman</bib:label>\r
+      </bib:createCategoryRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/createCategoryRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="d7ba985b-007c-4f87-9bf7-347e3c34bc6a" isOneWay="false" action="" name="deleteAccount" bindingOperationName="deleteAccount" type="Request-Response" outputName="deleteAccountResponse" inputName="deleteAccountRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="debaef02-82e8-4570-ac80-1eaf56137973" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:deleteAccountRequest>\r
+         <bib:id>?</bib:id>\r
+      </bib:deleteAccountRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/deleteAccountRequest"/></con:call></con:operation><con:operation id="0f365a55-7a17-4a7d-820e-c7cefa0a378c" isOneWay="false" action="" name="deleteAuthor" bindingOperationName="deleteAuthor" type="Request-Response" outputName="deleteAuthorResponse" inputName="deleteAuthorRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="b37d0b2e-63ec-4b1c-b376-5a547ea79df8" name="delete ok"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:deleteAuthorRequest>\r
+         <bib:id>1</bib:id>\r
+      </bib:deleteAuthorRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/deleteAuthorRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="23000dc7-4c14-4ab0-86dc-eb629e7d79be" isOneWay="false" action="" name="deleteBook" bindingOperationName="deleteBook" type="Request-Response" outputName="deleteBookResponse" inputName="deleteBookRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="fd9e4400-05c0-426f-9e82-d4314a6846a6" name="delete ok"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:deleteBookRequest>\r
+         <bib:id>1</bib:id>\r
+      </bib:deleteBookRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/deleteBookRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="8c42fdf2-69be-488c-b8cb-84ad7dee7afa" isOneWay="false" action="" name="extendLendingBook" bindingOperationName="extendLendingBook" type="Request-Response" outputName="extendLendingBookResponse" inputName="extendLendingBookRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="8a93733c-65e1-458c-9eaf-de146e4b9bbd" name="extend ok"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:extendLendingBookRequest>\r
+         <bib:id>1</bib:id>\r
+      </bib:extendLendingBookRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/extendLendingBookRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="4cf823ce-7606-495a-804c-e7eb9f08b785" isOneWay="false" action="" name="findAccounts" bindingOperationName="findAccounts" type="Request-Response" outputName="findAccountsResponse" inputName="findAccountsRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="5b2ca750-06a1-4928-a296-2ec3ce21cc15" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:findAccountsRequest>\r
+         <!--Optional:-->\r
+         <bib:id>?</bib:id>\r
+         <!--Optional:-->\r
+         <bib:email>?</bib:email>\r
+         <!--Optional:-->\r
+         <bib:firstname>?</bib:firstname>\r
+         <!--Optional:-->\r
+         <bib:lastname>?</bib:lastname>\r
+      </bib:findAccountsRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/findAccountsRequest"/></con:call></con:operation><con:operation id="21be95f2-922c-4cf2-8806-ab6ca70a568a" isOneWay="false" action="" name="findAuthors" bindingOperationName="findAuthors" type="Request-Response" outputName="findAuthorsResponse" inputName="findAuthorsRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="d1bbae03-1dcf-46cd-accb-855c9575cade" name="find ok"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:findAuthorsRequest>\r
+
+      </bib:findAuthorsRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/findAuthorsRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="50744171-037f-4bf8-b2f9-d14437f7bb86" isOneWay="false" action="" name="findBooks" bindingOperationName="findBooks" type="Request-Response" outputName="findBooksResponse" inputName="findBooksRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="49eaee6b-f31c-4680-b0c7-90c6efa18718" name="find books"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:findBooksRequest>\r
+         <!--Optional:-->\r
+         <bib:id>?</bib:id>\r
+         <!--Optional:-->\r
+         <bib:title>?</bib:title>\r
+         <!--Optional:-->\r
+         <bib:fullname>?</bib:fullname>\r
+         <!--Optional:-->\r
+         <bib:categoryId>?</bib:categoryId>\r
+      </bib:findBooksRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/findBooksRequest"/></con:call></con:operation><con:operation id="d083fa88-ae5c-4802-8d7c-37bade8de82f" isOneWay="false" action="" name="findCategories" bindingOperationName="findCategories" type="Request-Response" outputName="findCategoriesResponse" inputName="findCategoriesRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="9569a746-6114-4e71-b53e-834adcc44fb0" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:findCategoriesRequest>\r
+         <!--Optional:-->\r
+         <bib:idCategory>?</bib:idCategory>\r
+         <!--Optional:-->\r
+         <bib:label>?</bib:label>\r
+      </bib:findCategoriesRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/findCategoriesRequest"/></con:call></con:operation><con:operation id="514df47a-71d2-4373-9810-63b5af5c5708" isOneWay="false" action="" name="findLendingBook" bindingOperationName="findLendingBook" type="Request-Response" outputName="findLendingBookResponse" inputName="findLendingBookRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="7ce17e8b-c71c-4299-9b4e-51c070c94d4b" name="find"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:findLendingBookRequest>\r
+
+      </bib:findLendingBookRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>a@a.com</con:username><con:password>a@a.com</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/findLendingBookRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="c09e12b5-d190-4a8d-bb11-19dccbf03850" isOneWay="false" action="" name="findWaitingList" bindingOperationName="findWaitingList" type="Request-Response" outputName="findWaitingListResponse" inputName="findWaitingListRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="40053418-ece2-4aba-9e4f-227fcdcb80a9" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:findWaitingListRequest>\r
+         <bib:email>1</bib:email>\r
+      </bib:findWaitingListRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>test@wl.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/findWaitingListRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="bbbcdd6e-bbf5-4da5-8cb3-51c4b0e1e278" isOneWay="false" action="" name="lendingBook" bindingOperationName="lendingBook" type="Request-Response" outputName="lendingBookResponse" inputName="lendingBookRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="8d883f21-3ded-4784-ae4d-fb2bce5b9256" name="create ok"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:lendingBookRequest>\r
+         <bib:book_id>1</bib:book_id>\r
+         <bib:account_id>1</bib:account_id>\r
+      </bib:lendingBookRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/lendingBookRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="d47e022a-714b-469f-a326-9be0c0b5d971" isOneWay="false" action="" name="retrieveToWaitingList" bindingOperationName="retrieveToWaitingList" type="Request-Response" outputName="retrieveToWaitingListResponse" inputName="retrieveToWaitingListRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="62dd5894-3481-4c5c-82ad-7cfd406be04a" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:retrieveToWaitingListRequest>\r
+         <bib:waitingList_id>1</bib:waitingList_id>\r
+      </bib:retrieveToWaitingListRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/retrieveToWaitingListRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="b0231b06-bb6d-4337-8d04-aaeaffea9da9" isOneWay="false" action="" name="returnLendingBook" bindingOperationName="returnLendingBook" type="Request-Response" outputName="returnLendingBookResponse" inputName="returnLendingBookRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="5444e448-8ace-41d8-a591-924ab895ca34" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:returnLendingBookRequest>\r
+         <bib:id>28</bib:id>\r
+      </bib:returnLendingBookRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>a@a.com</con:username><con:password>a@a.com</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/returnLendingBookRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="a28456b0-8b11-421e-be55-f932c3f407dd" isOneWay="false" action="" name="updateAccount" bindingOperationName="updateAccount" type="Request-Response" outputName="updateAccountResponse" inputName="updateAccountRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="2544aebe-76f8-450a-a221-52a9703a02cf" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:updateAccountRequest>\r
+         <bib:id>?</bib:id>\r
+         <!--Optional:-->\r
+         <bib:email>?</bib:email>\r
+         <!--Optional:-->\r
+         <bib:firstname>?</bib:firstname>\r
+         <!--Optional:-->\r
+         <bib:lastname>?</bib:lastname>\r
+         <!--Optional:-->\r
+         <bib:password>?</bib:password>\r
+      </bib:updateAccountRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/updateAccountRequest"/></con:call></con:operation><con:operation id="1fb3d348-47dc-4145-9867-4e9873d9e75d" isOneWay="false" action="" name="updateAuthor" bindingOperationName="updateAuthor" type="Request-Response" outputName="updateAuthorResponse" inputName="updateAuthorRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="45d367e8-ce06-443d-b5b4-3dd3af6b558a" name="update ok"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:updateAuthorRequest>\r
+         <bib:id>1</bib:id>\r
+         <!--Optional:-->\r
+         <bib:dateOfBirth>1999-12-31</bib:dateOfBirth>\r
+         <!--Optional:-->\r
+         <bib:dateOfDeath>?</bib:dateOfDeath>\r
+         <!--Optional:-->\r
+         <bib:fullname>update ok</bib:fullname>\r
+         <!--Optional:-->\r
+         <bib:nationality>Update nationalité</bib:nationality>\r
+      </bib:updateAuthorRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/updateAuthorRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="9e78c418-0dc7-4823-b752-589d4dcb9d0d" isOneWay="false" action="" name="updateBook" bindingOperationName="updateBook" type="Request-Response" outputName="updateBookResponse" inputName="updateBookRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="b8dacd09-1db9-40bf-b54e-00fb1c0cb7ce" name="update ok"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:updateBookRequest>\r
+         <bib:id>1</bib:id>\r
+         <!--Optional:-->\r
+         <bib:title>update title</bib:title>\r
+         <!--Optional:-->\r
+         <bib:summary>nouveau résumé</bib:summary>\r
+         <!--Optional:-->\r
+         <bib:numberOfPage>222</bib:numberOfPage>\r
+         <!--Optional:-->\r
+         <bib:dateOfficialRelease>2029-12-11</bib:dateOfficialRelease>\r
+         <!--Optional:-->\r
+         <bib:numberOfcopies>7</bib:numberOfcopies>\r
+         <!--Optional:-->\r
+         <bib:authorId>1</bib:authorId>\r
+         <!--Optional:-->\r
+         <bib:categoryId>1</bib:categoryId>\r
+      </bib:updateBookRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/updateBookRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="8c04ca8a-f4f6-4b1f-8010-4ccd4b4c95b7" isOneWay="false" action="" name="updateCategory" bindingOperationName="updateCategory" type="Request-Response" outputName="updateCategoryResponse" inputName="updateCategoryRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="aa4bb49e-5fd7-4c5c-af07-c0eda365511e" name="update ok"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:updateCategoryRequest>\r
+         <bib:id>1</bib:id>\r
+         <bib:label>romans</bib:label>\r
+      </bib:updateCategoryRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/updateCategoryRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="67ec458b-ec2f-489b-9d5a-dac430bad7bd" wsaVersion="NONE" name="anonymousPortSoap11" type="wsdl" bindingName="{http://oc.com/projet3/bibliows/anonymous}anonymousPortSoap11" soapVersion="1_1" anonymous="optional" definition="file:/C:/dev/projets/projet6/new/biblio/front-end/src/main/resources/wsdl/wsAnonymous.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/C:/dev/projets/projet6/new/biblio/front-end/src/main/resources/wsdl/wsAnonymous.wsdl"><con:part><con:url>file:/C:/dev/projets/projet6/new/biblio/front-end/src/main/resources/wsdl/wsAnonymous.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://oc.com/projet3/bibliows/anonymous" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://oc.com/projet3/bibliows/anonymous" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://oc.com/projet3/bibliows/anonymous">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://oc.com/projet3/bibliows/anonymous" jxb:version="2.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:jxb="http://java.sun.com/xml/ns/jaxb">
+      <!--ACCOUNT-->
+      <xs:element name="authenticationRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="email" type="xs:string"/>
+            <xs:element name="password" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="authenticationResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="email" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="createAccountRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="email" type="tns:fctValidateEmail"/>
+            <xs:element name="firstname" type="tns:fctNonEmptyString"/>
+            <xs:element name="lastname" type="tns:fctNonEmptyString"/>
+            <xs:element name="password" type="tns:fctValidatePassword"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="createAccountResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:sequence>
+              <xs:element name="email" type="tns:fctValidateEmail"/>
+              <xs:element name="firstname" type="tns:fctNonEmptyString"/>
+              <xs:element name="lastname" type="tns:fctNonEmptyString"/>
+            </xs:sequence>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="accountWS">
+        <xs:sequence>
+          <xs:element name="id" type="xs:long"/>
+          <xs:element name="email" type="xs:string"/>
+          <xs:element name="firstname" type="xs:string"/>
+          <xs:element name="lastname" type="xs:string"/>
+          <xs:element name="password" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="fctNonEmptyString">
+        <xs:restriction base="xs:string">
+          <xs:minLength value="1"/>
+          <xs:pattern value="[\s\S]*[^ ][\s\S]*"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType id="PositiveInteger" name="fctPositiveInteger">
+        <xs:restriction base="xs:int">
+          <xs:minInclusive value="1"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType name="fctValidateEmail">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[A-Za-z0-9_]+([-+.'][A-Za-z0-9_]+)*@[A-Za-z0-9_]+([-.][A-Za-z0-9_]+)*\.[A-Za-z0-9_]+([-.][A-Za-z0-9_]+)*"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType name="fctValidatePassword">
+        <xs:restriction base="xs:string">
+          <xs:minLength value="5"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="authenticationRequest">
+    <wsdl:part element="tns:authenticationRequest" name="authenticationRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="authenticationResponse">
+    <wsdl:part element="tns:authenticationResponse" name="authenticationResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createAccountResponse">
+    <wsdl:part element="tns:createAccountResponse" name="createAccountResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createAccountRequest">
+    <wsdl:part element="tns:createAccountRequest" name="createAccountRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="anonymousPort">
+    <wsdl:operation name="authentication">
+      <wsdl:input message="tns:authenticationRequest" name="authenticationRequest"></wsdl:input>
+      <wsdl:output message="tns:authenticationResponse" name="authenticationResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createAccount">
+      <wsdl:input message="tns:createAccountRequest" name="createAccountRequest"></wsdl:input>
+      <wsdl:output message="tns:createAccountResponse" name="createAccountResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="anonymousPortSoap11" type="tns:anonymousPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="authentication">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="authenticationRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="authenticationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createAccount">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="createAccountRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createAccountResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="anonymousPortService">
+    <wsdl:port binding="tns:anonymousPortSoap11" name="anonymousPortSoap11">
+      <soap:address location="http://localhost:8080/anonymous"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/anonymous</con:endpoint></con:endpoints><con:operation id="1f4b2442-0cb9-4d22-b24d-a671bd2bd315" isOneWay="false" action="" name="authentication" bindingOperationName="authentication" type="Request-Response" outputName="authenticationResponse" inputName="authenticationRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="f6777b77-10ba-4297-b79a-7d38090f5edf" name="ok"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/anonymous</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:anon="http://oc.com/projet3/bibliows/anonymous">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <anon:authenticationRequest>\r
+         <anon:email>test@test.fr</anon:email>\r
+         <anon:password>password</anon:password>\r
+      </anon:authenticationRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/anonymous/anonymousPort/authenticationRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call id="ec3af51c-b94a-4743-ab2d-7e583d1a901d" name="bad password"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/anonymous</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:anon="http://oc.com/projet3/bibliows/anonymous">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <anon:authenticationRequest>\r
+         <anon:email>test@test.fr</anon:email>\r
+         <anon:password>123</anon:password>\r
+      </anon:authenticationRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/anonymous/anonymousPort/authenticationRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call id="e163b913-572b-4f13-8ab2-86a0aee4d11c" name="user not exists"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/anonymous</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:anon="http://oc.com/projet3/bibliows/anonymous">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <anon:authenticationRequest>\r
+         <anon:email>azerty</anon:email>\r
+         <anon:password>123</anon:password>\r
+      </anon:authenticationRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/anonymous/anonymousPort/authenticationRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="6a78b888-504a-4051-862c-2d4fd533f32f" isOneWay="false" action="" name="createAccount" bindingOperationName="createAccount" type="Request-Response" outputName="createAccountResponse" inputName="createAccountRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="c146b087-683c-4c91-8f4e-30ef890402b9" name="create user"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/anonymous</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:anon="http://oc.com/projet3/bibliows/anonymous">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <anon:createAccountRequest>\r
+         <anon:email>test@test.fr</anon:email>\r
+         <anon:firstname>Nom</anon:firstname>\r
+         <anon:lastname>Prénom</anon:lastname>\r
+         <anon:password>password</anon:password>\r
+      </anon:createAccountRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/anonymous/anonymousPort/createAccountRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call id="e39c4eff-c430-4037-afdc-05a77d5414bb" name="create user already exist"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/anonymous</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:anon="http://oc.com/projet3/bibliows/anonymous">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <anon:createAccountRequest>\r
+         <anon:email>test@test.fr</anon:email>\r
+         <anon:firstname>Nom</anon:firstname>\r
+         <anon:lastname>Prénom</anon:lastname>\r
+         <anon:password>password</anon:password>\r
+      </anon:createAccountRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/anonymous/anonymousPort/createAccountRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite id="e0955305-6d95-48d5-a085-e25867648bb8" name="TestSuite global"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="522989c2-3eaf-426d-b2b9-0a6198822433" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCase Account" searchProperties="true"><con:settings/><con:testStep type="request" id="886771e3-0f74-42f6-ace2-b767aa934bcc" name="createAccount - create user"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>anonymousPortSoap11</con:interface><con:operation>createAccount</con:operation><con:request name="createAccount - create user" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="00c9774b-c731-4cbe-a4d3-d312ecb4aa8c"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/anonymous</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:anon="http://oc.com/projet3/bibliows/anonymous">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <anon:createAccountRequest>\r
+         <anon:email>test@test.fr</anon:email>\r
+         <anon:firstname>Nom</anon:firstname>\r
+         <anon:lastname>Prénom</anon:lastname>\r
+         <anon:password>password</anon:password>\r
+      </anon:createAccountRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="346d5c8d-83c7-4e8d-8611-66fc2f22ea1b" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" id="72e89594-880b-49c5-888a-244e1d33df25" name="Not SOAP Fault"/><con:assertion type="Schema Compliance" id="6bc5e348-e30f-4237-90ba-52c9250ada32" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:assertion type="Simple Contains" id="a5fdb0cf-32d5-4bcd-ad6a-bab508458e47" name="Contains Email"><con:configuration><token>test@test.fr</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" id="5158a39d-4d54-4fcc-8014-63e7bb4071ad" name="Contains firstname"><con:configuration><token>Nom</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" id="0445d646-09aa-4bf0-9fe2-b5224ea2b348" name="Contains lastname"><con:configuration><token>Prénom</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="XPath Match" id="53fec7e1-a3dc-40c8-84d4-c7e7735023c5" name="XPath Match email"><con:configuration><path>declare namespace soap = 'http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2 = 'http://oc.com/projet3/bibliows/anonymous';
+//ns2:email</path><content>test@test.fr</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/anonymous/anonymousPort/createAccountRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="a8a6ba95-b414-4858-81ea-f5fc5a0bdc6a" name="createAccount - create user already exist"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>anonymousPortSoap11</con:interface><con:operation>createAccount</con:operation><con:request name="createAccount - create user already exist" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="97dd1c02-3679-4562-a433-c2dd759e9080"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/anonymous</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:anon="http://oc.com/projet3/bibliows/anonymous">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <anon:createAccountRequest>\r
+         <anon:email>test@test.fr</anon:email>\r
+         <anon:firstname>Nom</anon:firstname>\r
+         <anon:lastname>Prénom</anon:lastname>\r
+         <anon:password>password</anon:password>\r
+      </anon:createAccountRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="a68a0c11-5c31-4414-91ef-3f162dc23bda" name="SOAP Response"/><con:assertion type="Not SOAP Fault Assertion" id="7a93f43e-7c39-4a7f-8a5a-fa7bf73a26a7" name="SOAP Fault"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/anonymous/anonymousPort/createAccountRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="84d0d60d-f32b-4d03-a00b-43dbabb3bc5c" name="authentication - ok"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>anonymousPortSoap11</con:interface><con:operation>authentication</con:operation><con:request name="authentication - ok" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="3938cd61-4561-4c80-a7ed-0a7163840842"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/anonymous</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:anon="http://oc.com/projet3/bibliows/anonymous">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <anon:authenticationRequest>\r
+         <anon:email>test@test.fr</anon:email>\r
+         <anon:password>password</anon:password>\r
+      </anon:authenticationRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="a3ffe7bb-d6b8-4e8d-baa0-1096d2f304dc" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" id="f07f3782-d556-4ffd-b48b-5a26ab9c5ae5" name="Not SOAP Fault"/><con:assertion type="Valid HTTP Status Codes" id="79254985-6372-4834-83f4-21c0b40b7b9e" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/anonymous/anonymousPort/authenticationRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="8eb2de3b-b3ef-49c5-8dfc-4ebe84cf4807" name="authentication - bad password"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>anonymousPortSoap11</con:interface><con:operation>authentication</con:operation><con:request name="authentication - bad password" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="e05d4677-e528-45bd-b6a1-26335d5cebed"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/anonymous</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:anon="http://oc.com/projet3/bibliows/anonymous">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <anon:authenticationRequest>\r
+         <anon:email>test@test.fr</anon:email>\r
+         <anon:password>123</anon:password>\r
+      </anon:authenticationRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="b107011e-ee73-43d5-b84f-c4c62aa6b196" name="SOAP Response"/><con:assertion type="Schema Compliance" id="31512345-91a4-49d6-b06f-e5fbb1dffc6f" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="Not SOAP Fault Assertion" id="050a43b8-ebc1-4bf0-ac68-07e0fa5876d6" name="SOAP Fault"/><con:assertion type="Invalid HTTP Status Codes" id="f6fe5f80-ad99-4556-a0ad-a4267a2dde26" name="Invalid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/anonymous/anonymousPort/authenticationRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="a4c0c34a-00d6-4575-8c6d-ff29bf702317" name="authentication - user not exists"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>anonymousPortSoap11</con:interface><con:operation>authentication</con:operation><con:request name="authentication - user not exists" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="fc1848d9-a0b7-4609-b56f-524ebc55f8ef"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/anonymous</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:anon="http://oc.com/projet3/bibliows/anonymous">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <anon:authenticationRequest>\r
+         <anon:email>azerty</anon:email>\r
+         <anon:password>123</anon:password>\r
+      </anon:authenticationRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="b4b8dd80-144d-4a1f-b600-a9ee62ebb2a9" name="SOAP Response"/><con:assertion type="Schema Compliance" id="6c8f9178-8a64-4321-b95f-8e0898eac2bc" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="Not SOAP Fault Assertion" id="1be30200-7a22-4341-ad06-a78831283a9d" name="SOAP Fault"/><con:assertion type="Invalid HTTP Status Codes" id="ac5bb758-45a8-4149-98a1-4d97c5256a2b" name="Invalid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/anonymous/anonymousPort/authenticationRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:loadTest id="4634effb-b890-4350-9dc5-b1375bd755cf" name="LoadTest 1"><con:settings/><con:threadCount>5</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>60</con:testLimit><con:limitType>TIME</con:limitType><con:loadStrategy><con:type>Simple</con:type></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>500</con:strategyInterval></con:loadTest><con:properties/></con:testCase><con:testCase id="ffd45dd6-ffac-4204-b774-35ce5e371625" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCase Category" searchProperties="true"><con:settings/><con:testStep type="request" id="9101860e-8572-4d8b-8bdb-ebcdf4fc8968" name="createCategory - create ok"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>createCategory</con:operation><con:request name="createCategory - create ok" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="5bc86cd7-ead5-46ff-bfa2-d7dacf890082"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:createCategoryRequest>\r
+         <bib:label>roman</bib:label>\r
+      </bib:createCategoryRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="cd047686-b443-4878-9ec8-5fb393e65c4d" name="SOAP Response"/><con:assertion type="Schema Compliance" id="c47bc423-695e-4729-8680-714dcbb2815b" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" id="45821ecc-4d52-4651-b346-cc60cea83824" name="Not SOAP Fault"/><con:assertion type="Valid HTTP Status Codes" id="dabf1f93-1fcf-478c-a94c-bd96e5010be3" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/createCategoryRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="6dc0a971-4712-4fcc-afef-09d11e4efa35" name="createCategory - create already exist"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>createCategory</con:operation><con:request name="createCategory - create already exist" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="2558e08d-dc09-4584-bdd9-cf455eee5669"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:createCategoryRequest>\r
+         <bib:label>roman</bib:label>\r
+      </bib:createCategoryRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="1cf81fdf-242c-4a09-9153-6396fa1c000f" name="SOAP Response"/><con:assertion type="Schema Compliance" id="ca3a83a0-d9d6-4b01-b130-e1bab8a92cc2" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="Not SOAP Fault Assertion" id="0bb26c67-0d9f-47e1-9fd7-f91a7719c1ca" name="SOAP Fault"/><con:assertion type="Invalid HTTP Status Codes" id="64cf4768-9064-4352-93fb-2819e764bdde" name="Invalid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/createCategoryRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="f0fc3a02-e9fe-40fc-88ab-dd2d2330eb5a" name="updateCategory - update ok"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>updateCategory</con:operation><con:request name="updateCategory - update ok" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="5124e7fd-795f-4997-bf48-7370e851163b"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:updateCategoryRequest>\r
+         <bib:id>4</bib:id>\r
+         <bib:label>romans</bib:label>\r
+      </bib:updateCategoryRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="0722a9cb-aaec-4c12-911a-17b87b1814bd" name="SOAP Response"/><con:assertion type="Schema Compliance" id="90ea3a9d-a71d-42c1-b739-1b598ccd24c6" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" id="6d925cce-8c1c-4959-97ff-a555ee2f195e" name="Not SOAP Fault"/><con:assertion type="XPath Match" id="36b89be6-b542-4273-8969-006dedade8c5" name="XPath Match"><con:configuration><path>declare namespace enveloppe = 'http://schemas.xmlsoap.org/soap/envelope/';
+declare namespace ns2 = 'http://oc.com/projet3/bibliows/service/biblio-producing-web-service';
+//ns2:label</path><content>romans</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/updateCategoryRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="dea5cb55-ee88-4f1c-bd3f-f76c7a11c0c3" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCase Author" searchProperties="true"><con:settings/><con:testStep type="request" id="94185102-885f-4470-8e6a-5959c0a3290c" name="createAuthor - create ok"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>createAuthor</con:operation><con:request name="createAuthor - create ok" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="1af80bac-40f7-49e2-abdc-571e2682c0f0"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:createAuthorRequest>\r
+         <bib:dateOfBirth>1900-10-01</bib:dateOfBirth>\r
+         <!--Optional:-->\r
+         <bib:dateOfDeath>2029-10-31</bib:dateOfDeath>\r
+         <bib:fullname>Auteur Prénom</bib:fullname>\r
+         <bib:nationality>Anglais</bib:nationality>\r
+      </bib:createAuthorRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="da985286-6527-4176-a282-b9e7f5fce655" name="SOAP Response"/><con:assertion type="Schema Compliance" id="09874b59-af41-45f3-b495-adb967619832" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" id="48d50646-dcf6-455e-8ff2-fb655ddfd3f7" name="Not SOAP Fault"/><con:assertion type="Valid HTTP Status Codes" id="4da2177f-beaa-48d2-99f0-7620ebc9be1a" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/createAuthorRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="19d3e436-1a23-46a5-b696-cad07600f7e8" name="createAuthor - create author already esists"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>createAuthor</con:operation><con:request name="createAuthor - create author already esists" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="1af80bac-40f7-49e2-abdc-571e2682c0f0"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:createAuthorRequest>\r
+         <bib:dateOfBirth>1900-10-01</bib:dateOfBirth>\r
+         <!--Optional:-->\r
+         <bib:dateOfDeath>2029-10-31</bib:dateOfDeath>\r
+         <bib:fullname>Auteur Prénom</bib:fullname>\r
+         <bib:nationality>Anglais</bib:nationality>\r
+      </bib:createAuthorRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="da985286-6527-4176-a282-b9e7f5fce655" name="SOAP Response"/><con:assertion type="Schema Compliance" id="09874b59-af41-45f3-b495-adb967619832" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="Not SOAP Fault Assertion" id="158f4d78-e64a-4f6f-b7ac-ad4ee7c27497" name="SOAP Fault"/><con:assertion type="Invalid HTTP Status Codes" id="a165b9a5-98ad-4b0a-8b9b-ba9ea48523b9" name="Invalid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/createAuthorRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="ecbbe169-dde7-4d66-ad65-db067d4c6676" name="updateAuthor - update ok"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>updateAuthor</con:operation><con:request name="updateAuthor - update ok" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="c1698287-b6ef-4ee2-a71a-1536634d3f5b"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:updateAuthorRequest>\r
+         <bib:id>4</bib:id>\r
+         <!--Optional:-->\r
+         <bib:dateOfBirth>1999-12-31</bib:dateOfBirth>\r
+         <!--Optional:-->\r
+         <bib:fullname>update ok</bib:fullname>\r
+         <!--Optional:-->\r
+         <bib:nationality>Update nationalité</bib:nationality>\r
+      </bib:updateAuthorRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="aa282d14-2e8a-4a4b-a688-46d44921d9ac" name="SOAP Response"/><con:assertion type="Schema Compliance" id="d5c015cf-e350-48e2-a8d1-bc0f01fbaed3" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" id="4080d554-eb15-43e2-ac02-0de187a21f27" name="Not SOAP Fault"/><con:assertion type="Valid HTTP Status Codes" id="99616124-aeeb-4217-a57a-d723041dc8d7" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/updateAuthorRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="39d824f3-9c7f-4fcc-9632-65558385bf56" name="updateAuthor - update ko id not exists"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>updateAuthor</con:operation><con:request name="updateAuthor - update ko id not exists" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="c1698287-b6ef-4ee2-a71a-1536634d3f5b"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:updateAuthorRequest>\r
+         <bib:id>10000</bib:id>\r
+         <!--Optional:-->\r
+         <bib:dateOfBirth>1999-12-31</bib:dateOfBirth>\r
+         <!--Optional:-->\r
+         <bib:dateOfDeath>?</bib:dateOfDeath>\r
+         <!--Optional:-->\r
+         <bib:fullname>update ok</bib:fullname>\r
+         <!--Optional:-->\r
+         <bib:nationality>Update nationalité</bib:nationality>\r
+      </bib:updateAuthorRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="aa282d14-2e8a-4a4b-a688-46d44921d9ac" name="SOAP Response"/><con:assertion type="Schema Compliance" id="d5c015cf-e350-48e2-a8d1-bc0f01fbaed3" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="Not SOAP Fault Assertion" id="be40a63c-4d08-4adb-9206-9836a147e63f" name="SOAP Fault"/><con:assertion type="Invalid HTTP Status Codes" id="b7777b11-d07a-4a51-98ab-527f32dae0a8" name="Invalid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/updateAuthorRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="b9faccd8-5d4c-4e0b-bdf5-3e54ca766d22" name="findAuthors - find ok"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>findAuthors</con:operation><con:request name="findAuthors - find ok" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="c482e332-45da-4fa5-a1d8-707efa9e9579"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:findAuthorsRequest>\r
+
+      </bib:findAuthorsRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="e25194d8-03ea-4975-ab94-78839fccfc61" name="SOAP Response"/><con:assertion type="Schema Compliance" id="c4937c38-70d7-49b3-847e-ea1cd4935497" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" id="d33ecb52-a3b9-45c2-bcb9-0a3f87cc1c83" name="Not SOAP Fault"/><con:assertion type="Valid HTTP Status Codes" id="fd869790-f279-46f5-bd6b-a1b2a2e6e87a" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/findAuthorsRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="63d18c1d-bc05-46ac-89ae-0f81ed6e0665" name="deleteAuthor - delete ok"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>deleteAuthor</con:operation><con:request name="deleteAuthor - delete ok" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="0b19132d-7ea4-4fff-adb7-3834064fc73c"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:deleteAuthorRequest>\r
+         <bib:id>5</bib:id>\r
+      </bib:deleteAuthorRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="3570cd74-c65a-4a50-9674-8a21abd0ac89" name="SOAP Response"/><con:assertion type="Schema Compliance" id="ba9e13f6-221a-40e1-9980-f0480bd3b672" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" id="c85af836-edf5-46d4-8dc6-7d9afc4abcbe" name="Not SOAP Fault"/><con:assertion type="Valid HTTP Status Codes" id="7fa919a8-edbf-4c4c-ab9f-3f3999cde58d" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/deleteAuthorRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="f6469446-798e-4658-9e66-938f1bae2555" name="deleteAuthor - delete ko"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>deleteAuthor</con:operation><con:request name="deleteAuthor - delete ko" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="0b19132d-7ea4-4fff-adb7-3834064fc73c"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:deleteAuthorRequest>\r
+         <bib:id>5</bib:id>\r
+      </bib:deleteAuthorRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="3570cd74-c65a-4a50-9674-8a21abd0ac89" name="SOAP Response"/><con:assertion type="Schema Compliance" id="ba9e13f6-221a-40e1-9980-f0480bd3b672" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="Not SOAP Fault Assertion" id="59456d36-2f39-43d2-b2ca-9b254d0cb9bd" name="SOAP Fault"/><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/deleteAuthorRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="af010b46-f0f6-4ed2-bdc1-00ec38ea509a" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCase Book" searchProperties="true"><con:settings/><con:testStep type="request" id="8dee0065-5a06-47eb-9d84-81ad9178061d" name="createBook - create ok"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>createBook</con:operation><con:request name="createBook - create ok" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="e26f7c88-f289-40c4-a211-2065e9262110"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:createBookRequest>\r
+         <bib:title>titre</bib:title>\r
+         <bib:summary>résumé du livre</bib:summary>\r
+         <bib:numberOfPage>200</bib:numberOfPage>\r
+         <bib:dateOfficialRelease>2012-12-12</bib:dateOfficialRelease>\r
+         <bib:numberOfCopies>4</bib:numberOfCopies>\r
+         <bib:authorId>4</bib:authorId>\r
+         <bib:categoryId>1</bib:categoryId>\r
+      </bib:createBookRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="98c64a8e-27fd-4be2-8d0d-9b9345b5c11b" name="SOAP Response"/><con:assertion type="Valid HTTP Status Codes" id="33ae73fe-f86c-4f18-b56f-792e8a963783" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion" id="e9b88490-30a3-4f18-89ec-c6270cdb1157" name="Not SOAP Fault"/><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/createBookRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="396cfd79-f452-4d86-9122-510a3432fbd4" name="createBook - create ko already exist"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>createBook</con:operation><con:request name="createBook - create ko already exist" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="e26f7c88-f289-40c4-a211-2065e9262110"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:createBookRequest>\r
+         <bib:title>titre</bib:title>\r
+         <bib:summary>résumé du livre</bib:summary>\r
+         <bib:numberOfPage>200</bib:numberOfPage>\r
+         <bib:dateOfficialRelease>2012-12-12</bib:dateOfficialRelease>\r
+         <bib:numberOfCopies>4</bib:numberOfCopies>\r
+         <bib:authorId>4</bib:authorId>\r
+         <bib:categoryId>1</bib:categoryId>\r
+      </bib:createBookRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="98c64a8e-27fd-4be2-8d0d-9b9345b5c11b" name="SOAP Response"/><con:assertion type="Not SOAP Fault Assertion" id="93ee4032-8bb8-47c5-be50-e3fc85c596e6" name="SOAP Fault"/><con:assertion type="Invalid HTTP Status Codes" id="057108a5-5f91-44b9-91df-0f187a177992" name="Invalid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/createBookRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="d4ddef35-15ba-4c9c-b4ca-9e932069d103" name="updateBook - update ok"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>updateBook</con:operation><con:request name="updateBook - update ok" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="06999eef-a4d4-43e2-b4f4-dfcd2bd0c7ac"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:updateBookRequest>\r
+         <bib:id>2</bib:id>\r
+         <!--Optional:-->\r
+         <bib:title>update title</bib:title>\r
+         <!--Optional:-->\r
+         <bib:summary>nouveau résumé</bib:summary>\r
+         <!--Optional:-->\r
+         <bib:numberOfPage>222</bib:numberOfPage>\r
+         <!--Optional:-->\r
+         <bib:dateOfficialRelease>2029-12-11</bib:dateOfficialRelease>\r
+         <!--Optional:-->\r
+         <bib:numberOfcopies>7</bib:numberOfcopies>\r
+         <!--Optional:-->\r
+         <bib:authorId>4</bib:authorId>\r
+         <!--Optional:-->\r
+         <bib:categoryId>1</bib:categoryId>\r
+      </bib:updateBookRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="c1fb0397-5ed8-4462-a7e5-ff44172d7de8" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" id="afda4320-02f1-49d5-a729-da8c8c5d1f5b" name="Not SOAP Fault"/><con:assertion type="Valid HTTP Status Codes" id="193a56bd-c792-4df9-919a-821be436e35f" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/updateBookRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="299d0536-5264-46ee-9c38-75959c12e2a5" name="updateBook - update ko not exists"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>updateBook</con:operation><con:request name="updateBook - update ko not exists" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="06999eef-a4d4-43e2-b4f4-dfcd2bd0c7ac"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:updateBookRequest>\r
+         <bib:id>111111</bib:id>\r
+         <!--Optional:-->\r
+         <bib:title>update title</bib:title>\r
+         <!--Optional:-->\r
+         <bib:summary>nouveau résumé</bib:summary>\r
+         <!--Optional:-->\r
+         <bib:numberOfPage>222</bib:numberOfPage>\r
+         <!--Optional:-->\r
+         <bib:dateOfficialRelease>2029-12-11</bib:dateOfficialRelease>\r
+         <!--Optional:-->\r
+         <bib:numberOfcopies>7</bib:numberOfcopies>\r
+         <!--Optional:-->\r
+         <bib:authorId>1</bib:authorId>\r
+         <!--Optional:-->\r
+         <bib:categoryId>1</bib:categoryId>\r
+      </bib:updateBookRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="c1fb0397-5ed8-4462-a7e5-ff44172d7de8" name="SOAP Response"/><con:assertion type="Schema Compliance" id="1809047d-7009-464f-b02f-49532e8cbbcf" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="Not SOAP Fault Assertion" id="8e7109af-8083-4196-b985-3617fb1e7cf9" name="SOAP Fault"/><con:assertion type="Invalid HTTP Status Codes" id="5a4fce3a-2b82-4d35-a28d-afd51f290791" name="Invalid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/updateBookRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="17bb7a07-1cf5-45ea-99d8-9d513d4424bf" name="findBooks - find books"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>findBooks</con:operation><con:request name="findBooks - find books" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="cb4241ac-7416-41fd-b38d-85ae8067a0e4"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:findBooksRequest>\r
+      </bib:findBooksRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="eeaf2054-d5e0-4f42-b261-949de0cded8c" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" id="37f4a73f-2ed9-4377-9934-cfd1ca662011" name="Not SOAP Fault"/><con:assertion type="Valid HTTP Status Codes" id="e1da0160-97c9-47df-b8eb-0a13062436b2" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/findBooksRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="d6d30c7b-1b78-41f3-bc66-b61b9c1aa1ab" name="deleteBook - delete ok"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>deleteBook</con:operation><con:request name="deleteBook - delete ok" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="4b14a5a8-e77e-462e-8f86-18dd7fb787fe"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:deleteBookRequest>\r
+         <bib:id>2</bib:id>\r
+      </bib:deleteBookRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="852de364-37f5-4735-be49-9852ed27b1d2" name="SOAP Response"/><con:assertion type="Schema Compliance" id="81c0687a-7eca-46a8-8a20-5c560839c4cb" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" id="1d67e7f4-6593-463c-ad4f-534b7ed2fb59" name="Not SOAP Fault"/><con:assertion type="Valid HTTP Status Codes" id="1787d88e-c780-45a2-b8e6-43ce7f464f65" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/deleteBookRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="ace5b1da-8594-4c87-828a-6865e59d7756" name="deleteBook - delete ko"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>deleteBook</con:operation><con:request name="deleteBook - delete ko" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="4b14a5a8-e77e-462e-8f86-18dd7fb787fe"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:deleteBookRequest>\r
+         <bib:id>4</bib:id>\r
+      </bib:deleteBookRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="852de364-37f5-4735-be49-9852ed27b1d2" name="SOAP Response"/><con:assertion type="Schema Compliance" id="81c0687a-7eca-46a8-8a20-5c560839c4cb" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="Not SOAP Fault Assertion" id="71dec4ee-1359-4034-bbf9-6a77132e59ee" name="SOAP Fault"/><con:assertion type="Invalid HTTP Status Codes" id="d8f423a0-9a49-4aa2-a959-a4bca6b844ce" name="Invalid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/deleteBookRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="99355586-f9cc-4467-9139-49783ca2ea73" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCase LendingBook" searchProperties="true"><con:settings/><con:testStep type="request" id="63960e8f-cf0b-4fe3-817d-785ae0337ab1" name="lendingBook - create ok"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>lendingBook</con:operation><con:request name="lendingBook - create ok" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="056932ab-9bcf-4f6d-b9c3-5f1657830643"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:lendingBookRequest>\r
+         <bib:book_id>1</bib:book_id>\r
+         <bib:account_id>1</bib:account_id>\r
+      </bib:lendingBookRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="213576cd-3929-4a3d-a8e9-b7d0bd1d3fca" name="SOAP Response"/><con:assertion type="Schema Compliance" id="94641574-0f35-4350-8daf-5256c350fcaf" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" id="84a627f2-b28c-4045-880c-9839b9ea1f9a" name="Not SOAP Fault"/><con:assertion type="Valid HTTP Status Codes" id="56dcb909-b189-41d0-b0ab-614a17843c02" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/lendingBookRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="b543d0b0-f94f-4b78-904b-4ecfea7a7bad" name="lendingBook - create ko already lent"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>lendingBook</con:operation><con:request name="lendingBook - create ko already lent" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="056932ab-9bcf-4f6d-b9c3-5f1657830643"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:lendingBookRequest>\r
+         <bib:book_id>1</bib:book_id>\r
+         <bib:account_id>1</bib:account_id>\r
+      </bib:lendingBookRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="213576cd-3929-4a3d-a8e9-b7d0bd1d3fca" name="SOAP Response"/><con:assertion type="Schema Compliance" id="94641574-0f35-4350-8daf-5256c350fcaf" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="Not SOAP Fault Assertion" id="129766ee-5254-4cde-8786-292feb70a6d8" name="SOAP Fault"/><con:assertion type="Invalid HTTP Status Codes" id="883b0e8a-c98e-448e-b632-5cc483c567c9" name="Invalid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/lendingBookRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="c8878e8d-9e71-4953-94f4-f93586c334b7" name="lendingBook - create ko not book available"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>lendingBook</con:operation><con:request name="lendingBook - create ko not book available" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="056932ab-9bcf-4f6d-b9c3-5f1657830643"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:lendingBookRequest>\r
+         <bib:book_id>2</bib:book_id>\r
+         <bib:account_id>1</bib:account_id>\r
+      </bib:lendingBookRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="213576cd-3929-4a3d-a8e9-b7d0bd1d3fca" name="SOAP Response"/><con:assertion type="Schema Compliance" id="94641574-0f35-4350-8daf-5256c350fcaf" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="Not SOAP Fault Assertion" id="129766ee-5254-4cde-8786-292feb70a6d8" name="SOAP Fault"/><con:assertion type="Invalid HTTP Status Codes" id="883b0e8a-c98e-448e-b632-5cc483c567c9" name="Invalid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/lendingBookRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="ab948a37-0a2d-490f-9eb6-4cba615061a8" name="lendingBook - create ko no account exist"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>lendingBook</con:operation><con:request name="lendingBook - create ko no account exist" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="056932ab-9bcf-4f6d-b9c3-5f1657830643"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:lendingBookRequest>\r
+         <bib:book_id>1</bib:book_id>\r
+         <bib:account_id>1</bib:account_id>\r
+      </bib:lendingBookRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="213576cd-3929-4a3d-a8e9-b7d0bd1d3fca" name="SOAP Response"/><con:assertion type="Schema Compliance" id="94641574-0f35-4350-8daf-5256c350fcaf" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="Not SOAP Fault Assertion" id="129766ee-5254-4cde-8786-292feb70a6d8" name="SOAP Fault"/><con:assertion type="Invalid HTTP Status Codes" id="883b0e8a-c98e-448e-b632-5cc483c567c9" name="Invalid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/lendingBookRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="b8a379e6-6e7e-4b1b-a5cc-b5142f48b76b" name="lendingBook - create ko no book exist"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>lendingBook</con:operation><con:request name="lendingBook - create ko no book exist" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="056932ab-9bcf-4f6d-b9c3-5f1657830643"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:lendingBookRequest>\r
+         <bib:book_id>122</bib:book_id>\r
+         <bib:account_id>1</bib:account_id>\r
+      </bib:lendingBookRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="213576cd-3929-4a3d-a8e9-b7d0bd1d3fca" name="SOAP Response"/><con:assertion type="Schema Compliance" id="94641574-0f35-4350-8daf-5256c350fcaf" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="Not SOAP Fault Assertion" id="129766ee-5254-4cde-8786-292feb70a6d8" name="SOAP Fault"/><con:assertion type="Invalid HTTP Status Codes" id="883b0e8a-c98e-448e-b632-5cc483c567c9" name="Invalid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/lendingBookRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="9422cb21-fb6b-42a4-9abf-602aba9570cb" name="extendLendingBook - extend ok"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>extendLendingBook</con:operation><con:request name="extendLendingBook - extend ok" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="6a0b8579-f428-47b3-9a0a-a7a272cafed7"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:extendLendingBookRequest>\r
+         <bib:id>1</bib:id>\r
+      </bib:extendLendingBookRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="766b4a87-dac2-4e98-af71-f41a779a40b7" name="SOAP Response"/><con:assertion type="Schema Compliance" id="5a2731d2-5069-4cc2-a9c6-d6d6188169a3" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" id="57b2ddb7-6100-44c0-ba28-a5e766966e0e" name="Not SOAP Fault"/><con:assertion type="Valid HTTP Status Codes" id="3bb592f5-d900-4080-9483-0bf9ec97a124" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/extendLendingBookRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="300be82d-4a0e-4871-8163-3ad2ce64b966" name="extendLendingBook - extend ko no lendingbook exists"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>extendLendingBook</con:operation><con:request name="extendLendingBook - extend ko no lendingbook exists" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="6a0b8579-f428-47b3-9a0a-a7a272cafed7"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:extendLendingBookRequest>\r
+         <bib:id>1</bib:id>\r
+      </bib:extendLendingBookRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="766b4a87-dac2-4e98-af71-f41a779a40b7" name="SOAP Response"/><con:assertion type="Schema Compliance" id="5a2731d2-5069-4cc2-a9c6-d6d6188169a3" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="Not SOAP Fault Assertion" id="2d53ea7e-091c-46c9-864d-b2d00160e9e8" name="SOAP Fault"/><con:assertion type="Valid HTTP Status Codes" id="81cb2356-c1cf-4aed-9ec2-816db08a053d" name="Valid HTTP Status Codes"><con:configuration><codes>500</codes></con:configuration></con:assertion><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/extendLendingBookRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="8f071ff2-c7aa-42c1-b3fb-798134343e92" name="returnLendingBook - return ok"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>returnLendingBook</con:operation><con:request name="returnLendingBook - return ok" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="d45a0c0d-9691-47f7-b2f0-323298f369fe"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:returnLendingBookRequest>\r
+         <bib:id>1</bib:id>\r
+      </bib:returnLendingBookRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="501a783d-3f4a-4f15-80ba-760ceaf3516e" name="SOAP Response"/><con:assertion type="Schema Compliance" id="2a1528dd-598c-4301-84ce-b9c895df4e26" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" id="69e4d651-e8c9-4f40-873c-b0b6c27c790e" name="Not SOAP Fault"/><con:assertion type="Valid HTTP Status Codes" id="8f373235-6ea2-44db-9024-dd7b709d0f73" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/returnLendingBookRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="50a7fe33-8ed4-4fbf-865a-4bc463e8b474" name="returnLendingBook - return ko"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>returnLendingBook</con:operation><con:request name="returnLendingBook - return ko" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="d45a0c0d-9691-47f7-b2f0-323298f369fe"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:returnLendingBookRequest>\r
+         <bib:id>2</bib:id>\r
+      </bib:returnLendingBookRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="501a783d-3f4a-4f15-80ba-760ceaf3516e" name="SOAP Response"/><con:assertion type="Schema Compliance" id="2a1528dd-598c-4301-84ce-b9c895df4e26" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="Invalid HTTP Status Codes" id="56cfd23d-b429-4c80-a3a2-583dc0c7f210" name="Invalid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="Not SOAP Fault Assertion" id="eafa342f-733f-41d4-8209-870fef3db8b8" name="SOAP Fault"/><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/returnLendingBookRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="fed06d1a-363c-4639-a0d7-9688ccd8ab4e" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCase WaitingList" searchProperties="true"><con:settings/><con:testStep type="request" id="a36bd27f-f484-46cb-93f3-9b9662595b79" name="createBook - create ok"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>createBook</con:operation><con:request name="createBook - create ok" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="e26f7c88-f289-40c4-a211-2065e9262110"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:createBookRequest>\r
+         <bib:title>titre réservé</bib:title>\r
+         <bib:summary>résumé du livre</bib:summary>\r
+         <bib:numberOfPage>200</bib:numberOfPage>\r
+         <bib:dateOfficialRelease>2012-12-12</bib:dateOfficialRelease>\r
+         <bib:numberOfCopies>1</bib:numberOfCopies>\r
+         <bib:authorId>4</bib:authorId>\r
+         <bib:categoryId>1</bib:categoryId>\r
+      </bib:createBookRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="98c64a8e-27fd-4be2-8d0d-9b9345b5c11b" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" id="4cec220e-3eba-4ebb-a8b0-f306d2641364" name="Not SOAP Fault"/><con:assertion type="Valid HTTP Status Codes" id="6abd6e1b-be13-4914-bea0-b74b77eb464f" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/createBookRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="34eab97b-a2a6-45d7-89f1-64eb4b9291bc" name="lendingBook - create ok"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>lendingBook</con:operation><con:request name="lendingBook - create ok" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="056932ab-9bcf-4f6d-b9c3-5f1657830643"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:lendingBookRequest>\r
+         <bib:book_id>3</bib:book_id>\r
+         <bib:account_id>1</bib:account_id>\r
+      </bib:lendingBookRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="213576cd-3929-4a3d-a8e9-b7d0bd1d3fca" name="SOAP Response"/><con:assertion type="Schema Compliance" id="94641574-0f35-4350-8daf-5256c350fcaf" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" id="54de1a5f-0464-46cb-b850-2557a949e5b3" name="Not SOAP Fault"/><con:assertion type="Valid HTTP Status Codes" id="11482825-b8d4-4fd2-83e1-f448b7a8c8af" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/lendingBookRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="24509af9-d0dd-41ef-8c44-0885886f9423" name="addToWaitingList - add ko - already lent"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>addToWaitingList</con:operation><con:request name="addToWaitingList - add ko - already lent" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="3cf7942e-bde3-4e85-8c3f-0b06094a78df"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:addToWaitingListRequest>\r
+         <bib:book_id>3</bib:book_id>\r
+         <bib:account_id>1</bib:account_id>\r
+      </bib:addToWaitingListRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="47d37a9d-4f36-4a3f-95b0-1a1a51b66d6f" name="SOAP Response"/><con:assertion type="Schema Compliance" id="fcdede6e-08ef-4c15-95fe-cd13773a47bc" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="Not SOAP Fault Assertion" id="9683cd66-9e3f-4920-9e7b-91bf18d032e8" name="SOAP Fault"/><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/addToWaitingListRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="8136e5b4-20b7-4243-9486-4eb179fa20b0" name="createAccount - create user"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>anonymousPortSoap11</con:interface><con:operation>createAccount</con:operation><con:request name="createAccount - create user" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="18de1646-82e0-4018-a2b1-65163e60a60f"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/anonymous</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:anon="http://oc.com/projet3/bibliows/anonymous">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <anon:createAccountRequest>\r
+         <anon:email>test@wl.fr</anon:email>\r
+         <anon:firstname>Nom</anon:firstname>\r
+         <anon:lastname>Prénom</anon:lastname>\r
+         <anon:password>password</anon:password>\r
+      </anon:createAccountRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="8e95acf2-f75b-4f55-aa75-2e1db021a20f" name="SOAP Response"/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/anonymous/anonymousPort/createAccountRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="d0384c65-8239-47f9-88f3-4cc2d46c832e" name="addToWaitingList - add ok"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>addToWaitingList</con:operation><con:request name="addToWaitingList - add ok" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="3cf7942e-bde3-4e85-8c3f-0b06094a78df"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:addToWaitingListRequest>\r
+         <bib:book_id>3</bib:book_id>\r
+         <bib:account_id>2</bib:account_id>\r
+      </bib:addToWaitingListRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="47d37a9d-4f36-4a3f-95b0-1a1a51b66d6f" name="SOAP Response"/><con:assertion type="Schema Compliance" id="fcdede6e-08ef-4c15-95fe-cd13773a47bc" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" id="d4626e13-7d95-4eab-b2ca-51b3341b02ef" name="Not SOAP Fault"/><con:assertion type="Valid HTTP Status Codes" id="66a15308-75d1-4c0d-9a43-078e55043864" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/addToWaitingListRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="9fbc4c79-e52b-4229-a715-f6cd70c8862d" name="addToWaitingList - add ko - already on wl"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>addToWaitingList</con:operation><con:request name="addToWaitingList - add ko - already on wl" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="3cf7942e-bde3-4e85-8c3f-0b06094a78df"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:addToWaitingListRequest>\r
+         <bib:book_id>3</bib:book_id>\r
+         <bib:account_id>2</bib:account_id>\r
+      </bib:addToWaitingListRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="47d37a9d-4f36-4a3f-95b0-1a1a51b66d6f" name="SOAP Response"/><con:assertion type="Schema Compliance" id="fcdede6e-08ef-4c15-95fe-cd13773a47bc" name="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="Not SOAP Fault Assertion" id="9683cd66-9e3f-4920-9e7b-91bf18d032e8" name="SOAP Fault"/><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/addToWaitingListRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="570b99b5-18a4-4eed-b5c3-0c88473f9dfb" name="cancelToWaitingList - cancel ok"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>cancelToWaitingList</con:operation><con:request name="cancelToWaitingList - cancel ok" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="5288bc42-bac2-4e7c-be9a-3d9f5b400a4f"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:cancelToWaitingListRequest>\r
+         <bib:id>1</bib:id>\r
+      </bib:cancelToWaitingListRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="5309ec59-1856-4186-907c-2e9ad2df97b8" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" id="5d5c6c29-09e4-4b1e-a38b-8079205b8194" name="Not SOAP Fault"/><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/cancelToWaitingListRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="abee8ec6-7211-4f63-9544-0a6202d1ccfb" name="cancelToWaitingList - cancel ko"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>booksPortSoap11</con:interface><con:operation>cancelToWaitingList</con:operation><con:request name="cancelToWaitingList - cancel ko" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="" id="5288bc42-bac2-4e7c-be9a-3d9f5b400a4f"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:bib="http://oc.com/projet3/bibliows/service/biblio-producing-web-service">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <bib:cancelToWaitingListRequest>\r
+         <bib:id>1</bib:id>\r
+      </bib:cancelToWaitingListRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="5309ec59-1856-4186-907c-2e9ad2df97b8" name="SOAP Response"/><con:assertion type="SOAP Fault Assertion" id="5d5c6c29-09e4-4b1e-a38b-8079205b8194" name="Not SOAP Fault"/><con:credentials><con:username>test@test.fr</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://oc.com/projet3/bibliows/biblio-producing-web-service/booksPort/cancelToWaitingListRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

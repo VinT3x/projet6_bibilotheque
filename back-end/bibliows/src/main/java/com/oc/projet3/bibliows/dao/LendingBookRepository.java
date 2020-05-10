@@ -26,4 +26,6 @@ public interface LendingBookRepository extends JpaRepository<LendingBook,Long>, 
 
     LendingBook findLendingBookByBookAndMemberAndDeliverydateIsNull(Book book, Member member);
 
+    List<LendingBook> findLendingBookByBookAndCanceledFalseAndDeliverydateIsNull(Book book);
+
 }

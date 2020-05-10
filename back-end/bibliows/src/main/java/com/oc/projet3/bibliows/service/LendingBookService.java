@@ -6,6 +6,7 @@ import com.oc.projet3.bibliows.exceptions.WSException;
 import com.oc.projet3.gs_ws.*;
 
 import javax.mail.MessagingException;
+import java.util.List;
 
 public interface LendingBookService {
     /**
@@ -73,4 +74,6 @@ public interface LendingBookService {
     LendingBook isAlreadyLentByMember(long idBook, long idMember);
 
     LendingBook getFirstBookAvailable(Book book);
+
+    List<LendingBook> getActiveLendingByBook(Book book);
 }
